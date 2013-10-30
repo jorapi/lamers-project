@@ -16,5 +16,12 @@ public class TestStudent {
 		assertEquals(s.getLastName(), "Smith");
 		assertEquals(s.getEmail(), "jsmith@gmail.com");
 	}
+	
+	@Test
+	public void testBalance() {
+		Student s = new Student("John", "Smith", "jsmith@gmail.com");
+		
+		assertTrue(s.getBalance() == 0.0);
+	}
 
 }
