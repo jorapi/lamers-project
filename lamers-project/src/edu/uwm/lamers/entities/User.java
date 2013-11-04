@@ -80,10 +80,46 @@ public class User {
 	}
 
 	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	
+	/**
 	 * @return the key
 	 */
 	public Key getKey() {
 		return key;
+	}
+	
+	/**
+	 * @return if current User is Student
+	 */
+	public boolean isStudent(){
+		return (this.getClass() == Student.class);
+	}
+	
+	/**
+	 * @return if current User is Instructor
+	 */
+	public boolean isInstructor(){
+		return (this.getClass() == Instructor.class);
+	}
+	
+	/**
+	 * @return if current User is Admin
+	 */
+	public boolean isAdmin(){
+		return (this.getClass() == Admin.class);
 	}
 	
 }
