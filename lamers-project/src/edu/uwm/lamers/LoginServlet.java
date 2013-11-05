@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.uwm.lamers.entities.Admin;
+import edu.uwm.lamers.entities.Instructor;
 import edu.uwm.lamers.entities.Student;
 
 
@@ -33,16 +35,39 @@ public class LoginServlet extends HttpServlet
 		PersistenceManager pm = getPersistenceManager();
 		
 		List<Student> students = (List<Student>) pm.newQuery(Student.class).execute();
+		List<Instructor> instructors = (List<Instructor>) pm.newQuery(Instructor.class).execute();
+		List<Admin> admins = (List<Admin>) pm.newQuery(Admin.class).execute();
 		
 		for(Student s : students){
 			if ( s.getEmail().equals(username) && s.getPassword().equals(password)){
 				Cookie c = new Cookie("username", req.getParameter("user_name"));
 
 				resp.addCookie(c);
-				resp.sendRedirect("/index.html");
+				resp.sendRedirect("/student.html");
 				return;
 			}
 		}
+		
+		for(Instructor i : instructors){
+			if ( i.getEmail().equals(username) && i.getPassword().equals(password)){
+				Cookie c = new Cookie("username", req.getParameter("user_name"));
+
+				resp.addCookie(c);
+				resp.sendRedirect("/instructor.html");
+				return;
+			}
+		}
+		
+		for(Admin a : admins){
+			if ( a.getEmail().equals(username) && a.getPassword().equals(password)){
+				Cookie c = new Cookie("username", req.getParameter("user_name"));
+
+				resp.addCookie(c);
+				resp.sendRedirect("/admin.html");
+				return;
+			}
+		}
+		
 		
 		resp.setContentType("text/html");
 		resp.getWriter().println("<h2>Login failed!</h2>");
@@ -66,14 +91,7 @@ public class LoginServlet extends HttpServlet
 		resp.getWriter().println("</tr>");
 		resp.getWriter().println("<tr>");
 		resp.getWriter().println("<td>Password: </td>");
-		resp.getWriter().println("<td><input type='text' name='password'></td>");
-		resp.getWriter().println("<tr>");		
-		resp.getWriter().println("<select>");
-		resp.getWriter().println("<option value='student'>Student</option>");
-		resp.getWriter().println("<option value='instructor'>Instructor</option>");
-		resp.getWriter().println("<option value='administrator'>Administrator</option>");	
-		resp.getWriter().println("</select>");
-		resp.getWriter().println("</tr>");		
+		resp.getWriter().println("<td><input type='text' name='password'></td>");		
 		resp.getWriter().println("</table>");
 		
 		resp.getWriter().println("</table>");
