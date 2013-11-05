@@ -93,7 +93,7 @@ public class Student extends User {
 	}
 	
 	public void makePayment(){
-		balance -= payPlan.getPaymentAmount();
+		balance -= payPlan.getPaymentAmount(balance);
 	}
 	
 }

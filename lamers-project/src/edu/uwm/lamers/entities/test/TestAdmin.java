@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import edu.uwm.lamers.entities.Admin;
-import edu.uwm.lamers.entities.Instructor;
 
 public class TestAdmin {
 	

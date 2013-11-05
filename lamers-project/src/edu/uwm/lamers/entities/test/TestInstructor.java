@@ -19,7 +19,7 @@ public class TestInstructor {
 	
 	@Test
 	public void testAddRemoveCourse(){
-		Course c = new Course();
+		Course c = new Course("Test Course");
 		
 		i.addCourse(c);
 		assertTrue(i.getCourses().size() == 1);

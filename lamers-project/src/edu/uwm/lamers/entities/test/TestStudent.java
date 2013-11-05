@@ -66,7 +66,7 @@ public class TestStudent {
 	
 	@Test
 	public void testAddRemoveCourse(){
-		Course c = new Course();
+		Course c = new Course("Test Course");
 		
 		s.addCourse(c);
 		assertTrue(s.getCourses().size() == 1);
@@ -86,5 +86,10 @@ public class TestStudent {
 	public void testPaymentPlan(){
 		s.setPaymentPlan(p1);
 		assertTrue(p1 == s.getPaymentPlan());
+	}
+	
+	@Test
+	public void testPayment(){
+		
 	}
 }
