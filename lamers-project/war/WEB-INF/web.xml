@@ -25,7 +25,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<servlet-mapping>
 		<servlet-name>LoginServlet</servlet-name>
-		<url-pattern>/login-page.jsp</url-pattern>
+		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>

@@ -1,5 +1,3 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +17,8 @@
 
 <body>
 		<h2>Login Page</h2>
-		<form action="/login" method="POST">
+		<h3>Invalid Input!</h3>
+		<form action="" method="post">
 		<table cellpadding="5">
 			<tr>
 				<td>User Name: </td>
@@ -33,7 +32,7 @@
 			<select>
  			 	<option value="student">Student</option>
   			 	<option value="instructor">Instructor</option>
- 			    <option value="administrator">Administrator</option>	
+ 			        <option value="administrator">Administrator</option>	
 			</select>
 			</tr>		
 			</table>
@@ -42,5 +41,10 @@
 		</br><input type="submit" value="login">
 		<input type="submit" value="Clear">
 		</form>
+
+<a href="student-home.html" target="_top">Student Homepage </a><br>
+<a href="instr-home.html" target="_top">Instructor Homepage </a><br>
+<a href="admin-home.html" target="_top">Administrator HomePage</a><br>
+<a href="invalid_login.html">Invalid Input Page</a><br>
 </body>
 </html>
