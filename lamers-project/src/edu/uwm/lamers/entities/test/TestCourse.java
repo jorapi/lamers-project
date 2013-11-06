@@ -27,6 +27,44 @@ public class TestCourse {
 	}
 	
 	@Test
+	public void testAddDuplicateStudent() {
+		Student s1 = new Student("John", "Smith", "jsmith@gmail.com");
+		
+		c.addStudent(s1);
+		assertFalse(c.addStudent(s1));
+	}
+	
+	@Test
+	public void testRemoveStudent() {
+		Student s1 = new Student("John", "Smith", "jsmith@gmail.com");
+		Student s2 = new Student("Jane", "Witherspoon", "jwitherspoon@gmail.com");
+		Student s3 = new Student("Dale", "Hampton", "dhampton@gmail.com");
+		
+		c.addStudent(s1);
+		c.addStudent(s2);
+		c.addStudent(s3);
+		
+		assertEquals(3, c.size());
+		
+		c.removeStudent(s2);
+		
+		assertFalse(c.contains(s2));
+		assertEquals(2, c.size());
+	}
+	
+	@Test
+	public void testRemoveUnenrolledStudent() {
+		Student s1 = new Student("John", "Smith", "jsmith@gmail.com");
+		Student s2 = new Student("Jane", "Witherspoon", "jwitherspoon@gmail.com");
+		Student s3 = new Student("Dale", "Hampton", "dhampton@gmail.com");
+		
+		c.addStudent(s1);
+		c.addStudent(s2);
+		
+		assertFalse(c.removeStudent(s3));
+	}
+	
+	@Test
 	public void testSetInstructor(){
 		Instructor i = new Instructor("John", "Smith", "jsmith@gmail.com");
 		
@@ -36,5 +74,4 @@ public class TestCourse {
 		c = new Course("Test Course", i);
 		assertTrue(c.getInstructor() == i);
 	}
-
 }
