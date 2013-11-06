@@ -98,10 +98,7 @@ public class Course {
 	 * @return whether or not the removal was successful
 	 */
 	public boolean removeStudent(Student s) {
-		if (containsStudent(s)) {
-			studentList.remove(s);
-		}
-		return false;
+		return studentList.remove(s);
 	}
 	
 	/**
