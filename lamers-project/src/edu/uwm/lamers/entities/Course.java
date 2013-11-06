@@ -29,6 +29,9 @@ public class Course {
 	@Persistent
 	private Set<Student> studentList;
 	
+	@Persistent
+	private String courseLocation;
+	
 	/**
 	 * 
 	 * @param courseTitle the Title of the course
@@ -130,6 +133,14 @@ public class Course {
 	 */
 	public void setInstructor(Instructor i){
 		this.courseInstructor = i;
+	}
+	
+	public String getLocation(){
+		return courseLocation;
+	}
+	
+	public void setLocation(String location){
+		this.courseLocation = location;
 	}
 	
 	/**
