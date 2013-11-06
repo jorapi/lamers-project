@@ -23,6 +23,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-class>edu.uwm.lamers.LogoutServlet</servlet-class>
 	</servlet>
 	
+	<servlet>
+		<servlet-name>CreateStudentServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.CreateStudentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateStudentServlet</servlet-name>
+		<url-pattern>/create-student</url-pattern>
+	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>LoginServlet</servlet-name>
 		<url-pattern>/login</url-pattern>
@@ -30,7 +39,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<servlet-mapping>
 		<servlet-name>LogoutServlet</servlet-name>
-		<url-pattern>/logout.jsp</url-pattern>
+		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
 	
 	<welcome-file-list>
