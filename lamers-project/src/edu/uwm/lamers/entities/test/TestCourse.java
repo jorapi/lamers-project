@@ -2,6 +2,9 @@ package edu.uwm.lamers.entities.test;
 
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,6 +30,26 @@ public class TestCourse {
 	}
 	
 	@Test
+	public void testAddMultipleStudents() {
+		Set<Student> ss = new HashSet<Student>();
+		Student s1 = new Student("John", "Smith", "jsmith@gmail.com");
+		Student s2 = new Student("Jane", "Witherspoon", "jwitherspoon@gmail.com");
+		Student s3 = new Student("Dale", "Hampton", "dhampton@gmail.com");
+		
+		ss.add(s1);
+		ss.add(s2);
+		ss.add(s3);
+		
+		c.addMultipleStudents(ss);
+		
+		assertEquals(3, c.size());
+		assertTrue(c.containsStudent(s1));
+		assertTrue(c.containsStudent(s2));
+		assertTrue(c.containsStudent(s3));
+
+	}
+	
+	@Test
 	public void testAddDuplicateStudent() {
 		Student s1 = new Student("John", "Smith", "jsmith@gmail.com");
 		
@@ -48,7 +71,25 @@ public class TestCourse {
 		
 		c.removeStudent(s2);
 		
-		assertFalse(c.contains(s2));
+		assertFalse(c.containsStudent(s2));
+		assertEquals(2, c.size());
+	}
+	
+	@Test
+	public void testRemoveMultitpleStudents() {
+		Student s1 = new Student("John", "Smith", "jsmith@gmail.com");
+		Student s2 = new Student("Jane", "Witherspoon", "jwitherspoon@gmail.com");
+		Student s3 = new Student("Dale", "Hampton", "dhampton@gmail.com");
+		
+		c.addStudent(s1);
+		c.addStudent(s2);
+		c.addStudent(s3);
+		
+		assertEquals(3, c.size());
+		
+		c.removeStudent(s2);
+		
+		assertFalse(c.containsStudent(s2));
 		assertEquals(2, c.size());
 	}
 	

@@ -50,6 +50,13 @@ public class Course {
 	public Key getKey() {
 		return key;
 	}
+	
+	/**
+	 * @return the number of enrolled students
+	 */
+	public int size() {
+		return studentList.size();
+	}
 
 	/**
 	 * 
@@ -60,6 +67,22 @@ public class Course {
 		if(this.containsStudent(s)) return false;
 		return studentList.add(s);
 	}
+	
+	/**
+	 * 
+	 * @param ss Set of Students to be added to course
+	 * @return if any students were added successfully
+	 */
+	public boolean addMultipleStudents(Set<Student> ss) {
+		boolean added = false;
+		for (Student s : ss) {
+			if (!this.containsStudent(s)) {
+				studentList.add(s);
+				added = true;
+			}
+		}
+		return added;
+	}
 
 	/**
 	 * 
@@ -68,6 +91,32 @@ public class Course {
 	 */
 	public boolean containsStudent(Student s) {
 		return studentList.contains(s);
+	}
+	
+	/**
+	 * @param s Student to be removed
+	 * @return whether or not the removal was successful
+	 */
+	public boolean removeStudent(Student s) {
+		if (containsStudent(s)) {
+			studentList.remove(s);
+		}
+		return false;
+	}
+	
+	/**
+	 * @param s Set of Students to be removed
+	 * @return whether or not any students were removed successfully
+	 */
+	public boolean removeMultipleStudents(Set<Student> ss) {
+		boolean removed = false;
+		for (Student s : ss) {
+			if (this.containsStudent(s)) {
+				studentList.remove(s);
+				removed = true;
+			}
+		}
+		return removed;
 	}
 	
 	/**
