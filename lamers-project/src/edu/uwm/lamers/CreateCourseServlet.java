@@ -34,7 +34,6 @@ public class CreateCourseServlet extends HttpServlet
 		String InstructorName = req.getParameter("instructor");
 		String Location = req.getParameter("location");
 		String mon_start = req.getParameter("mon_start");
-		System.out.println(mon_start);
 		String mon_end = req.getParameter("mon_end");
 		String tues_start = req.getParameter("tues_start");
 		String tues_end = req.getParameter("tues_end");
@@ -51,10 +50,7 @@ public class CreateCourseServlet extends HttpServlet
 		
 		PersistenceManager pm = getPersistenceManager();
 		
-		List<Student> students = (List<Student>) pm.newQuery(Student.class).execute();
-		List<Instructor> instructors = (List<Instructor>) pm.newQuery(Instructor.class).execute();
-		List<Admin> admins = (List<Admin>) pm.newQuery(Admin.class).execute();
-		
+		//create course and make persistent
 		
 	}
 	

@@ -24,14 +24,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 	
 	<servlet>
-<<<<<<< Upstream, based on origin/master
 		<servlet-name>CreateStudentServlet</servlet-name>
 		<servlet-class>edu.uwm.lamers.CreateStudentServlet</servlet-class>
 	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>CreateStudentServlet</servlet-name>
 		<url-pattern>/create-student</url-pattern>
-=======
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>CreateCourseServlet</servlet-name>
 		<servlet-class>edu.uwm.lamers.CreateCourseServlet</servlet-class>
 	</servlet>
@@ -39,7 +41,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>CreateCourseServlet</servlet-name>
 		<url-pattern>/CreateCourse</url-pattern>
->>>>>>> adbf5e0 Added undone Course servlet
 	</servlet-mapping>
 	
 	<servlet-mapping>

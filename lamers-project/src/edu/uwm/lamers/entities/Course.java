@@ -32,6 +32,10 @@ public class Course {
 	@Persistent
 	private String courseLocation;
 	
+	//array to hold start and end times for each day [0] = sun start, [1] = sun end, [2] = mon start, ...
+	@Persistent
+	private String[] courseTime;
+	
 	/**
 	 * 
 	 * @param courseTitle the Title of the course
@@ -39,12 +43,22 @@ public class Course {
 	public Course(String courseTitle) {
 		this.courseTitle = courseTitle;
 		studentList = new HashSet<Student>();
+		courseTime = new String[14];
 	}
 	
 	public Course(String courseTitle, Instructor courseInstructor){
 		this.courseInstructor = courseInstructor;
 		this.courseTitle = courseTitle;
 		studentList = new HashSet<Student>();
+		courseTime = new String[14];
+	}
+	
+	public Course(String courseTitle, Instructor courseInstructor, String location){
+		this.courseInstructor = courseInstructor;
+		this.courseTitle = courseTitle;
+		this.courseLocation = location;
+		studentList = new HashSet<Student>();
+		courseTime = new String[14];
 	}
 	
 	/**
@@ -135,12 +149,26 @@ public class Course {
 		this.courseInstructor = i;
 	}
 	
+	/**
+	 * @return courseLocation
+	 */
 	public String getLocation(){
 		return courseLocation;
 	}
 	
-	public void setLocation(String location){
-		this.courseLocation = location;
+	/**
+	 * @param l Location of course
+	 */
+	public void setLocation(String l){
+		this.courseLocation = l;
+	}
+	
+	public void setTime(String time, String day, String start_or_end){
+		
+	}
+	
+	public String getTime(String day_of_week){
+		return null;
 	}
 	
 	/**
