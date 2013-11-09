@@ -25,6 +25,30 @@ public class Student extends User {
 	@Persistent
 	private PaymentPlan payPlan;
 	
+	@Persistent
+	private Demographic demo;
+	
+	/**
+	 * @return the awards
+	 */
+	public Set<Award> getAwards() {
+		return awards;
+	}
+
+	/**
+	 * @return the demo
+	 */
+	public Demographic getDemo() {
+		return demo;
+	}
+
+	/**
+	 * @param demo the demo to set
+	 */
+	public void setDemo(Demographic demo) {
+		this.demo = demo;
+	}
+
 	public Student(String firstName, String lastName, String email) {
 		super(firstName, lastName, email);
 		balance = 0.00;

@@ -34,6 +34,7 @@ public class CreateStudentServlet extends HttpServlet
 		String lastName = req.getParameter("lastname");
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
+		String demographic = req.getParameter("demographic");
 		
 		String[] courses = req.getParameterValues("courses");
 		
@@ -46,12 +47,17 @@ public class CreateStudentServlet extends HttpServlet
 		if (courses != null){
 			for (int i = 0; i < courses.length; ++i){
 				for (Course c : (List<Course>) pm.newQuery(Course.class).execute()) {		
-					if(c.getTitle().equals(courses[i]))
+					if(("" + c.getKey().getId()).equals(courses[i]))
 						s.addCourse(c);
 						c.addStudent(s);
 				} 
 			}
 		}
+		
+		for (Demographic d : (List<Demographic>) pm.newQuery(Demographic.class).execute()) {		
+			if(demographic.equals(d.getKey().getId()));
+				s.setDemo(d);
+		} 
 		
 		try {
 			pm.makePersistent(s);
@@ -99,6 +105,7 @@ public class CreateStudentServlet extends HttpServlet
 			
 		resp.getWriter().println("<tr>");
 		resp.getWriter().println("<td>Demographic: </td>");
+		resp.getWriter().println("<td><select id='demographic' name='demographic'>");
 		for (Demographic demo : (List<Demographic>) pm.newQuery(Demographic.class).execute()) {
 			resp.getWriter().println("<option value='" + demo.getKey().getId() + "'>" + demo.getTitle() + "</option>");
 	    }

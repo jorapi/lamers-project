@@ -1,0 +1,47 @@
+#students{
+	font-family:Helvetica, Arial, sans-serif;
+	width:100%;
+	border-collapse:collapse;
+}
+
+#students td, #students th {
+	font-size:1em;
+	border:1px solid #C1C1C1;
+	padding:3px 7px 2px 7px;
+}
+
+#students th {
+	font-size:1.1em;
+	text-align:center;
+	padding-top:5px;
+	padding-bottom:4px;
+	background-color:#404040;
+	color:#ffffff;
+}
+
+#students tr.alt td {
+	color:#000000;
+	background-color:#DFDFDF;
+}
+
+a.enroll:link{
+	text-decoration: none;
+	color: black;
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight:bold;
+ }
+
+ a.enroll:visited{
+	text-decoration: none;
+	color: black;
+ }
+
+ a.enroll:hover{
+	color:gray;
+ }
+ 
+ #enroll-link{
+	position:absolute;
+	right:0px;
+	padding:15px;
+ }
