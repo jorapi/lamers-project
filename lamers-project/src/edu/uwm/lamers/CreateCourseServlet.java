@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.lamers.entities.Admin;
+import edu.uwm.lamers.entities.Course;
 import edu.uwm.lamers.entities.Instructor;
 import edu.uwm.lamers.entities.Student;
 
@@ -32,26 +33,42 @@ public class CreateCourseServlet extends HttpServlet
 	{
 		String CourseName = req.getParameter("class_name");
 		String InstructorName = req.getParameter("instructor");
+		Instructor in = null;
 		String Location = req.getParameter("location");
-		String mon_start = req.getParameter("mon_start");
-		String mon_end = req.getParameter("mon_end");
-		String tues_start = req.getParameter("tues_start");
-		String tues_end = req.getParameter("tues_end");
-		String wed_start = req.getParameter("wed_start");
-		String wed_end = req.getParameter("wed_end");
-		String thurs_start = req.getParameter("thurs_start");
-		String thurs_end = req.getParameter("thurs_end");
-		String fri_start = req.getParameter("fri_start");
-		String fri_end = req.getParameter("fri_end");
-		String sat_start = req.getParameter("sat_start");
-		String sat_end = req.getParameter("sat_end");
-		String sun_start = req.getParameter("sun_start");
-		String sun_end = req.getParameter("sun_end");
+		String start = req.getParameter("start");
+		String end = req.getParameter("end");
+		Boolean[] days = new Boolean[7];
+		if(req.getParameter("Monday") != null)
+			days[1] = true;
+		if(req.getParameter("Tuesday") != null)
+			days[2] = true;
+		if(req.getParameter("Wednesday") != null)
+			days[3] = true;
+		if(req.getParameter("Thursday") != null)
+			days[4] = true;
+		if(req.getParameter("Friday") != null)
+			days[5] = true;
+		if(req.getParameter("Saturday") != null)
+			days[6] = true;
+		if(req.getParameter("Sunday") != null)
+			days[0] = true;
 		
 		PersistenceManager pm = getPersistenceManager();
 		
-		//create course and make persistent
+		for (Instructor instructor : (List<Instructor>) pm.newQuery(Instructor.class).execute()) {		
+			if(InstructorName.equals(instructor.getFirstName() + " " + instructor.getLastName()))
+				in = instructor;
+		} 
 		
+		Course course = new Course(CourseName, in, Location, start, end);
+		
+		course.setMeetingDays(days);
+		
+		try {
+			pm.makePersistent(course);
+		} finally {
+			pm.close();
+		}
 	}
 	
 	private PersistenceManager getPersistenceManager()
@@ -74,9 +91,11 @@ public class CreateCourseServlet extends HttpServlet
 			
 		resp.getWriter().println("<tr>");
 		resp.getWriter().println("<td>Instructor name: </td>");
+		resp.getWriter().println("<td><select id='instructor' name='instructor'>");
 		for (Instructor instructor : (List<Instructor>) pm.newQuery(Instructor.class).execute()) {
-			resp.getWriter().println("<option value='" + instructor.getKey().getId() + "'>" + instructor.getFirstName() + " " + instructor.getLastName() + "</option>");
-		}
+			resp.getWriter().println("<option value=' " + instructor.getKey().getId() + "'>" + instructor.getLastName() + "</option>");
+	    }
+		resp.getWriter().println("</select></td>");
 		resp.getWriter().println("</tr>");
 			
 		resp.getWriter().println("<tr>");
@@ -84,52 +103,40 @@ public class CreateCourseServlet extends HttpServlet
 		resp.getWriter().println("<td><input type='text' name='location'></td>");
 		resp.getWriter().println("</tr>");
 			
-		resp.getWriter().println("<table id='students'>");
+		resp.getWriter().println("<table id='times'>");
 		resp.getWriter().println("<caption>Meeting Time</caption>");
 		resp.getWriter().println("<tr>");
-		resp.getWriter().println("<th></th>");
-		resp.getWriter().println("<th>Start Time</th>");
-		resp.getWriter().println("<th>End Time</th>");
+		resp.getWriter().println("<td><input type='checkbox' name='Monday' value='Monday'>Monday</td>");
 		resp.getWriter().println("</tr>");
 		resp.getWriter().println("<tr>");
-		resp.getWriter().println("<td>Monday:</td>");
-		resp.getWriter().println("<td><input type='time' name='mon_start'></td>");
-		resp.getWriter().println("<td><input type='time' name='mon_end'></td>");
+		resp.getWriter().println("<td><input type='checkbox' name='Tuesday' value='Tuesday'>Tuesday </td>");
 		resp.getWriter().println("</tr>");
 		resp.getWriter().println("<tr>");
-		resp.getWriter().println("<td>Tuesday:</td>");
-		resp.getWriter().println("<td><input type='time' name='tues_start'></td>");
-		resp.getWriter().println("<td><input type='time' name='tues_end'></td>");
+		resp.getWriter().println("<td><input type='checkbox' name='Wednesday' value='Wednesday'>Wednesday</td>");
 		resp.getWriter().println("</tr>");
 		resp.getWriter().println("<tr>");
-		resp.getWriter().println("<td>Wednesday:</td>");
-		resp.getWriter().println("<td><input type='time' name='wed_start'></td>");
-		resp.getWriter().println("<td><input type='time' name='wed_end'></td>");
+		resp.getWriter().println("<td><input type='checkbox' name='Thursday' value='Thursday'>Thursday</td>");
 		resp.getWriter().println("</tr>");
 		resp.getWriter().println("<tr>");
-		resp.getWriter().println("<td>Thursday:</td>");
-		resp.getWriter().println("<td><input type='time' name='thurs_start'></td>");
-		resp.getWriter().println("<td><input type='time' name='thurs_end'></td>");
+		resp.getWriter().println("<td><input type='checkbox' name='Friday' value='Friday'>Friday</td>");
 		resp.getWriter().println("</tr>");
 		resp.getWriter().println("<tr>");
-		resp.getWriter().println("<td>Friday:</td>");
-		resp.getWriter().println("<td><input type='time' name='fri_start'></td>");
-		resp.getWriter().println("<td><input type='time' name='fri_end'></td>");
+		resp.getWriter().println("<td><input type='checkbox' name='Saturday' value='Saturday'>Saturday</td>");
 		resp.getWriter().println("</tr>");
 		resp.getWriter().println("<tr>");
-		resp.getWriter().println("<td>Saturday:</td>");
-		resp.getWriter().println("<td><input type='time' name='sat_start'></td>");
-		resp.getWriter().println("<td><input type='time' name='sat_end'></td>");
+		resp.getWriter().println("<td><input type='checkbox' name='Sunday' value='Sunday'>Sunday</td>");
 		resp.getWriter().println("</tr>");
 		resp.getWriter().println("<tr>");
-		resp.getWriter().println("<td>Sunday:</td>");
-		resp.getWriter().println("<td><input type='time' name='sun_start'></td>");
-		resp.getWriter().println("<td><input type='time' name='sun_end'></td>");
+		resp.getWriter().println("<td>Start Time:</td>");
+		resp.getWriter().println("<td><input type='time' name='start'></td>");
+		resp.getWriter().println("</tr>");
+		resp.getWriter().println("<tr>");
+		resp.getWriter().println("<td>End Time:</td>");
+		resp.getWriter().println("<td><input type='time' name='end'></td>");
 		resp.getWriter().println("</tr>");
 		resp.getWriter().println("</table>");
 			
 		resp.getWriter().println("</table>");
-		resp.getWriter().println("</br><input type='submit' value='Add Students'>");
 		resp.getWriter().println("<input type='submit' value='Create Class'>");
 		resp.getWriter().println("</form>");
 	}

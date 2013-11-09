@@ -32,9 +32,19 @@ public class Course {
 	@Persistent
 	private String courseLocation;
 	
-	//array to hold start and end times for each day [0] = sun start, [1] = sun end, [2] = mon start, ...
+    //array to hold days of the week the class will meet 0 = sun, 1 = mon ... 
+	//true if the course meets on that day
 	@Persistent
-	private String[] courseTime;
+	private Boolean[] DaysToMeet;
+	
+	@Persistent
+	private String endTime;
+	
+	@Persistent
+	private String startTime;
+	
+
+
 	
 	/**
 	 * 
@@ -43,22 +53,24 @@ public class Course {
 	public Course(String courseTitle) {
 		this.courseTitle = courseTitle;
 		studentList = new HashSet<Student>();
-		courseTime = new String[14];
+		DaysToMeet = new Boolean[7];
 	}
 	
 	public Course(String courseTitle, Instructor courseInstructor){
 		this.courseInstructor = courseInstructor;
 		this.courseTitle = courseTitle;
 		studentList = new HashSet<Student>();
-		courseTime = new String[14];
+		DaysToMeet = new Boolean[7];
 	}
 	
-	public Course(String courseTitle, Instructor courseInstructor, String location){
+	public Course(String courseTitle, Instructor courseInstructor, String location, String start, String end){
 		this.courseInstructor = courseInstructor;
 		this.courseTitle = courseTitle;
 		this.courseLocation = location;
 		studentList = new HashSet<Student>();
-		courseTime = new String[14];
+		DaysToMeet = new Boolean[7];
+		this.endTime = end;
+		this.startTime = start;
 	}
 	
 	/**
@@ -163,14 +175,6 @@ public class Course {
 		this.courseLocation = l;
 	}
 	
-	public void setTime(String time, String day, String start_or_end){
-		
-	}
-	
-	public String getTime(String day_of_week){
-		return null;
-	}
-	
 	/**
 	 * 
 	 * @return Course title
@@ -185,5 +189,63 @@ public class Course {
 	 */
 	public void setTitle(String courseTitle){
 		this.courseTitle = courseTitle;
+	}	
+	
+	public Boolean[] getDaysToMeet() {
+		return DaysToMeet;
+	}
+	
+	public void setMeetingDays(Boolean[] days){
+		this.DaysToMeet = days;
+	}
+
+	public void addMeetingDay(String day) {
+		if(day.equalsIgnoreCase("sunday"))
+			this.DaysToMeet[0] = true;
+		else if(day.equalsIgnoreCase("monday"))
+			this.DaysToMeet[1] = true;
+		else if(day.equalsIgnoreCase("tuesday"))
+			this.DaysToMeet[2] = true;
+		else if(day.equalsIgnoreCase("wednesday"))
+			this.DaysToMeet[3] = true;
+		else if(day.equalsIgnoreCase("thursday"))
+			this.DaysToMeet[4] = true;
+		else if(day.equalsIgnoreCase("friday"))
+			this.DaysToMeet[5] = true;
+		else if(day.equalsIgnoreCase("saturday"))
+			this.DaysToMeet[6] = true;
+	}
+	
+	public void removeMeetingDay(String day){
+		if(day.equalsIgnoreCase("sunday"))
+			this.DaysToMeet[0] = false;
+		else if(day.equalsIgnoreCase("monday"))
+			this.DaysToMeet[1] = false;
+		else if(day.equalsIgnoreCase("tuesday"))
+			this.DaysToMeet[2] = false;
+		else if(day.equalsIgnoreCase("wednesday"))
+			this.DaysToMeet[3] = false;
+		else if(day.equalsIgnoreCase("thursday"))
+			this.DaysToMeet[4] = false;
+		else if(day.equalsIgnoreCase("friday"))
+			this.DaysToMeet[5] = false;
+		else if(day.equalsIgnoreCase("saturday"))
+			this.DaysToMeet[6] = false;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 }
