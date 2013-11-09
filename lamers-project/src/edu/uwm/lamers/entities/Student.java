@@ -20,6 +20,9 @@ public class Student extends User {
 	private Set<Course> coursesEnrolled;
 	
 	@Persistent
+	private Set<Award> awards;
+	
+	@Persistent
 	private PaymentPlan payPlan;
 	
 	public Student(String firstName, String lastName, String email) {
