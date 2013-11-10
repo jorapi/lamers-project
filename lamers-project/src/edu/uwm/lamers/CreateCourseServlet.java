@@ -60,7 +60,7 @@ public class CreateCourseServlet extends HttpServlet
 				in = instructor;
 		} 
 		
-		Course course = new Course(CourseName, in, Location, start, end);
+		Course course = new Course(CourseName, Location, start, end);
 		
 		course.setMeetingDays(days);
 		

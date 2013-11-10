@@ -73,6 +73,16 @@ public class Course {
 		this.startTime = start;
 	}
 	
+	public Course(String courseTitle, String location, String start, String end){
+		this.courseInstructor = null;
+		this.courseTitle = courseTitle;
+		this.courseLocation = location;
+		studentList = new HashSet<Student>();
+		DaysToMeet = new Boolean[7];
+		this.endTime = end;
+		this.startTime = start;
+	}
+	
 	/**
 	 * @return the key
 	 */
