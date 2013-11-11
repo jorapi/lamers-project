@@ -35,6 +35,9 @@ public class Course {
 	@Persistent
 	private String courseLocation;
 	
+	@Persistent
+	private double cost;
+	
     //array to hold days of the week the class will meet 0 = sun, 1 = mon ... 
 	//true if the course meets on that day
 	@Persistent
@@ -57,8 +60,23 @@ public class Course {
 		this.courseTitle = courseTitle;
 		studentList = new HashSet<Student>();
 		DaysToMeet = createDaysArray();
+		cost = 0.0;
 	}
 	
+	/**
+	 * @return the cost
+	 */
+	public double getCost() {
+		return cost;
+	}
+
+	/**
+	 * @param cost the cost to set
+	 */
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+
 	public Course(String courseTitle, Instructor courseInstructor){
 		this.courseInstructor = courseInstructor;
 		this.courseTitle = courseTitle;

@@ -104,7 +104,12 @@ public class Student extends User {
 	 * @return if add was successful or not
 	 */
 	public boolean addCourse(Course c){
-		return coursesEnrolled.add(c);
+		if (coursesEnrolled.add(c)){
+			balance += c.getCost();
+			return true;
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -112,7 +117,12 @@ public class Student extends User {
 	 * @return if remove was successful or not
 	 */
 	public boolean removeCourse(Course c){
-		return coursesEnrolled.remove(c);
+		if (coursesEnrolled.remove(c)){
+			balance -= c.getCost();
+			return true;
+		}
+		
+		return false;
 	}
 
 	/**

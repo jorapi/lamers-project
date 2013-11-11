@@ -37,6 +37,7 @@ public class CreateCourseServlet extends HttpServlet
 		String Location = req.getParameter("location");
 		String start = req.getParameter("start");
 		String end = req.getParameter("end");
+		double cost = Double.parseDouble(req.getParameter("cost"));
 		Boolean[] days = new Boolean[7];
 		
 		for(int i = 0; i < 7; i++){
@@ -68,6 +69,7 @@ public class CreateCourseServlet extends HttpServlet
 		Course course = new Course(CourseName, Location, start, end);
 		
 		course.setMeetingDays(days);
+		course.setCost(cost);
 		
 		try {
 			pm.makePersistent(course);
@@ -140,6 +142,11 @@ public class CreateCourseServlet extends HttpServlet
 		resp.getWriter().println("<td><input type='time' name='end'></td>");
 		resp.getWriter().println("</tr>");
 		resp.getWriter().println("</table>");
+		
+		resp.getWriter().println("<tr>");
+		resp.getWriter().println("<td>Cost: </td>");
+		resp.getWriter().println("<td><input type='number' name='cost'></td>");
+		resp.getWriter().println("</tr>");
 			
 		resp.getWriter().println("</table>");
 		resp.getWriter().println("<input type='submit' value='Create Class'>");
