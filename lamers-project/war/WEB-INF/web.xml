@@ -34,6 +34,26 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>CreateInstructorServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.CreateInstructorServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>CreateInstructorServlet</servlet-name>
+		<url-pattern>/CreateInstructor</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ViewInstructorsServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.ViewInstructorsServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ViewInstructorsServlet</servlet-name>
+		<url-pattern>/ViewInstructors</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>ViewCoursesServlet</servlet-name>
 		<servlet-class>edu.uwm.lamers.ViewCoursesServlet</servlet-class>
 	</servlet>
