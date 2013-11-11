@@ -49,7 +49,7 @@ public class ViewStudentsServlet extends HttpServlet {
 			resp.getWriter().println("<td>");
 			resp.getWriter().println("<ul>");
 			for(Course c : s.getCourses()){
-				resp.getWriter().println("<li>" + c.getTitle() + "<li>");
+				resp.getWriter().println("<li>" + c.getTitle() + "</li>");
 			}
 			resp.getWriter().println("</ul>");
 			resp.getWriter().println("</td>");

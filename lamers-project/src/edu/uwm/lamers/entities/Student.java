@@ -8,6 +8,8 @@ import javax.jdo.annotations.DiscriminatorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
+import com.google.appengine.datanucleus.annotations.Unowned;
+
 @PersistenceCapable
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME)
 public class Student extends User {
@@ -17,15 +19,19 @@ public class Student extends User {
 	private double balance;
 	
 	@Persistent
+	@Unowned
 	private Set<Course> coursesEnrolled;
 	
 	@Persistent
+	@Unowned
 	private Set<Award> awards;
 	
 	@Persistent
+	@Unowned
 	private PaymentPlan payPlan;
 	
 	@Persistent
+	@Unowned
 	private Demographic demo;
 	
 	/**
