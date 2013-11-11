@@ -36,6 +36,7 @@ public class ViewStudentsServlet extends HttpServlet {
 		resp.getWriter().println("<th>Email</th>");
 		resp.getWriter().println("<th>Classes Enrolled</th>");
 		resp.getWriter().println("<th>Demographic</th>");
+		resp.getWriter().println("<th>Balance Due</th>");
 		resp.getWriter().println("<th>Awards</th>");
 		resp.getWriter().println("</tr>");
 		
@@ -60,6 +61,7 @@ public class ViewStudentsServlet extends HttpServlet {
 				resp.getWriter().println("<td></td>");
 			}
 			
+			resp.getWriter().println("<td>" + s.getBalance() + "</td>");
 			
 			resp.getWriter().println("<td>");
 			resp.getWriter().println("<ul>");

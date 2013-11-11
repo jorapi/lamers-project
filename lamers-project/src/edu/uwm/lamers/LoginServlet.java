@@ -71,7 +71,7 @@ public class LoginServlet extends HttpServlet
 		
 		resp.setContentType("text/html");
 		resp.getWriter().println("<h2>Login failed!</h2>");
-		resp.getWriter().println("<a href='/login'> Try again </a>");
+		resp.getWriter().println("<a href='/'> Try again </a>");
 	}
 	
 	private PersistenceManager getPersistenceManager()
