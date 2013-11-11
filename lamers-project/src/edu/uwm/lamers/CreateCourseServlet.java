@@ -25,15 +25,22 @@ public class CreateCourseServlet extends HttpServlet
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
-		printForm(resp);
+		PersistenceManager pm = getPersistenceManager();
+		
+		if(((List<Instructor>) pm.newQuery(Instructor.class).execute()).size() != 0){
+			printForm(resp);
+		} else {
+			resp.setContentType("text/html");
+
+			resp.getWriter().println("<h2>Error: At least one Instructor required to create Course</h2>");
+		}
 	}
 	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException
 	{
 		String CourseName = req.getParameter("class_name");
-		String InstructorName = req.getParameter("instructor");
-		Instructor in = null;
+		String instructorID = req.getParameter("instructor");
 		String Location = req.getParameter("location");
 		String start = req.getParameter("start");
 		String end = req.getParameter("end");
@@ -61,15 +68,18 @@ public class CreateCourseServlet extends HttpServlet
 		
 		PersistenceManager pm = getPersistenceManager();
 		
-		for (Instructor instructor : (List<Instructor>) pm.newQuery(Instructor.class).execute()) {		
-			if(("" + instructor.getKey().getId()).equals(instructor))
-				in = instructor;
-		} 
-		
 		Course course = new Course(CourseName, Location, start, end);
 		
 		course.setMeetingDays(days);
 		course.setCost(cost);
+		
+		for (Instructor instructor : (List<Instructor>) pm.newQuery(Instructor.class).execute()) {		
+			if(instructorID.equals("" + instructor.getKey().getId())){
+				course.setInstructor(instructor);
+				instructor.addCourse(course);
+				break;
+			}
+		} 
 		
 		try {
 			pm.makePersistent(course);
@@ -89,7 +99,7 @@ public class CreateCourseServlet extends HttpServlet
 		resp.setContentType("text/html");
 
 		resp.getWriter().println("<h2>Create Program</h2>");
-		resp.getWriter().println("<form action='' method='post'>");
+		resp.getWriter().println("<form action='/CreateCourse' method='post'>");
 		resp.getWriter().println("<table cellpadding='5'>");
 		resp.getWriter().println("<tr>");
 		resp.getWriter().println("<td>Class name: </td>");
@@ -100,7 +110,7 @@ public class CreateCourseServlet extends HttpServlet
 		resp.getWriter().println("<td>Instructor name: </td>");
 		resp.getWriter().println("<td><select id='instructor' name='instructor'>");
 		for (Instructor instructor : (List<Instructor>) pm.newQuery(Instructor.class).execute()) {
-			resp.getWriter().println("<option value=' " + instructor.getKey().getId() + "'>" + instructor.getLastName() + "</option>");
+			resp.getWriter().println("<option value='" + instructor.getKey().getId() + "'>" + instructor.getLastName() + "</option>");
 	    }
 		resp.getWriter().println("</select></td>");
 		resp.getWriter().println("</tr>");

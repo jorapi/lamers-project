@@ -43,7 +43,12 @@ public class ViewCoursesServlet extends HttpServlet {
 			resp.getWriter().println("<tr>");
 			
 			resp.getWriter().println("<td>" + c.getTitle() + "</td>");
-			resp.getWriter().println("<td>" + c.getInstructor() + "</td>");
+			
+			if(c.getInstructor() != null){
+				resp.getWriter().println("<td>" + c.getInstructor().getFirstName() + " " + c.getInstructor().getLastName() + "</td>");
+			} else {
+				resp.getWriter().println("<td>" + "No Instructor" + "</td>");
+			}
 			resp.getWriter().println("<td>" + c.size() + "</td>");
 			resp.getWriter().println("<td>" + c.getLocation() + "</td>");
 			
