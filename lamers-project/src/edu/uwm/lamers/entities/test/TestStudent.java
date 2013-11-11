@@ -71,8 +71,12 @@ public class TestStudent {
 		s.addCourse(c);
 		assertTrue(s.getCourses().size() == 1);
 		
+		assertTrue(s.getBalance() == c.getCost());
+		
 		s.removeCourse(c);
 		assertTrue(s.getCourses().size() == 0);
+		
+		assertTrue(s.getBalance() == 0);
 	}
 	
 	@Test
