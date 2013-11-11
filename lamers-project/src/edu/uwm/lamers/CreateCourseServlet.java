@@ -38,6 +38,11 @@ public class CreateCourseServlet extends HttpServlet
 		String start = req.getParameter("start");
 		String end = req.getParameter("end");
 		Boolean[] days = new Boolean[7];
+		
+		for(int i = 0; i < 7; i++){
+			days[i] = false;
+		}
+		
 		if(req.getParameter("Monday") != null)
 			days[1] = true;
 		if(req.getParameter("Tuesday") != null)

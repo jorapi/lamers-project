@@ -53,14 +53,14 @@ public class Course {
 	public Course(String courseTitle) {
 		this.courseTitle = courseTitle;
 		studentList = new HashSet<Student>();
-		DaysToMeet = new Boolean[7];
+		DaysToMeet = createDaysArray();
 	}
 	
 	public Course(String courseTitle, Instructor courseInstructor){
 		this.courseInstructor = courseInstructor;
 		this.courseTitle = courseTitle;
 		studentList = new HashSet<Student>();
-		DaysToMeet = new Boolean[7];
+		DaysToMeet = createDaysArray();
 	}
 	
 	public Course(String courseTitle, Instructor courseInstructor, String location, String start, String end){
@@ -68,7 +68,7 @@ public class Course {
 		this.courseTitle = courseTitle;
 		this.courseLocation = location;
 		studentList = new HashSet<Student>();
-		DaysToMeet = new Boolean[7];
+		DaysToMeet = createDaysArray();
 		this.endTime = end;
 		this.startTime = start;
 	}
@@ -78,7 +78,7 @@ public class Course {
 		this.courseTitle = courseTitle;
 		this.courseLocation = location;
 		studentList = new HashSet<Student>();
-		DaysToMeet = new Boolean[7];
+		DaysToMeet = createDaysArray();
 		this.endTime = end;
 		this.startTime = start;
 	}
@@ -257,5 +257,15 @@ public class Course {
 
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+	
+	private Boolean[] createDaysArray(){
+		Boolean[] tempDays = new Boolean[7];
+		
+		for (int i = 0; i < 7; i++){
+			tempDays[0] = false;
+		}
+		
+		return tempDays;
 	}
 }

@@ -50,13 +50,15 @@ public class ViewCoursesServlet extends HttpServlet {
 			resp.getWriter().println("<td>");
 			resp.getWriter().println("<ul>");
 			Boolean[] b = c.getDaysToMeet();
-			if(b[0]){ resp.getWriter().println("<li>Sunday<li>");}
-			if(b[1]){ resp.getWriter().println("<li>Monday<li>");}
-			if(b[2]){ resp.getWriter().println("<li>Tuesday<li>");}
-			if(b[3]){ resp.getWriter().println("<li>Wednesday<li>");}
-			if(b[4]){ resp.getWriter().println("<li>Thursday<li>");}
-			if(b[5]){ resp.getWriter().println("<li>Friday<li>");}
-			if(b[6]){ resp.getWriter().println("<li>Saturday<li>");}
+			if (b != null){
+				if(b[0] != null && b[0] == true){ resp.getWriter().println("<li>Sunday<li>");}
+				if(b[1] != null && b[1] == true){ resp.getWriter().println("<li>Monday<li>");}
+				if(b[2] != null && b[2] == true){ resp.getWriter().println("<li>Tuesday<li>");}
+				if(b[3] != null && b[3] == true){ resp.getWriter().println("<li>Wednesday<li>");}
+				if(b[4] != null && b[4] == true){ resp.getWriter().println("<li>Thursday<li>");}
+				if(b[5] != null && b[5] == true){ resp.getWriter().println("<li>Friday<li>");}
+				if(b[6] != null && b[6] == true){ resp.getWriter().println("<li>Saturday<li>");}
+			}
 			resp.getWriter().println("</ul>");
 			resp.getWriter().println("</td>");
 			
