@@ -62,7 +62,7 @@ public class CreateCourseServlet extends HttpServlet
 		PersistenceManager pm = getPersistenceManager();
 		
 		for (Instructor instructor : (List<Instructor>) pm.newQuery(Instructor.class).execute()) {		
-			if(InstructorName.equals(instructor.getFirstName() + " " + instructor.getLastName()))
+			if(("" + instructor.getKey().getId()).equals(instructor))
 				in = instructor;
 		} 
 		

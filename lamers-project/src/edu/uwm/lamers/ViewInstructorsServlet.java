@@ -29,7 +29,7 @@ public class ViewInstructorsServlet extends HttpServlet {
 		
 		resp.getWriter().println("<body>");
 		
-		resp.getWriter().println("<table id='instructors'>");
+		resp.getWriter().println("<table id='students'>");
 		resp.getWriter().println("<caption>Instructors</caption>");
 		resp.getWriter().println("<tr>");
 		resp.getWriter().println("<th>First Name</th>");
