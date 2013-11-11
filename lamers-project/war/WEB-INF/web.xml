@@ -73,6 +73,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/CreateCourse</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>CreateAdminServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.CreateAdminServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>CreateAdminServlet</servlet-name>
+		<url-pattern>/SuperSecretCreateAdmin</url-pattern>
+	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>LoginServlet</servlet-name>
 		<url-pattern>/login</url-pattern>

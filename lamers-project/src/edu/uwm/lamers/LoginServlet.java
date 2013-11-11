@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet
 				Cookie c = new Cookie("username", req.getParameter("user_name"));
 
 				resp.addCookie(c);
-				resp.sendRedirect("/student.html");
+				resp.sendRedirect("/student-home.html");
 				return;
 			}
 		}
@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet
 				Cookie c = new Cookie("username", req.getParameter("user_name"));
 
 				resp.addCookie(c);
-				resp.sendRedirect("/instructor.html");
+				resp.sendRedirect("/instructor-home.html");
 				return;
 			}
 		}
@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet
 				Cookie c = new Cookie("username", req.getParameter("user_name"));
 
 				resp.addCookie(c);
-				resp.sendRedirect("/admin.html");
+				resp.sendRedirect("/admin-home.html");
 				return;
 			}
 		}
@@ -83,15 +83,15 @@ public class LoginServlet extends HttpServlet
 		resp.setContentType("text/html");
 
 		resp.getWriter().println("<h2>Login Page</h2>");
-		resp.getWriter().println("<form action='/login' method='POST'>");
+		resp.getWriter().println("<form action='/login' method='POST' target='_top'>");
 		resp.getWriter().println("<table cellpadding='5'>");
 		resp.getWriter().println("<tr>");
-		resp.getWriter().println("<td>User Name: </td>");
+		resp.getWriter().println("<td>Email Address: </td>");
 		resp.getWriter().println("<td><input type='text' name='user_name'></td>");
 		resp.getWriter().println("</tr>");
 		resp.getWriter().println("<tr>");
 		resp.getWriter().println("<td>Password: </td>");
-		resp.getWriter().println("<td><input type='text' name='password'></td>");		
+		resp.getWriter().println("<td><input type='password' name='password'></td>");		
 		resp.getWriter().println("</table>");
 		
 		resp.getWriter().println("</table>");
