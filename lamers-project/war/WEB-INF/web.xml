@@ -113,7 +113,17 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>WelcomeServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.WelcomeServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>WelcomeServlet</servlet-name>
+		<url-pattern>/Welcome</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
-		<welcome-file>login.html</welcome-file>
+		<welcome-file>Welcome</welcome-file>
 	</welcome-file-list>
 </web-app>
