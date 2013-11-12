@@ -115,4 +115,51 @@ public class TestCourse {
 		c = new Course("Test Course", i);
 		assertTrue(c.getInstructor() == i);
 	}
+	
+	@Test
+	public void testContainsStudent() {
+		Student s1 = new Student("John", "Smith", "jsmith@gmail.com");
+		Student s2 = new Student("Jane", "Witherspoon", "jwitherspoon@gmail.com");
+		Student s3 = new Student("Dale", "Hampton", "dhampton@gmail.com");
+		
+		c.addStudent(s1);
+		c.addStudent(s2);
+		
+		assertFalse(c.containsStudent(s3));
+		assertTrue(c.containsStudent(s1));
+		
+	}
+	
+	@Test
+	public void testAddMeetingDay(){
+		c.addMeetingDay("Monday");
+		c.addMeetingDay("ThuRsday");
+		
+		assertFalse(c.getDaysToMeet()[0]);
+		assertTrue(c.getDaysToMeet()[1]);
+		assertFalse(c.getDaysToMeet()[2]);
+		assertFalse(c.getDaysToMeet()[3]);
+		assertTrue(c.getDaysToMeet()[4]);
+		assertFalse(c.getDaysToMeet()[5]);
+		assertFalse(c.getDaysToMeet()[6]);
+	}
+	
+	@Test
+	public void testRemoveMeetingDay(){
+		c.addMeetingDay("Sunday");
+		c.addMeetingDay("Monday");
+		c.addMeetingDay("ThuRsday");
+		
+		assertTrue(c.getDaysToMeet()[0]);
+		
+		c.removeMeetingDay("Sunday");
+		
+		assertFalse(c.getDaysToMeet()[0]);
+		assertTrue(c.getDaysToMeet()[1]);
+		assertFalse(c.getDaysToMeet()[2]);
+		assertFalse(c.getDaysToMeet()[3]);
+		assertTrue(c.getDaysToMeet()[4]);
+		assertFalse(c.getDaysToMeet()[5]);
+		assertFalse(c.getDaysToMeet()[6]);
+	}
 }

@@ -284,7 +284,7 @@ public class Course {
 		Boolean[] tempDays = new Boolean[7];
 		
 		for (int i = 0; i < 7; i++){
-			tempDays[0] = false;
+			tempDays[i] = false;
 		}
 		
 		return tempDays;
