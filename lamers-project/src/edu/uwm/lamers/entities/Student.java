@@ -61,7 +61,10 @@ public class Student extends User {
 	 * @return student's current balance
 	 */
 	public double getBalance(){
-		return payPlan.getBalance();
+		if(payPlan != null){
+			return payPlan.getBalance();
+		}
+		else return 0;
 	}
 	
 	/**
