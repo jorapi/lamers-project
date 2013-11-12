@@ -25,6 +25,23 @@ public class CreateStudentServlet extends HttpServlet
 {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+boolean privaledged = false;
+		
+		try {
+			for (Cookie c : req.getCookies()){
+				if (c.getName().equals("priv") && c.getValue().equals("admin"))
+					privaledged = true;
+			}
+		} catch (NullPointerException e){
+			
+		}
+		
+		if (!privaledged) {
+			resp.setContentType("text/html");
+			resp.getWriter().println("<h2>Error: Not authorized</h2>");
+			return;
+		}
+		
 		printForm(resp);
 	}
 	

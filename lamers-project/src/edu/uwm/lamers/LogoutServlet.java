@@ -13,9 +13,9 @@ public class LogoutServlet extends HttpServlet
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
-		Cookie c = new Cookie("username", null);
+		Cookie c = new Cookie("priv", null);
 		c.setMaxAge(0);
-
+		
 		resp.addCookie(c);
 		resp.sendRedirect("/login.html");
 	}

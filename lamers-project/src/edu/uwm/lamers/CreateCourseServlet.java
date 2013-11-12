@@ -25,6 +25,24 @@ public class CreateCourseServlet extends HttpServlet
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
 	{
+		
+		boolean privaledged = false;
+		
+		try {
+			for (Cookie c : req.getCookies()){
+				if (c.getName().equals("priv") && c.getValue().equals("admin"))
+					privaledged = true;
+			}
+		} catch (NullPointerException e){
+			
+		}
+		
+		if (!privaledged) {
+			resp.setContentType("text/html");
+			resp.getWriter().println("<h2>Error: Not authorized</h2>");
+			return;
+		}
+		
 		PersistenceManager pm = getPersistenceManager();
 		
 		if(((List<Instructor>) pm.newQuery(Instructor.class).execute()).size() != 0){
