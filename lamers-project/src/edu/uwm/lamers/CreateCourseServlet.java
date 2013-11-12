@@ -86,6 +86,9 @@ public class CreateCourseServlet extends HttpServlet
 		} finally {
 			pm.close();
 		}
+		
+		resp.getWriter().println("<h2>Class created successfully!</h2>");
+		printForm(resp);
 	}
 	
 	private PersistenceManager getPersistenceManager()
@@ -159,7 +162,7 @@ public class CreateCourseServlet extends HttpServlet
 		resp.getWriter().println("</tr>");
 			
 		resp.getWriter().println("</table>");
-		resp.getWriter().println("<input type='submit' value='Create Class'>");
+		resp.getWriter().println("<br><input type='submit' value='Create Class'>");
 		resp.getWriter().println("</form>");
 	}
 }
