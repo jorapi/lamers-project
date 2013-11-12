@@ -31,52 +31,18 @@ public class TestStudent {
 	}
 	
 	@Test
-	public void testBalance() {
-		
-		assertTrue(s.getBalance() == 0.0);
-		
-		s.setBalance(100.00);
-		
-		assertTrue(s.getBalance() == 100.0);
-	}
-	
-	@Test
-	public void testAddToBalance(){
-		s.addToBalance(100.00);
-		
-		assertTrue(s.getBalance() == 100.0);
-	}
-	
-	@Test
-	public void testRemoveFromBalance(){
-		s.setBalance(100.0);
-		s.removeFromBalance(50.0);
-		
-		assertTrue(s.getBalance() == 50.0);
-		
-		try{
-			s.removeFromBalance(100.0);
-			fail("Exception not thrown (removed more than balance contained)");
-		} catch (IllegalArgumentException e){
-			//do nothing
-		} catch (Exception e){
-			fail("Wrong exception thrown");
-		}
-	}
-	
-	@Test
 	public void testAddRemoveCourse(){
 		Course c = new Course("Test Course");
 		
 		s.addCourse(c);
 		assertTrue(s.getCourses().size() == 1);
 		
-		assertTrue(s.getBalance() == c.getCost());
+		assertTrue(s.getPaymentPlan().getBalance() == c.getCost());
 		
 		s.removeCourse(c);
 		assertTrue(s.getCourses().size() == 0);
 		
-		assertTrue(s.getBalance() == 0);
+		assertTrue(s.getPaymentPlan().getBalance() == 0);
 	}
 	
 	@Test

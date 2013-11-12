@@ -14,10 +14,6 @@ import com.google.appengine.datanucleus.annotations.Unowned;
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME)
 public class Student extends User {
 	
-
-	@Persistent
-	private double balance;
-	
 	@Persistent
 	@Unowned
 	private Set<Course> coursesEnrolled;
@@ -57,39 +53,15 @@ public class Student extends User {
 
 	public Student(String firstName, String lastName, String email) {
 		super(firstName, lastName, email);
-		balance = 0.00;
 		coursesEnrolled = new HashSet<Course>();
+		payPlan = new PaymentPlan();
 	}
 	
 	/**
 	 * @return student's current balance
 	 */
 	public double getBalance(){
-		return balance;
-	}
-	
-	/**
-	 * @param balance Balance to be set
-	 */
-	public void setBalance(double balance){
-		this.balance = balance;
-	}
-	
-	/**
-	 * @param addition amount to add to balance
-	 */
-	public void addToBalance(double addition){
-		this.balance += addition;
-	}
-	
-	/**
-	 * @param remova amount to remove from balance
-	 */
-	public void removeFromBalance(double removal){
-		if(this.balance < removal){
-			throw new IllegalArgumentException();
-		}
-		this.balance -= removal;
+		return payPlan.getBalance();
 	}
 	
 	/**
@@ -105,7 +77,7 @@ public class Student extends User {
 	 */
 	public boolean addCourse(Course c){
 		if (coursesEnrolled.add(c)){
-			balance += c.getCost();
+			payPlan.addToBalance(c.getCost());
 			return true;
 		}
 		
@@ -118,7 +90,7 @@ public class Student extends User {
 	 */
 	public boolean removeCourse(Course c){
 		if (coursesEnrolled.remove(c)){
-			balance -= c.getCost();
+			payPlan.removeFromBalance(c.getCost());
 			return true;
 		}
 		
@@ -137,10 +109,6 @@ public class Student extends User {
 	 */
 	public PaymentPlan getPaymentPlan() {
 		return payPlan;
-	}
-	
-	public void makePayment(){
-		balance -= payPlan.getPaymentAmount(balance);
 	}
 	
 }

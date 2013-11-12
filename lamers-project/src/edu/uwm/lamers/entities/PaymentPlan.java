@@ -65,6 +65,10 @@ public class PaymentPlan {
 		balance = bal;
 		setMinimumPayment();
 	}
+	
+	public PaymentPlan() {
+		setMinimumPayment();
+	}
 
 	public void setStartDate(Calendar start) {
 		if (previousPayments.size() != 0) {
