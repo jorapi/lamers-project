@@ -58,7 +58,7 @@ public class ViewRevenueServlet extends HttpServlet {
 		for (Instructor in : (List<Instructor>) pm.newQuery(Instructor.class).execute()) {
 			resp.getWriter().println("<tr>");
 			
-			resp.getWriter().println("<td>" + in.getFirstName() + " " + in.getFirstName() + "</td>");
+			resp.getWriter().println("<td>" + in.getFirstName() + " " + in.getLastName() + "</td>");
 			
 			resp.getWriter().println("<td>");
 			resp.getWriter().println("<ul>");
