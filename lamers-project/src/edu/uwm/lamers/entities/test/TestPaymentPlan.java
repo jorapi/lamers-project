@@ -2,7 +2,7 @@ package edu.uwm.lamers.entities.test;
 
 import static org.junit.Assert.*;
 
-import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,9 +12,9 @@ import edu.uwm.lamers.entities.PaymentPlan;
 public class TestPaymentPlan {
 
 	PaymentPlan p;
-	Calendar c1 = Calendar.getInstance();
-	Calendar c2 = Calendar.getInstance();
-	Calendar c3 = Calendar.getInstance();
+	Date c1 = new Date(11, 12, 13);
+	Date c2 = new Date(11, 12, 13);
+	Date c3 = new Date(11, 12, 13);
 	
 	@Before
 	public void setUp() throws Exception {
@@ -23,8 +23,13 @@ public class TestPaymentPlan {
 
 	@Test
 	public void testConstructor() {
-		c1.set(2014, 1, 26);
-		c2.set(2014, 5, 21);
+		c1.setYear(2014);
+		c1.setMonth(1);
+		c1.setDate(26);
+		
+		c2.setYear(2014);
+		c2.setMonth(5);
+		c2.setDate(21);
 		
 		try {
 			p = new PaymentPlan(c2, c1, 4435.00);
@@ -51,7 +56,7 @@ public class TestPaymentPlan {
 	public void testSetStartDateAfterPayment() {
 		p.makePayment(p.getMinimumPayment(), c1);
 		
-		c1.add(Calendar.MONTH, 1);
+		c1.setMinutes(c1.getDate() + 1);
 		
 		try {
 			p.setStartDate(c1);
@@ -89,8 +94,8 @@ public class TestPaymentPlan {
 	
 	@Test
 	public void testMakePaymentInvalidDate() {
-		c3 = (Calendar) p.getDueDate().clone();
-		c3.add(Calendar.DAY_OF_MONTH, 1);
+		c3 = (Date) p.getDueDate().clone();
+		c3.setMonth(c1.getDate() + 2);
 		assertFalse(p.makePayment(p.getMinimumPayment(), c3));
 	}
 	

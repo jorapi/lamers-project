@@ -23,7 +23,6 @@ public class Student extends User {
 	private Set<Award> awards;
 	
 	@Persistent
-	@Unowned
 	private PaymentPlan payPlan;
 	
 	@Persistent

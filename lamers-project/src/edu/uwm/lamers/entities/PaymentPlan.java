@@ -1,6 +1,8 @@
 package edu.uwm.lamers.entities;
 
+
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,13 +26,13 @@ public class PaymentPlan {
 	private Key key;
 
 	@Persistent
-	private Calendar startDate;
+	private Date startDate;
 
 	@Persistent
-	private Calendar dueDate;
+	private Date dueDate;
 
 	@Persistent
-	private Calendar endDate;
+	private Date endDate;
 
 	@Persistent
 	private double balance;
@@ -52,7 +54,7 @@ public class PaymentPlan {
 		return key;
 	}
 
-	public PaymentPlan(Calendar start, Calendar end, double bal) {
+	public PaymentPlan(Date start, Date end, double bal) {
 		if (start.after(end)) {
 			throw new IllegalStateException("start date must be before end date");
 		} else if (bal < 0) {
@@ -70,7 +72,7 @@ public class PaymentPlan {
 		setMinimumPayment();
 	}
 
-	public void setStartDate(Calendar start) {
+	public void setStartDate(Date start) {
 		if (previousPayments.size() != 0) {
 			throw new IllegalStateException();
 		}
@@ -79,20 +81,20 @@ public class PaymentPlan {
 		setMinimumPayment();
 	}	
 
-	public Calendar getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}	
 
-	public void setEndtDate(Calendar end) {
+	public void setEndtDate(Date end) {
 		endDate = end;
 		setMinimumPayment();
 	}	
 
-	public Calendar getEndDate(Calendar end) {
+	public Date getEndDate(Calendar end) {
 		return endDate;
 	}
 	
-	public Calendar getDueDate() {
+	public Date getDueDate() {
 		return dueDate;
 	}
 
@@ -103,7 +105,10 @@ public class PaymentPlan {
 
 	public void addToBalance(double amount) {
 		balance += amount;
-		setMinimumPayment();
+		
+		if(endDate != null && dueDate != null){
+			setMinimumPayment();
+		}
 	}
 
 	public void removeFromBalance(double amount) {
@@ -118,7 +123,7 @@ public class PaymentPlan {
 		return balance;
 	}
 
-	public boolean makePayment(double amount, Calendar date) {
+	public boolean makePayment(double amount, Date date) {
 		if (balance == 0) {
 			return false;
 		}
@@ -131,7 +136,13 @@ public class PaymentPlan {
 		balance -= amount;
 		setMinimumPayment();
 
-		dueDate.add(Calendar.MONTH, 1);
+		
+		if (dueDate.getMonth() == 11){
+			dueDate.setMonth(0);
+		} else {
+			dueDate.setMonth(dueDate.getMonth() + 1);
+		}
+		
 		previousPayments.add(new Payment(amount,date));
 
 		return true;
@@ -145,7 +156,7 @@ public class PaymentPlan {
 		if (balance <= 100) {
 			minimumPayment = balance;
 		} else {
-			int length = endDate.get(Calendar.MONTH) - dueDate.get(Calendar.MONTH);
+			int length = endDate.getMonth() - dueDate.getMonth();
 			minimumPayment = balance / length;
 		}
 	}

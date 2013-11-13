@@ -1,6 +1,7 @@
 package edu.uwm.lamers.entities;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.jdo.annotations.Discriminator;
 import javax.jdo.annotations.DiscriminatorStrategy;
@@ -20,9 +21,9 @@ public class Payment {
 	private Key key;
 	
 	private double amount;
-	private Calendar date;
+	private Date date;
 	
-	public Payment(double amount, Calendar date) {
+	public Payment(double amount, Date date) {
 		this.amount = amount;
 		this.date = date;
 	}
@@ -35,11 +36,11 @@ public class Payment {
 		return amount;
 	}
 	
-	public void setDate(Calendar date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	
-	public Calendar getDate() {
+	public Date getDate() {
 		return date;
 	}
 }
