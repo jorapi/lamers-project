@@ -4,5 +4,10 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.8.7/appengine-java-sdk-1.8.7/lib/opt/user/datanucleus/v2/datanucleus-appengine-2.1.2.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.8.7/appengine-java-sdk-1.8.7/docs/javadoc/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
