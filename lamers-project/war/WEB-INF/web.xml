@@ -14,6 +14,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>ClassListServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.ClassListServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ClassListServlet</servlet-name>
+		<url-pattern>/classlist</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>ClearServlet</servlet-name>
 		<servlet-class>edu.uwm.lamers.ClearServlet</servlet-class>
 	</servlet>

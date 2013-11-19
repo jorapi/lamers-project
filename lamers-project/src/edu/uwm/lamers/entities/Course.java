@@ -69,6 +69,10 @@ public class Course {
 	public double getCost() {
 		return cost;
 	}
+	
+	public Set<Student> getClasslist(){
+		return this.studentList;
+	}
 
 	/**
 	 * @param cost the cost to set

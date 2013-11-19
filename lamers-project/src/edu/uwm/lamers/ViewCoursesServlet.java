@@ -60,7 +60,12 @@ public class ViewCoursesServlet extends HttpServlet {
 		for (Course c : (List<Course>) pm.newQuery(Course.class).execute()) {
 			resp.getWriter().println("<tr>");
 			
-			resp.getWriter().println("<td>" + c.getTitle() + "</td>");
+			resp.getWriter().println("<td>" );
+			
+			resp.getWriter().println("<div id='create-link'>");
+			resp.getWriter().println("<a class='list' href='/classlist' target='content'>" + c.getTitle()+"</a>");
+			resp.getWriter().println("</div></td>");
+			
 			
 			if(c.getInstructor() != null){
 				resp.getWriter().println("<td>" + c.getInstructor().getFirstName() + " " + c.getInstructor().getLastName() + "</td>");
