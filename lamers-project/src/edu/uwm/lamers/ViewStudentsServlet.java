@@ -1,5 +1,7 @@
 package edu.uwm.lamers;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class ViewStudentsServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		boolean privaledged = false;
+		String title = getStudentTitle();
 		
 		try {
 			for (Cookie c : req.getCookies()){
@@ -47,7 +50,7 @@ public class ViewStudentsServlet extends HttpServlet {
 		resp.getWriter().println("<body>");
 		
 		resp.getWriter().println("<table id='students'>");
-		resp.getWriter().println("<caption>Enrolled Students</caption>");
+		resp.getWriter().println("<caption>" + title + " List</caption>");
 		resp.getWriter().println("<tr>");
 		resp.getWriter().println("<th>First Name</th>");
 		resp.getWriter().println("<th>Last Name</th>");
@@ -95,7 +98,7 @@ public class ViewStudentsServlet extends HttpServlet {
 		resp.getWriter().println("</table>");
 		
 		resp.getWriter().println("<div id='enroll-link'>");
-		resp.getWriter().println("<a class='enroll' href='/CreateStudent' target='content'>Create New Student</a>");
+		resp.getWriter().println("<a class='enroll' href='/CreateStudent' target='content'>Create New " + title + "</a>");
 		resp.getWriter().println("</div>");
 		
 		resp.getWriter().println("</body>");
@@ -104,5 +107,18 @@ public class ViewStudentsServlet extends HttpServlet {
 	
 	private PersistenceManager getPersistenceManager() {
 		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
+	}
+	
+	private String getStudentTitle() throws IOException{
+		String name;
+		
+		BufferedReader br = new BufferedReader(new FileReader("terms.txt"));
+	    try {
+	        br.readLine();
+	        name = br.readLine();
+	    } finally {
+	        br.close();
+	    }
+	    return name;
 	}
 }

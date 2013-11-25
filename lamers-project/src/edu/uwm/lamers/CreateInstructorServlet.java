@@ -1,4 +1,6 @@
 package edu.uwm.lamers;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 import java.sql.Time;
@@ -77,9 +79,11 @@ public class CreateInstructorServlet extends HttpServlet
 
 		PersistenceManager pm = getPersistenceManager();
 		
+		String title = getInstructorTitle();
+		
 		resp.setContentType("text/html");
 
-		resp.getWriter().println("<h2>Create Instructor</h2>");
+		resp.getWriter().println("<h2>Create " + title + "</h2>");
 		resp.getWriter().println("<form action='/CreateInstructor' method='post'>");
 		resp.getWriter().println("<table cellpadding='5'>");
 		
@@ -104,8 +108,20 @@ public class CreateInstructorServlet extends HttpServlet
 		resp.getWriter().println("</tr>");
 		
 		resp.getWriter().println("</table>");
-		resp.getWriter().println("<input type='submit' value='Create Instructor'>");
+		resp.getWriter().println("<input type='submit' value='Create " + title + "'>");
 		resp.getWriter().println("</form>");
 		
+	}
+	
+	private String getInstructorTitle() throws IOException{
+		String name;
+		
+		BufferedReader br = new BufferedReader(new FileReader("terms.txt"));
+	    try {
+	        name = br.readLine();
+	    } finally {
+	        br.close();
+	    }
+	    return name;
 	}
 }

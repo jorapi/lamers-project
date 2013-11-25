@@ -1,4 +1,6 @@
 package edu.uwm.lamers;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 import java.sql.Time;
@@ -96,7 +98,7 @@ boolean privaledged = false;
 		
 		resp.setContentType("text/html");
 
-		resp.getWriter().println("<h2>Create Student</h2>");
+		resp.getWriter().println("<h2>Create " + getStudentTitle() + "</h2>");
 		resp.getWriter().println("<form action='/CreateStudent' method='post'>");
 		resp.getWriter().println("<table cellpadding='5'>");
 		
@@ -140,8 +142,21 @@ boolean privaledged = false;
 		resp.getWriter().println("</tr>");
 		
 		resp.getWriter().println("</table>");
-		resp.getWriter().println("<input type='submit' value='Create Student'>");
+		resp.getWriter().println("<input type='submit' value='Create " + getStudentTitle() + "'>");
 		resp.getWriter().println("</form>");
 		
+	}
+	
+	private String getStudentTitle() throws IOException{
+		String name;
+		
+		BufferedReader br = new BufferedReader(new FileReader("terms.txt"));
+	    try {
+	        br.readLine();
+	        name = br.readLine();
+	    } finally {
+	        br.close();
+	    }
+	    return name;
 	}
 }
