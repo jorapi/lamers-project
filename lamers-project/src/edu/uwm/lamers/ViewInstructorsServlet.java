@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,7 @@ import edu.uwm.lamers.entities.Student;
 
 public class ViewInstructorsServlet extends HttpServlet {
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		
 		boolean privaledged = false;
 		
@@ -46,51 +47,7 @@ public class ViewInstructorsServlet extends HttpServlet {
 			return;
 		}
 		
-		
-		PersistenceManager pm = getPersistenceManager();
-		
-		resp.setContentType("text/html");
-		
-		resp.getWriter().println("<head>");
-		resp.getWriter().println("<link rel='stylesheet' type='text/css' href='styles/viewstudent.css'>");
-		resp.getWriter().println("</head>");
-		
-		resp.getWriter().println("<body>");
-		
-		resp.getWriter().println("<table id='students'>");
-		resp.getWriter().println("<caption>" + getInstructorTitle() + " List</caption>");
-		resp.getWriter().println("<tr>");
-		resp.getWriter().println("<th>First Name</th>");
-		resp.getWriter().println("<th>Last Name</th>");
-		resp.getWriter().println("<th>Email</th>");
-		resp.getWriter().println("<th>Classes Teaching</th>");
-		resp.getWriter().println("</tr>");
-		
-		for (Instructor in : (List<Instructor>) pm.newQuery(Instructor.class).execute()) {
-			resp.getWriter().println("<tr>");
-			
-			resp.getWriter().println("<td>" + in.getFirstName() + "</td>");
-			resp.getWriter().println("<td>" + in.getLastName() + "</td>");
-			resp.getWriter().println("<td>" + in.getEmail() + "</td>");
-			
-			resp.getWriter().println("<td>");
-			resp.getWriter().println("<ul>");
-			for(Course c : in.getCourses()){
-				resp.getWriter().println("<li>" + c.getTitle() + "</li>");
-			}
-			resp.getWriter().println("</ul>");
-			resp.getWriter().println("</td>");
-			
-			resp.getWriter().println("</tr>");
-	    }
-		
-		resp.getWriter().println("</table>");
-		
-		resp.getWriter().println("<div id='enroll-link'>");
-		resp.getWriter().println("<a class='enroll' href='/CreateInstructor' target='content'>Create New " + getInstructorTitle() +"</a>");
-		resp.getWriter().println("</div>");
-		
-		resp.getWriter().println("</body>");
+		req.getRequestDispatcher("view_instructors.jsp").forward(req, resp);
 
 	}
 	
@@ -98,15 +55,4 @@ public class ViewInstructorsServlet extends HttpServlet {
 		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 	}
 	
-	private String getInstructorTitle() throws IOException{
-		String name;
-		
-		BufferedReader br = new BufferedReader(new FileReader("terms.txt"));
-	    try {
-	        name = br.readLine();
-	    } finally {
-	        br.close();
-	    }
-	    return name;
-	}
 }

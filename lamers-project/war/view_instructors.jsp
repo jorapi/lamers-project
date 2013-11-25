@@ -18,7 +18,7 @@
 
 <%
 	PersistenceManager pm = JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
-	List<Student> students = (List<Student>) pm.newQuery(Student.class).execute();
+	List<Instructor> instructors = (List<Instructor>) pm.newQuery(Instructor.class).execute();
 %>
 
 <html>
@@ -27,40 +27,23 @@
 	</head>
 	<body>
 		<table id='students'>
-			<caption><%= student %> List</caption>
+			<caption><%= instructor %> List</caption>
 			<tr>	
 				<th>First Name</th>
 				<th>Last Name</th>
 				<th>Email</th>
 				<th><%= course %> List</th>
-				<th>Demographic</th>
-				<th>Balance Due</th>
-				<th>Awards</th>
 			</tr>
 			
-			<% for (Student s : students) { %>
+			<% for (Instructor i : instructors) { %>
 				<tr>
-					<td><%= s.getFirstName() %></a></td>
-					<td><%= s.getLastName() %></td>
-					<td><%= s.getEmail() %></td>
+					<td><%= i.getFirstName() %></a></td>
+					<td><%= i.getLastName() %></td>
+					<td><%= i.getEmail() %></td>
 					
 					<td><ul>
-						<% for (Course c : s.getCourses()) { %>
+						<% for (Course c : i.getCourses()) { %>
 							<li><%= c.getTitle() %></li>
-						<% } %>
-					</ul></td>
-					
-					<td>
-						<c:if test="${not empty s.demographic}">
-							<%= s.getDemo().getTitle() %>
-						</c:if>
-					</td>
-					
-					<td><%= s.getBalance() %></td>
-					
-					<td><ul>
-						<% for (Award a : s.getAwards()) { %>
-							<li><%= a.getAwardTitle() %></li>
 						<% } %>
 					</ul></td>
 					
@@ -69,7 +52,7 @@
 		</table>
 		
 		<div id='create-link'>
-			<a class='enroll' href='/CreateStudent' target='content'>Create New <%= student %></a>
+			<a class='enroll' href='/CreateInstructor' target='content'>Create New <%= instructor %></a>
 		</div>
 		
 	</body>
