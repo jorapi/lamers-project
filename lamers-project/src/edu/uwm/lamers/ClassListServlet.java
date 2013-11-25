@@ -26,8 +26,21 @@ public class ClassListServlet extends HttpServlet
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException
 	{
-		 String c = req.getParameter("course");
 		 PersistenceManager pm = getPersistenceManager();
+		
+		 String c = req.getParameter("course");
+		 Course course = null;
+		 
+		 for (Course cse : (List<Course>) pm.newQuery(Course.class).execute()) {		
+				if(cse.getTitle().equals(c)){
+					course = cse;
+				}
+		 }
+		 
+		req.setAttribute("course", course);
+		req.setAttribute("students", course.getClasslist());
+		req.getRequestDispatcher("class_list.jsp").forward(req, resp);
+		 /*PersistenceManager pm = getPersistenceManager();
 			
 			resp.setContentType("text/html");
 			
@@ -87,7 +100,7 @@ public class ClassListServlet extends HttpServlet
 					resp.getWriter().println("</tr>");
 			    }
 				}
-			}
+			}*/
 		}
 					
 	

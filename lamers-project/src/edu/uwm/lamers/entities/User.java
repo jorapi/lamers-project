@@ -60,6 +60,13 @@ public class User {
 	public String getLastName() {
 		return lastName;
 	}
+	
+	/**
+	 * @return the User's name, in format "Firstname Lastname"
+	 */
+	public String getName(){
+		return ("" + firstName + " " + lastName);
+	}
 
 	/**
 	 * @param lastName the lastName to set

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +18,7 @@ import edu.uwm.lamers.entities.Student;
 
 public class ViewCoursesServlet extends HttpServlet {
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		boolean privaledged = false;
 		
 		try {
@@ -36,9 +37,13 @@ public class ViewCoursesServlet extends HttpServlet {
 		}
 		
 		
-		PersistenceManager pm = getPersistenceManager();
+		/*PersistenceManager pm = getPersistenceManager();
+		List<Course> courses = (List<Course>) pm.newQuery(Course.class).execute();
 		
-		resp.setContentType("text/html");
+		req.setAttribute("courses", courses);*/
+		req.getRequestDispatcher("view_courses.jsp").forward(req, resp);
+		
+		/*resp.setContentType("text/html");
 		
 		resp.getWriter().println("<head>");
 		resp.getWriter().println("<link rel='stylesheet' type='text/css' href='styles/viewstudent.css'>");
@@ -102,7 +107,7 @@ public class ViewCoursesServlet extends HttpServlet {
 		resp.getWriter().println("</div>");
 		
 		resp.getWriter().println("</body>");
-
+		*/
 	}
 	
 	private PersistenceManager getPersistenceManager() {

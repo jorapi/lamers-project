@@ -293,4 +293,18 @@ public class Course {
 		
 		return tempDays;
 	}
+	
+	public Set<String> getMeetingDays(){
+		Set<String> days = new HashSet<String>();
+		
+		if(DaysToMeet[0] != null && DaysToMeet[0] == true){ days.add("Sunday");}
+		if(DaysToMeet[1] != null && DaysToMeet[1] == true){ days.add("Monday");}
+		if(DaysToMeet[2] != null && DaysToMeet[2] == true){ days.add("Tuesday");}
+		if(DaysToMeet[3] != null && DaysToMeet[3] == true){ days.add("Wednesday");}
+		if(DaysToMeet[4] != null && DaysToMeet[4] == true){ days.add("Thursday");}
+		if(DaysToMeet[5] != null && DaysToMeet[5] == true){ days.add("Friday");}
+		if(DaysToMeet[6] != null && DaysToMeet[6] == true){ days.add("Saturday");}
+		
+		return days;
+	}
 }
