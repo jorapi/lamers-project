@@ -18,7 +18,7 @@
 
 <%
 	PersistenceManager pm = JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
-	List<Course> courses = (List<Course>) pm.newQuery(Course.class).execute();
+	List<Student> students = (List<Student>) pm.newQuery(Student.class).execute();
 %>
 
 <html>
@@ -27,34 +27,49 @@
 	</head>
 	<body>
 		<table id='students'>
-			<caption><%= course %> List</caption>
+			<caption><%= student %> List</caption>
 			<tr>	
-				<th>Course Title</th>
-				<th>Instructor Name</th>
-				<th>Size</th>
-				<th>Location</th>
-				<th>Meeting days</th>
-				<th>Meeting Time</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email</th>
+				<th><%= course %> List</th>
+				<th>Demographic</th>
+				<th>Balance Due</th>
+				<th>Awards</th>
 			</tr>
 			
-			<% for (Course c : courses) { %>
+			<% for (Student s : students) { %>
 				<tr>
-					<td><div id='create-link'><a class='list' href='/classlist' target='content'><%= c.getTitle() %></a></div></td>
-					<td><%= c.getInstructor().getName() %></td>
-					<td><%= c.size() %></td>
-					<td><%= c.getLocation() %></td>
+					<td><%= s.getFirstName() %></a></td>
+					<td><%= s.getLastName() %></td>
+					<td><%= s.getEmail() %></td>
+					
 					<td><ul>
-						<% for (String s : c.getMeetingDays()) { %>
-							<li><%= s %></li>
+						<% for (Course c : s.getCourses()) { %>
+							<li><%= c.getTitle() %></li>
 						<% } %>
 					</ul></td>
-					<td><%= c.getStartTime() %> - <%= c.getEndTime() %></td>
+					
+					<td>
+						<c:if test="${not empty s.demographic}">
+							<%= s.getDemo().getTitle() %>
+						</c:if>
+					</td>
+					
+					<td><%= s.getBalance() %></td>
+					
+					<td><ul>
+						<% for (Award a : s.getAwards()) { %>
+							<li><%= a.getAwardTitle() %></li>
+						<% } %>
+					</ul></td>
+					
 				</tr>
 			<% } %>
 		</table>
 		
 		<div id='create-link'>
-			<a class='enroll' href='/CreateCourse' target='content'>Create New <%= course %></a>
+			<a class='enroll' href='/CreateCourse' target='content'>Create New <%= student %></a>
 		</div>
 		
 	</body>

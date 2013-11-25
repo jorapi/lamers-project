@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,9 +20,8 @@ import edu.uwm.lamers.entities.Student;
 
 public class ViewStudentsServlet extends HttpServlet {
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		boolean privaledged = false;
-		String title = getStudentTitle();
 		
 		try {
 			for (Cookie c : req.getCookies()){
@@ -37,8 +37,10 @@ public class ViewStudentsServlet extends HttpServlet {
 			resp.getWriter().println("<h2>Error: Not authorized</h2>");
 			return;
 		}
+		 
+		req.getRequestDispatcher("view_students.jsp").forward(req, resp);
 		
-		
+		/*
 		PersistenceManager pm = getPersistenceManager();
 		
 		resp.setContentType("text/html");
@@ -101,24 +103,11 @@ public class ViewStudentsServlet extends HttpServlet {
 		resp.getWriter().println("<a class='enroll' href='/CreateStudent' target='content'>Create New " + title + "</a>");
 		resp.getWriter().println("</div>");
 		
-		resp.getWriter().println("</body>");
+		resp.getWriter().println("</body>");*/
 
 	}
 	
 	private PersistenceManager getPersistenceManager() {
 		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
-	}
-	
-	private String getStudentTitle() throws IOException{
-		String name;
-		
-		BufferedReader br = new BufferedReader(new FileReader("terms.txt"));
-	    try {
-	        br.readLine();
-	        name = br.readLine();
-	    } finally {
-	        br.close();
-	    }
-	    return name;
 	}
 }
