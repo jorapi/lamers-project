@@ -1,5 +1,7 @@
 package edu.uwm.lamers;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -79,7 +81,7 @@ public class EnrollStudentServlet extends HttpServlet {
 		
 		resp.setContentType("text/html");
 
-		resp.getWriter().println("<h2>Enroll Student</h2>");
+		resp.getWriter().println("<h2>Enroll + getStudentTitle() + </h2>");
 		resp.getWriter().println("<form action='/EnrollStudent' method='post'>");
 		resp.getWriter().println("<table cellpadding='5'>");
 		resp.getWriter().println("<tr>");
@@ -106,5 +108,18 @@ public class EnrollStudentServlet extends HttpServlet {
 		resp.getWriter().println("</table>");
 		resp.getWriter().println("<input type='submit' value='Submit'>");
 		resp.getWriter().println("</form>");		
+	}
+	
+	private String getStudentTitle() throws IOException{
+		String name;
+		
+		BufferedReader br = new BufferedReader(new FileReader("terms.txt"));
+	    try {
+	        br.readLine();
+	        name = br.readLine();
+	    } finally {
+	        br.close();
+	    }
+	    return name;
 	}
 }
