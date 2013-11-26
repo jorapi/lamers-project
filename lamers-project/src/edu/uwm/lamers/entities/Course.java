@@ -49,9 +49,26 @@ public class Course {
 	@Persistent
 	private String startTime;
 	
+	@Persistent
+	private int numOfWeeks;
+	
 
 
 	
+	/**
+	 * @return the numOfWeeks
+	 */
+	public int getNumOfWeeks() {
+		return numOfWeeks;
+	}
+
+	/**
+	 * @param numOfWeeks the number of weeks to set
+	 */
+	public void setNumOfWeeks(int numOfWeeks) {
+		this.numOfWeeks = numOfWeeks;
+	}
+
 	/**
 	 * 
 	 * @param courseTitle the Title of the course
