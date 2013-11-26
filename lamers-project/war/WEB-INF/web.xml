@@ -20,7 +20,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<servlet-mapping>
 		<servlet-name>ClassListServlet</servlet-name>
-		<url-pattern>/classlist</url-pattern>
+		<url-pattern>/ClassList</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

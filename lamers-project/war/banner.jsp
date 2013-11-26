@@ -1,4 +1,13 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page import="java.io.BufferedReader" %>
+<%@ page import="java.io.FileReader" %>
+
+<% BufferedReader reader = new BufferedReader(new FileReader("terms.txt")); %>
+<% String instructor = reader.readLine(); %>
+<% String student = reader.readLine(); %>
+<% String course = reader.readLine(); %>
+<% String businessTitle = reader.readLine(); %>
+
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -39,7 +48,7 @@
 </head>
 
 <body>
-	<h1>Insert Business Here</h1>
+	<h1><%= businessTitle %></h1>
 	
 	<div id="logout">
 		<a href="logout" target="_top"> Logout </a>

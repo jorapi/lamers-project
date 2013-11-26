@@ -39,7 +39,10 @@
 			
 			<% for (Course c : courses) { %>
 				<tr>
-					<td><div id='create-link'><a class='list' href='/classlist' target='content'><%= c.getTitle() %></a></div></td>
+					<%
+						Long courseId = c.getKey().getId();
+					%>
+					<td><div id='create-link'><a class='list' href='/ClassList?course=<%= courseId %>' target='content'><%= c.getTitle() %></a></div></td>
 					<td><%= c.getInstructor().getName() %></td>
 					<td><%= c.size() %></td>
 					<td><%= c.getLocation() %></td>

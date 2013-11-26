@@ -21,7 +21,7 @@ import edu.uwm.lamers.entities.Student;
 public class EnrollStudentServlet extends HttpServlet {
 
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		boolean privaledged = false;
 		
 		try {
@@ -39,7 +39,7 @@ public class EnrollStudentServlet extends HttpServlet {
 			return;
 		}
 		
-		printForm(resp);
+		req.getRequestDispatcher("enroll_student.jsp").forward(req, resp);
 	}
 	
 	@Override
@@ -67,59 +67,10 @@ public class EnrollStudentServlet extends HttpServlet {
 				break;
 		}
 		
-		resp.getWriter().println("<h2>Student enrolled successfully!</h2>");
-		printForm(resp);
+		req.getRequestDispatcher("enroll_student.jsp?POST=success").forward(req, resp);
 	}
 	
 	private PersistenceManager getPersistenceManager() {
 		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
-	}
-
-	private void printForm(HttpServletResponse resp) throws IOException {
-		
-		PersistenceManager pm = getPersistenceManager();
-		
-		resp.setContentType("text/html");
-
-		resp.getWriter().println("<h2>Enroll + getStudentTitle() + </h2>");
-		resp.getWriter().println("<form action='/EnrollStudent' method='post'>");
-		resp.getWriter().println("<table cellpadding='5'>");
-		resp.getWriter().println("<tr>");
-		resp.getWriter().println("<td>Student: </td>");
-					
-		resp.getWriter().println("<td><select name='student'>");
-		for (Student s : (List<Student>) pm.newQuery(Student.class).execute()) {
-			resp.getWriter().println("<option value='" + s.getKey().getId() + "'>" + s.getFirstName() + " " + s.getLastName() + "</option>");
-		}
-
-		resp.getWriter().println("</select></td>");
-		resp.getWriter().println("</tr>");
-				
-		resp.getWriter().println("<tr>");
-		resp.getWriter().println("<td>Classes: </td>");
-		
-		resp.getWriter().println("<td><select multiple name='classes'>");
-		for (Course c : (List<Course>) pm.newQuery(Course.class).execute()) {
-			resp.getWriter().println("<option value='" + c.getKey().getId() + "'>" + c.getTitle() + "</option>");
-		}
-
-		resp.getWriter().println("</select></td>");
-		resp.getWriter().println("</tr>");
-		resp.getWriter().println("</table>");
-		resp.getWriter().println("<input type='submit' value='Submit'>");
-		resp.getWriter().println("</form>");		
-	}
-	
-	private String getStudentTitle() throws IOException{
-		String name;
-		
-		BufferedReader br = new BufferedReader(new FileReader("terms.txt"));
-	    try {
-	        br.readLine();
-	        name = br.readLine();
-	    } finally {
-	        br.close();
-	    }
-	    return name;
 	}
 }

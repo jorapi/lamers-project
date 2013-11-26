@@ -1,3 +1,4 @@
-Teacher
-Pupil
-Class
+Instructor
+Student
+Course
+Business Title
