@@ -2,6 +2,8 @@ package edu.uwm.lamers.entities.test;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,12 +39,12 @@ public class TestStudent {
 		s.addCourse(c);
 		assertTrue(s.getCourses().size() == 1);
 		
-		assertTrue(s.getPaymentPlan().getBalance() == c.getCost());
+		assertTrue(s.getBalance() == c.getStandardCost());
 		
 		s.removeCourse(c);
 		assertTrue(s.getCourses().size() == 0);
 		
-		assertTrue(s.getPaymentPlan().getBalance() == 0);
+		assertTrue(s.getBalance() == 0);
 	}
 	
 	@Test
@@ -52,14 +54,45 @@ public class TestStudent {
 		assertFalse(s.isInstructor());
 	}
 	
+	/*
+	 	
 	@Test
-	public void testPaymentPlan(){
-		s.setPaymentPlan(p1);
-		assertTrue(p1 == s.getPaymentPlan());
+	public void testAddToBalance() {
+		p.addToBalance(250.00);
+		
+		assertTrue(p.getBalance() == 4685.00);
 	}
 	
 	@Test
-	public void testPayment(){
-		
+	public void testRemoveFromBalance() {
+		try{
+			p.removeFromBalance(5000.0);
+			fail("Exception not thrown (removed more than balance contained)");
+		} catch (IllegalArgumentException e){
+			//do nothing
+		} catch (Exception e){
+			fail("Wrong exception thrown");
+		}
 	}
+	
+	@Test
+	public void testMakePaymentInvalidAmount() {
+		assertFalse(p.makePayment(p.getMinimumPayment()-1, p.getDueDate()));
+	}
+	
+	@Test
+	public void testMakePaymentInvalidDate() {
+		c3 = (Date) p.getDueDate().clone();
+		c3.setMonth(c1.getDate() + 2);
+		assertFalse(p.makePayment(p.getMinimumPayment(), c3));
+	}
+	
+	@Test
+	public void testPreviousPayments() {
+		for (int i=1; p.makePayment(p.getMinimumPayment(), p.getDueDate()) != false; i++) {
+			assertTrue(p.getPreviousPayments().size() == i);
+		}
+		assertTrue(p.getBalance() == 0);
+	} 
+	 */
 }

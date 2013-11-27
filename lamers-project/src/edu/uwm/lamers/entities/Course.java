@@ -36,7 +36,10 @@ public class Course {
 	private String courseLocation;
 	
 	@Persistent
-	private double cost;
+	private double standardCost;
+	
+	@Persistent
+	private double familyPlanCost;
 	
     //array to hold days of the week the class will meet 0 = sun, 1 = mon ... 
 	//true if the course meets on that day
@@ -52,9 +55,21 @@ public class Course {
 	@Persistent
 	private int numOfWeeks;
 	
+	@Persistent
+	private String billingCycle;
 
+	/**
+	 * 
+	 * @param courseTitle the Title of the course
+	 */
+	public Course(String courseTitle) {
+		this.courseTitle = courseTitle;
+		studentList = new HashSet<Student>();
+		DaysToMeet = createDaysArray();
+		standardCost = 0.0;
+		familyPlanCost = 0.0;
+	}
 
-	
 	/**
 	 * @return the numOfWeeks
 	 */
@@ -68,23 +83,12 @@ public class Course {
 	public void setNumOfWeeks(int numOfWeeks) {
 		this.numOfWeeks = numOfWeeks;
 	}
-
-	/**
-	 * 
-	 * @param courseTitle the Title of the course
-	 */
-	public Course(String courseTitle) {
-		this.courseTitle = courseTitle;
-		studentList = new HashSet<Student>();
-		DaysToMeet = createDaysArray();
-		cost = 0.0;
-	}
 	
 	/**
 	 * @return the cost
 	 */
-	public double getCost() {
-		return cost;
+	public double getStandardCost() {
+		return standardCost;
 	}
 	
 	public Set<Student> getClasslist(){
@@ -94,8 +98,12 @@ public class Course {
 	/**
 	 * @param cost the cost to set
 	 */
-	public void setCost(double cost) {
-		this.cost = cost;
+	public void setStandardCost(double amount) {
+		standardCost = amount;
+	}
+	
+	public void setFamilyPlanCost(double amount) {
+		familyPlanCost = amount;
 	}
 
 	public Course(String courseTitle, Instructor courseInstructor){
@@ -323,5 +331,13 @@ public class Course {
 		if(DaysToMeet[6] != null && DaysToMeet[6] == true){ days.add("Saturday");}
 		
 		return days;
+	}
+	
+	public void setBillingCycle(String b) {
+		billingCycle = b;
+	}
+	
+	public String getBillingCycle() {
+		return billingCycle;
 	}
 }

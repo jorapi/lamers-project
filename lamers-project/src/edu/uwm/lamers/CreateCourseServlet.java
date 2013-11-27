@@ -20,20 +20,17 @@ import edu.uwm.lamers.entities.Student;
 
 
 @SuppressWarnings("serial")
-public class CreateCourseServlet extends HttpServlet
-{
+public class CreateCourseServlet extends HttpServlet {
 	@Override
-	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException
-	{
-		
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		boolean privaledged = false;
 		
 		try {
-			for (Cookie c : req.getCookies()){
+			for (Cookie c : req.getCookies()) {
 				if (c.getName().equals("priv") && c.getValue().equals("admin"))
 					privaledged = true;
 			}
-		} catch (NullPointerException e){
+		} catch (NullPointerException e) {
 			
 		}
 		
@@ -63,7 +60,10 @@ public class CreateCourseServlet extends HttpServlet
 		String start = req.getParameter("start");
 		String end = req.getParameter("end");
 		int weeks = Integer.parseInt(req.getParameter("weeks"));
-		double cost = Double.parseDouble(req.getParameter("cost"));
+		double standardCost = Double.parseDouble(req.getParameter("standard_cost"));
+		double familyPlanCost = Double.parseDouble(req.getParameter("family_plan_cost"));
+		String billingCycle = req.getParameter("billing_cycle");
+		
 		Boolean[] days = new Boolean[7];
 		
 		for(int i = 0; i < 7; i++){
@@ -90,7 +90,8 @@ public class CreateCourseServlet extends HttpServlet
 		Course course = new Course(CourseName, Location, start, end);
 		
 		course.setMeetingDays(days);
-		course.setCost(cost);
+		course.setStandardCost(standardCost);
+		course.setFamilyPlanCost(familyPlanCost);
 		course.setNumOfWeeks(weeks);
 		
 		for (Instructor instructor : (List<Instructor>) pm.newQuery(Instructor.class).execute()) {		
