@@ -159,10 +159,26 @@ public class Student extends User {
 	}
 	
 	public void addDayMissed(Course c, int weekNum, int dayNum){
+		if(daysMissed == null) daysMissed = new HashMap<Course, ArrayList<String>>();
 		if(!daysMissed.containsKey(c)){
 			daysMissed.put(c, new ArrayList<String>());
 		}
 		
 		daysMissed.get(c).add("" + weekNum + "-" + dayNum);
+	}
+	
+	public HashMap<Integer, Integer> getDaysForCourse(Course c){
+		if(daysMissed == null) daysMissed = new HashMap<Course, ArrayList<String>>();
+		if(!daysMissed.containsKey(c)) return null;
+		
+		ArrayList<String> daysMissed2 = daysMissed.get(c);
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		
+		for(String s : daysMissed2){
+			String[] strings = s.split("-");
+			map.put(Integer.parseInt(strings[0]), Integer.parseInt(strings[1]));
+		}
+		
+		return map;
 	}
 }

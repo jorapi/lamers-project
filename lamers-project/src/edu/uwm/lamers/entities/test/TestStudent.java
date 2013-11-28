@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -59,6 +60,8 @@ public class TestStudent {
 	public void testAttendenceManagement(){
 		Course c = new Course("Test Course");
 		
+		assertTrue(s.getDaysForCourse(c) == null);
+		
 		s.addDayMissed(c, 0, 2);
 		
 		ArrayList<String> missingDays = s.getDaysMissed().get(c);
@@ -67,6 +70,11 @@ public class TestStudent {
 		
 		assertTrue(Integer.parseInt(daysStrings[0]) == 0);
 		assertTrue(Integer.parseInt(daysStrings[1]) == 2);
+		
+		HashMap<Integer, Integer> missedMap = s.getDaysForCourse(c);
+		
+		assertTrue(missedMap.containsKey(0));
+		assertTrue(missedMap.get(0) == 2);
 	}
 	
 	/*
