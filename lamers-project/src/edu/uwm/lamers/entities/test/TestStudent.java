@@ -2,6 +2,7 @@ package edu.uwm.lamers.entities.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.Before;
@@ -52,6 +53,20 @@ public class TestStudent {
 		assertTrue(s.isStudent());
 		assertFalse(s.isAdmin());
 		assertFalse(s.isInstructor());
+	}
+	
+	@Test
+	public void testAttendenceManagement(){
+		Course c = new Course("Test Course");
+		
+		s.addDayMissed(c, 0, 2);
+		
+		ArrayList<String> missingDays = s.getDaysMissed().get(c);
+		
+		String[] daysStrings = missingDays.get(0).split("-");
+		
+		assertTrue(Integer.parseInt(daysStrings[0]) == 0);
+		assertTrue(Integer.parseInt(daysStrings[1]) == 2);
 	}
 	
 	/*
