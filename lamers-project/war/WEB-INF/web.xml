@@ -105,6 +105,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>ViewStudentBalanceServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.ViewStudentBalanceServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ViewStudentBalanceServlet</servlet-name>
+		<url-pattern>/ViewStudentBalance</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>EnrollStudentServlet</servlet-name>
 		<servlet-class>edu.uwm.lamers.EnrollStudentServlet</servlet-class>
 	</servlet>

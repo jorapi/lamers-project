@@ -41,9 +41,11 @@ public class LoginServlet extends HttpServlet
 		for(Student s : students){
 			if ( s.getEmail().equals(username) && s.getPassword().equals(password)){
 				Cookie c = new Cookie("priv", "student");
+				Cookie c2 = new Cookie("priv", "student");
 
 				resp.addCookie(c);
-				resp.sendRedirect("/student-home.html");
+				resp.addCookie(c2);
+				resp.sendRedirect("/student-home.jsp");
 				return;
 			}
 		}
@@ -53,7 +55,7 @@ public class LoginServlet extends HttpServlet
 				Cookie c = new Cookie("priv", "instructor");
 
 				resp.addCookie(c);
-				resp.sendRedirect("/instructor-home.html");
+				resp.sendRedirect("/instructor-home.jsp");
 				return;
 			}
 		}
@@ -63,7 +65,7 @@ public class LoginServlet extends HttpServlet
 				Cookie c = new Cookie("priv", "admin");
 
 				resp.addCookie(c);
-				resp.sendRedirect("/admin-home.html");
+				resp.sendRedirect("/admin-home.jsp");
 				return;
 			}
 		}
