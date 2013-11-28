@@ -1,6 +1,9 @@
 package edu.uwm.lamers.entities;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import edu.uwm.lamers.entities.Payment;
@@ -36,10 +39,14 @@ public class Student extends User {
 	
 	@Persistent
 	private double balance;
+	
+	@Persistent
+	private Map<Course, ArrayList<String>> daysMissed;
 
 	public Student(String firstName, String lastName, String email) {
 		super(firstName, lastName, email);
 		coursesEnrolled = new HashSet<Course>();
+		daysMissed = new HashMap<Course, ArrayList<String>>();
 	}
 	
 	/**
@@ -147,4 +154,15 @@ public class Student extends User {
 		return previousPayments;
 	}
 	
+	public Map<Course, ArrayList<String>> getDaysMissed(){
+		return daysMissed;
+	}
+	
+	public void addDayMissed(Course c, int weekNum, int dayNum){
+		if(!daysMissed.containsKey(c)){
+			daysMissed.put(c, new ArrayList<String>());
+		}
+		
+		daysMissed.get(c).add("" + weekNum + "-" + dayNum);
+	}
 }
