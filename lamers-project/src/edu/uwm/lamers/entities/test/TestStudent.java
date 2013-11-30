@@ -64,9 +64,9 @@ public class TestStudent {
 		
 		s.addDayMissed(c, 0, 2);
 		
-		ArrayList<String> missingDays = s.getDaysMissed().get(c);
+		String[] missingDays = s.getDaysMissed().get(c).split("\\*");
 		
-		String[] daysStrings = missingDays.get(0).split("-");
+		String[] daysStrings = missingDays[0].split("-");
 		
 		assertTrue(Integer.parseInt(daysStrings[0]) == 0);
 		assertTrue(Integer.parseInt(daysStrings[1]) == 2);
@@ -75,6 +75,20 @@ public class TestStudent {
 		
 		assertTrue(missedMap.containsKey(0));
 		assertTrue(missedMap.get(0) == 2);
+		
+		s.addDayMissed(c, 1, 2);
+		
+		missingDays = s.getDaysMissed().get(c).split("\\*");
+		
+		daysStrings = missingDays[1].split("-");
+		
+		assertTrue(Integer.parseInt(daysStrings[0]) == 1);
+		assertTrue(Integer.parseInt(daysStrings[1]) == 2);
+		
+		missedMap = s.getDaysForCourse(c);
+		
+		assertTrue(missedMap.containsKey(1));
+		assertTrue(missedMap.get(1) == 2);
 	}
 	
 	/*

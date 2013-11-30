@@ -55,6 +55,8 @@
 			<% for (Student st : studentList) { %>
 				
 				<h3><%= st.getName() %></h3>
+				
+				<% HashMap<Integer, Integer> missedMap = st.getDaysForCourse(cs); %>
 			
 				<table id='students'>
 					<caption><%= cs.getTitle() %></caption>
@@ -71,11 +73,119 @@
 							<th>Sunday</th>
 							<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
 								<td>
-									
+									<input type="checkbox" 
+									name="<%= st.getKey().getId() %>" 
+									value="<%= i %>-0" 
+									<% if (missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 0) { %>
+										checked
+									<% } %>
+									>Missed<br>
 								</td>
 							<% } %>
 							</tr>
-						<% } %>				
+						<% } %>
+						
+						<% if (days[1]) { %>
+							<tr>
+							<th>Monday</th>
+							<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+								<td>
+									<input type="checkbox" 
+									name="<%= st.getKey().getId() %>" 
+									value="<%= i %>-1" 
+									<% if (missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 1) { %>
+										checked
+									<% } %>
+									>Missed<br>
+								</td>
+							<% } %>
+							</tr>
+						<% } %>	
+						
+						<% if (days[2]) { %>
+							<tr>
+							<th>Tuesday</th>
+							<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+								<td>
+									<input type="checkbox" 
+									name="<%= st.getKey().getId() %>" 
+									value="<%= i %>-2" 
+									<% if (missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 2) { %>
+										checked
+									<% } %>
+									>Missed<br>
+								</td>
+							<% } %>
+							</tr>
+						<% } %>	
+						
+						<% if (days[3]) { %>
+							<tr>
+							<th>Wednesday</th>
+							<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+								<td>
+									<input type="checkbox" 
+									name="<%= st.getKey().getId() %>" 
+									value="<%= i %>-3" 
+									<% if (missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 3) { %>
+										checked
+									<% } %>
+									>Missed<br>
+								</td>
+							<% } %>
+							</tr>
+						<% } %>	
+						
+						<% if (days[4]) { %>
+							<tr>
+							<th>Thursday</th>
+							<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+								<td>
+									<input type="checkbox" 
+									name="<%= st.getKey().getId() %>" 
+									value="<%= i %>-4" 
+									<% if (missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 4) { %>
+										checked
+									<% } %>
+									>Missed<br>
+								</td>
+							<% } %>
+							</tr>
+						<% } %>	
+						
+						<% if (days[5]) { %>
+							<tr>
+							<th>Friday</th>
+							<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+								<td>
+									<input type="checkbox" 
+									name="<%= st.getKey().getId() %>" 
+									value="<%= i %>-5" 
+									<% if (missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 5) { %>
+										checked
+									<% } %>
+									>Missed<br>
+								</td>
+							<% } %>
+							</tr>
+						<% } %>	
+						
+						<% if (days[6]) { %>
+							<tr>
+							<th>Saturday</th>
+							<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+								<td>
+									<input type="checkbox" 
+									name="<%= st.getKey().getId() %>" 
+									value="<%= i %>-6" 
+									<% if (missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 6) { %>
+										checked
+									<% } %>
+									>Missed<br>
+								</td>
+							<% } %>
+							</tr>
+						<% } %>		
 				</table>
 			<% } %>
 		<% } %>

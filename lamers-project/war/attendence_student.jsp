@@ -32,8 +32,10 @@
 	
 	for (Student s : students){
 		System.out.println(studEmail);
-		if (s.getEmail().equals(studEmail))
+		if (s.getEmail().equals(studEmail)){
 			thisStudent = s;
+			System.out.println("found");
+		}
 			
 	}
 
@@ -58,6 +60,7 @@
 				
 				<% Boolean[] days = cs.getDaysToMeet(); 
 				   HashMap<Integer, Integer> missedMap = thisStudent.getDaysForCourse(cs);
+				   System.out.println(missedMap.get(3));
 				%>
 				
 				<% if (days[0]) { %>
@@ -65,7 +68,7 @@
 					<th>Sunday</th>
 					<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
 						<td>
-						<% if(missedMap != null && missedMap.get(0) == i) { %>
+						<% if(missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 0) { %>
 							Missed
 						<% } else { %>
 							-
@@ -80,7 +83,7 @@
 					<th>Monday</th>
 					<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
 						<td>
-						<% if(missedMap != null && missedMap.get(1) == i) { %>
+						<% if(missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 1) { %>
 							Missed
 						<% } else { %>
 							-
@@ -95,7 +98,7 @@
 					<th>Tuesday</th>
 					<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
 						<td>
-						<% if(missedMap != null && missedMap.get(2) == i) { %>
+						<% if(missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 2) { %>
 							Missed
 						<% } else { %>
 							-
@@ -110,7 +113,7 @@
 					<th>Wednesday</th>
 					<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
 						<td>
-						<% if(missedMap != null && missedMap.get(3) == i) { %>
+						<% if(missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 3) { %>
 							Missed
 						<% } else { %>
 							-
@@ -125,7 +128,7 @@
 					<th>Thursday</th>
 					<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
 						<td>
-						<% if(missedMap != null && missedMap.get(4) == i) { %>
+						<% if(missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 4) { %>
 							Missed
 						<% } else { %>
 							-
@@ -140,7 +143,7 @@
 					<th>Friday</th>
 					<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
 						<td>
-						<% if(missedMap != null && missedMap.get(5) == i) { %>
+						<% if(missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 5) { %>
 							Missed
 						<% } else { %>
 							-
@@ -155,7 +158,7 @@
 					<th>Saturday</th>
 					<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
 						<td>
-						<% if(missedMap != null && missedMap.get(6) == i) { %>
+						<% if(missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 6) { %>
 							Missed
 						<% } else { %>
 							-

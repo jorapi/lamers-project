@@ -12,6 +12,7 @@ import javax.jdo.annotations.Discriminator;
 import javax.jdo.annotations.DiscriminatorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Serialized;
 
 import com.google.appengine.datanucleus.annotations.Unowned;
 
@@ -41,12 +42,13 @@ public class Student extends User {
 	private double balance;
 	
 	@Persistent
-	private Map<Course, ArrayList<String>> daysMissed;
+	@Unowned
+	private Map<Course, String> daysMissed;
 
 	public Student(String firstName, String lastName, String email) {
 		super(firstName, lastName, email);
 		coursesEnrolled = new HashSet<Course>();
-		daysMissed = new HashMap<Course, ArrayList<String>>();
+		daysMissed = new HashMap<Course, String>();
 	}
 	
 	/**
@@ -154,31 +156,42 @@ public class Student extends User {
 		return previousPayments;
 	}
 	
-	public Map<Course, ArrayList<String>> getDaysMissed(){
+	public Map<Course, String> getDaysMissed(){
+		if(daysMissed == null) daysMissed = new HashMap<Course, String>();
 		return daysMissed;
 	}
 	
 	public void addDayMissed(Course c, int weekNum, int dayNum){
-		if(daysMissed == null) daysMissed = new HashMap<Course, ArrayList<String>>();
+		if(daysMissed == null) daysMissed = new HashMap<Course, String>();
 		if(!daysMissed.containsKey(c)){
-			daysMissed.put(c, new ArrayList<String>());
+			daysMissed.put(c, "" + weekNum + "-" + dayNum);
+		} else {
+			String temp = daysMissed.get(c);
+			String temp2 = temp + "*" + weekNum + "-" + dayNum;
+			daysMissed.put(c, temp2);
 		}
-		
-		daysMissed.get(c).add("" + weekNum + "-" + dayNum);
 	}
 	
 	public HashMap<Integer, Integer> getDaysForCourse(Course c){
-		if(daysMissed == null) daysMissed = new HashMap<Course, ArrayList<String>>();
+		if(daysMissed == null) daysMissed = new HashMap<Course, String>();
 		if(!daysMissed.containsKey(c)) return null;
 		
-		ArrayList<String> daysMissed2 = daysMissed.get(c);
+		String daysMissed2 = daysMissed.get(c);
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 		
-		for(String s : daysMissed2){
+		for(String s : daysMissed2.split("\\*")){
+			if(s.isEmpty()) break;
 			String[] strings = s.split("-");
 			map.put(Integer.parseInt(strings[0]), Integer.parseInt(strings[1]));
 		}
 		
 		return map;
+	}
+	
+	public void clearCourseDaysMissed(Course c){
+		if(daysMissed == null) daysMissed = new HashMap<Course, String>();
+		if(!daysMissed.containsKey(c)) return;
+		
+		daysMissed.remove(c);
 	}
 }
