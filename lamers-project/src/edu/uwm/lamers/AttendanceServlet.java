@@ -38,4 +38,10 @@ public class AttendanceServlet extends HttpServlet {
 		}
 
 	}
+	
+	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		
+
+	}
 }

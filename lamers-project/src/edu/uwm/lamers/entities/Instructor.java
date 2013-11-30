@@ -21,13 +21,6 @@ public class Instructor extends User {
 	}
 	
 	/**
-	 * @return set of teachers's Courses
-	 */
-	public Set<Course> getCourses(){
-		return coursesTeaching;
-	}
-	
-	/**
 	 * @param c Course to be added
 	 * @return if add was successful or not
 	 */
@@ -41,6 +34,13 @@ public class Instructor extends User {
 	 */
 	public boolean removeCourse(Course c){
 		return coursesTeaching.remove(c);
+	}
+
+	/**
+	 * @return the coursesTeaching
+	 */
+	public Set<Course> getCourses() {
+		return coursesTeaching;
 	}
 
 }

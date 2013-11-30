@@ -56,6 +56,7 @@ public class LoginServlet extends HttpServlet
 				Cookie c2 = new Cookie("email", i.getEmail());
 				
 				resp.addCookie(c);
+				resp.addCookie(c2);
 				resp.sendRedirect("/instructor-home.jsp");
 				return;
 			}

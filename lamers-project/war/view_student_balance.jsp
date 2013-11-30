@@ -18,7 +18,7 @@
 
 <%
 	PersistenceManager pm = JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
-	List<Students> students = (List<Student>) pm.newQuery(Student.class).execute();
+	List<Student> students = (List<Student>) pm.newQuery(Student.class).execute();
 	
 	Student thisStudent;
 	String studEmail;

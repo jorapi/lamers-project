@@ -17,6 +17,11 @@ public class LogoutServlet extends HttpServlet
 		c.setMaxAge(0);
 		
 		resp.addCookie(c);
+		
+		c = new Cookie("email", null);
+		c.setMaxAge(0);
+		
+		resp.addCookie(c);
 		resp.sendRedirect("/login.html");
 	}
 }
