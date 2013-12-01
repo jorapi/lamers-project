@@ -70,6 +70,8 @@
 		<br><br>
 		<a class="navlink" href="/EnrollStudent" target="content">Enroll <%= student %></a>
 		<br><br>
+		<a class="navlink" href="/familyplan.html" target="content">Family Plan</a>
+		<br><br>
 		<a class="navlink" href="/ViewInstructors" target="content"><%= instructor %> List</a>
 		<br><br>
 		<a class="navlink" href="/CreateInstructor" target="content">Create <%= instructor %></a>

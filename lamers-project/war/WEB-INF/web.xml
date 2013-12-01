@@ -20,7 +20,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<servlet-mapping>
 		<servlet-name>ClassListServlet</servlet-name>
-		<url-pattern>/ClassList</url-pattern>
+		<url-pattern>/classlist</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -33,15 +33,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/clear</url-pattern>
 	</servlet-mapping>	
 	
-	<servlet>
-		<servlet-name>AttendanceServlet</servlet-name>
-		<servlet-class>edu.uwm.lamers.AttendanceServlet</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>AttendanceServlet</servlet-name>
-		<url-pattern>/Attendance</url-pattern>
-	</servlet-mapping>	
 
 	<servlet>
 		<servlet-name>LoginServlet</servlet-name>
@@ -114,16 +105,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>ViewStudentBalanceServlet</servlet-name>
-		<servlet-class>edu.uwm.lamers.ViewStudentBalanceServlet</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>ViewStudentBalanceServlet</servlet-name>
-		<url-pattern>/ViewStudentBalance</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
 		<servlet-name>EnrollStudentServlet</servlet-name>
 		<servlet-class>edu.uwm.lamers.EnrollStudentServlet</servlet-class>
 	</servlet>
@@ -172,6 +153,57 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<servlet-name>WelcomeServlet</servlet-name>
 		<url-pattern>/Welcome</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CreateFamilyServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.CreateFamilyServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>CreateFamilyServlet</servlet-name>
+		<url-pattern>/CreateFamily</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddFamilyMemberServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.AddFamilyMemberServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AddFamilyMemberServlet</servlet-name>
+		<url-pattern>/AddFamilyMember</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RemoveFamilyMemberServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.RemoveFamilyMemberServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>RemoveFamilyMemberServlet</servlet-name>
+		<url-pattern>/RemoveFamilyMember</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>EnrollFamilyServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.EnrollFamilyServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>EnrollFamilyServlet</servlet-name>
+		<url-pattern>/EnrollFamily</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<servlet-name>ViewFamilyServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.ViewFamilyServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ViewFamilyServlet</servlet-name>
+		<url-pattern>/ViewFamily</url-pattern>
+	</servlet-mapping>
+	
 	
 	<welcome-file-list>
 		<welcome-file>Welcome</welcome-file>
