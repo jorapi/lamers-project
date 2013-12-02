@@ -194,7 +194,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<url-pattern>/EnrollFamily</url-pattern>
 	</servlet-mapping>
 	
-		<servlet>
+	<servlet>
 		<servlet-name>ViewFamilyServlet</servlet-name>
 		<servlet-class>edu.uwm.lamers.ViewFamilyServlet</servlet-class>
 	</servlet>
@@ -202,6 +202,26 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>ViewFamilyServlet</servlet-name>
 		<url-pattern>/ViewFamily</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ViewRevenueServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.ViewRevenueServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ViewRevenueServlet</servlet-name>
+		<url-pattern>/ViewRevenue</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AttendanceServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.AttendanceServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AttendanceServlet</servlet-name>
+		<url-pattern>/Attendance</url-pattern>
 	</servlet-mapping>
 	
 	
