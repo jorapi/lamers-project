@@ -18,8 +18,6 @@ import edu.uwm.lamers.entities.Course_v2;
 import edu.uwm.lamers.entities.Instructor;
 import edu.uwm.lamers.entities.Student_v2;
 
-
-
 @SuppressWarnings("serial")
 public class CreateCourseServlet_v2 extends HttpServlet {
 	@SuppressWarnings("unchecked")
@@ -45,7 +43,7 @@ public class CreateCourseServlet_v2 extends HttpServlet {
 		PersistenceManager pm = getPersistenceManager();
 		
 		if(((List<Instructor>) pm.newQuery(Instructor.class).execute()).size() != 0){
-			resp.sendRedirect("/create_course.jsp");
+			resp.sendRedirect("/create_course_v2.jsp");
 		} else {
 			resp.setContentType("text/html");
 
@@ -59,16 +57,16 @@ public class CreateCourseServlet_v2 extends HttpServlet {
 	{
 		Map<String, String> errors = new HashMap<String, String>();
 		
-		String title = req.getParameter("title").trim();
-		String instructorID = req.getParameter("instructor").trim();
-		String location = req.getParameter("location").trim();
-		String startDate_str = req.getParameter("start_date").trim();
-		String endDate_str = req.getParameter("end_date").trim();
-		String startTime = req.getParameter("start_time").trim();
-		String endTime = req.getParameter("end_time").trim();
-		String standardCost_str = req.getParameter("standard_cost").trim();
-		String familyCost_str = req.getParameter("family_cost").trim();
-		String billingCycle = req.getParameter("billing_cycle").trim();
+		String title = req.getParameter("title");
+		String instructorID = req.getParameter("instructor");
+		String location = req.getParameter("location");
+		String startDate_str = req.getParameter("start_date");
+		String endDate_str = req.getParameter("end_date");
+		String startTime = req.getParameter("start_time");
+		String endTime = req.getParameter("end_time");
+		String standardCost_str = req.getParameter("standard_cost");
+		String familyCost_str = req.getParameter("family_cost");
+		String billingCycle = req.getParameter("billing_cycle");
 		
 		if (title.isEmpty()) {
 			errors.put("title", "Title is required");
@@ -156,7 +154,7 @@ public class CreateCourseServlet_v2 extends HttpServlet {
 				req.setAttribute("family_cost", req.getParameter("family_cost"));
 				req.setAttribute("billing_cycle", req.getParameter("nilling_cycle"));
 				
-				req.getRequestDispatcher("create_course.jsp").forward(req, resp);
+				req.getRequestDispatcher("create_course_v2.jsp").forward(req, resp);
 			} else {
 				course = new Course_v2(title, location, startDate, endDate, startTime, 
 						endTime, days, standardCost, familyCost, billingCycle, instructor);

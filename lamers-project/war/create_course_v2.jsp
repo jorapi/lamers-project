@@ -74,12 +74,12 @@
 			<tr>
 			  <td>Start Date:</td>
 			  <td><input type='date' name='start_date'></td>
-			  <td class="error">${errors.start_time}</td>
+			  <td class="error">${errors.start_date}</td>
 			</tr>
 			<tr>
 			  <td>End Date:</td>
 			  <td><input type='date' name='end_date'></td>
-			  <td class="error">${errors.end_time}</td>
+			  <td class="error">${errors.end_date}</td>
 			</tr>
 			<tr>
 			  <td>Start Time:</td>
@@ -101,7 +101,7 @@
 	  	 <span class="error">${errors.standard_cost}</span><br>
 	  	 
 	  	 <label>Family Plan Cost: </label>
-	  	 <input type="number" name="family_plan_cost">
+	  	 <input type="number" name="family_cost">
 	  	 <span class="error">${errors.family_cost}</span><br>
 	  	 
 	  	 <label>Billing Cycle: </label>
