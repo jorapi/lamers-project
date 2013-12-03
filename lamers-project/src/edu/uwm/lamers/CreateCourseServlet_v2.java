@@ -57,19 +57,57 @@ public class CreateCourseServlet_v2 extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException
 	{
-		String title = req.getParameter("class_name");
-		String instructorID = req.getParameter("instructor");
-		String location = req.getParameter("location");
+		Map<String, String> errors = new HashMap<String, String>();
 		
-		//TODO
-		// Need to somehow convert startDate and endDate strings into equivalent
-		// Date object representations
-		String endDate = req.getParameter("endDate");
-		String startTime = req.getParameter("startTime");
-		String endTime = req.getParameter("endTime");
+		String title = req.getParameter("title").trim();
+		String instructorID = req.getParameter("instructor").trim();
+		String location = req.getParameter("location").trim();
+		String startDate_str = req.getParameter("start_date").trim();
+		String endDate_str = req.getParameter("end_date").trim();
+		String startTime = req.getParameter("start_time").trim();
+		String endTime = req.getParameter("end_time").trim();
+		String standardCost_str = req.getParameter("standard_cost").trim();
+		String familyCost_str = req.getParameter("family_cost").trim();
+		String billingCycle = req.getParameter("billing_cycle").trim();
+		
+		if (title.isEmpty()) {
+			errors.put("title", "Title is required");
+		}
+		if (location.isEmpty()) {
+			errors.put("location", "Location is required");
+		}
+		if (startDate_str.isEmpty()) {
+			errors.put("start_date", "Start date is required");
+		}
+		if (endDate_str.isEmpty()) {
+			errors.put("end_date", "End date is required");
+		}
+		if (startTime.isEmpty()) {
+			errors.put("start_time", "Start time is required");
+		}
+		if (endTime.isEmpty()) {
+			errors.put("end_time", "End time is required");
+		}
+		if (standardCost_str.isEmpty()) {
+			errors.put("standard_cost", "Standard cost is required");
+		}
+		if (familyCost_str.isEmpty()) {
+			errors.put("family_cost", "Family cost is required");
+		}
+		
 		double standardCost = Double.parseDouble(req.getParameter("standard_cost"));
 		double familyCost = Double.parseDouble(req.getParameter("family_cost"));
-		String billingCycle = req.getParameter("billing_cycle");
+		
+		DateFormat df = new SimpleDateFormat("mm/dd/yyyy");
+		Date startDate = null;
+		Date endDate = null;
+		
+		try {
+			startDate = df.parse(startDate_str);
+			endDate = df.parse(endDate_str);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		
 		Boolean[] days = new Boolean[7];
 		
@@ -93,7 +131,7 @@ public class CreateCourseServlet_v2 extends HttpServlet {
 			days[0] = true;
 		
 		PersistenceManager pm = getPersistenceManager();
-		Instructor instructor;
+		Instructor instructor = null;
 		
 		for (Instructor i : (List<Instructor>) pm.newQuery(Instructor.class).execute()) {		
 			if(instructorID.equals("" + i.getKey().getId())) {
@@ -102,22 +140,35 @@ public class CreateCourseServlet_v2 extends HttpServlet {
 			}
 		} 
 		
-		/* Once TODO is taken care of this code shouldn't produce an error
-		Course_v2 course = new Course_v2(title, location, startDate, endDate, startTime, 
-				endTime, days, standardCost, familyCost, billingCycle, instructor);
+		Course_v2 course;
 		
 		try {
-			pm.makePersistent(course);
+			if (!errors.isEmpty()) {
+				req.setAttribute("errors", errors);
+				req.setAttribute("title", req.getParameter("title"));
+				req.setAttribute("instructor", req.getParameter("instructor"));
+				req.setAttribute("location", req.getParameter("location"));
+				req.setAttribute("start_date", req.getParameter("start_date"));
+				req.setAttribute("end_date", req.getParameter("end_date"));
+				req.setAttribute("start_time", req.getParameter("start_time"));
+				req.setAttribute("amount", req.getParameter("amount"));
+				req.setAttribute("standard_cost", req.getParameter("standard_cost"));
+				req.setAttribute("family_cost", req.getParameter("family_cost"));
+				req.setAttribute("billing_cycle", req.getParameter("nilling_cycle"));
+				
+				req.getRequestDispatcher("create_course.jsp").forward(req, resp);
+			} else {
+				course = new Course_v2(title, location, startDate, endDate, startTime, 
+						endTime, days, standardCost, familyCost, billingCycle, instructor);
+				pm.makePersistent(course);
+				req.getRequestDispatcher("create_course.jsp?POST=success").forward(req, resp);
+			}
 		} finally {
 			pm.close();
 		}
-		*/
-		
-		req.getRequestDispatcher("create_course.jsp?POST=success").forward(req, resp);
 	}
 	
-	private PersistenceManager getPersistenceManager()
-	{
+	private PersistenceManager getPersistenceManager() {
 		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 	}
 }
