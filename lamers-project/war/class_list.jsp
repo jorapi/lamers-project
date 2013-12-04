@@ -45,7 +45,7 @@
 			<% } %>
 		<% } %>
 	
-	
+		<% if (crse != null) { %>
 		<table id='students'>
 		<h1><%= crse.getTitle() %></h1>
 		<h3><%= instructor %>: <%= crse.getInstructor().getName()%></h3>
@@ -95,5 +95,6 @@
 		
 		</table>
 		
+		<% } %>
 	</body>
 </html>

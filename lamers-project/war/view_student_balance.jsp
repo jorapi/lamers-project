@@ -20,8 +20,8 @@
 	PersistenceManager pm = JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 	List<Student> students = (List<Student>) pm.newQuery(Student.class).execute();
 	
-	Student thisStudent;
-	String studEmail;
+	Student thisStudent = null;
+	String studEmail = null;
 	
 	for (Cookie c : request.getCookies()){
 		if (c.getName().equals("studentemail"))
@@ -48,9 +48,13 @@
 			</tr>
 			
 			<tr>
-				<td><%= thisStudent.getPaymentPlan().getMinimumPayment() %></td>
-				<td><%= thisStudent.getPaymentPlan().getDueDate() %></td>
-				<td><%= thisStudent.getBalance() %></td>
+				<td><%-- Min payment --%></td>
+				<td><%-- Due date --%></td>
+				<td>
+					<% if (thisStudent != null) { %>
+						<%= thisStudent.getBalance() %>
+					<% } %>
+				</td>
 			</tr>
 		</table>
 		

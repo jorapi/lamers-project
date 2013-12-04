@@ -47,6 +47,7 @@
 	</head>
 	<body>
 	
+		<% if (thisStudent != null) { %>
 		<% for (Course cs : thisStudent.getCourses()) { %>
 			<table id='students'>
 				<caption><%= cs.getTitle() %></caption>
@@ -170,6 +171,6 @@
 				
 			</table>
 		<% } %>
-		
+		<% } %>
 	</body>
 </html>
