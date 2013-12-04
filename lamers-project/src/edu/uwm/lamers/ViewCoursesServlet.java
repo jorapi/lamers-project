@@ -25,6 +25,8 @@ public class ViewCoursesServlet extends HttpServlet {
 			for (Cookie c : req.getCookies()){
 				if (c.getName().equals("priv") && c.getValue().equals("admin"))
 					privaledged = true;
+				if (c.getName().equals("priv") && c.getValue().equals("instructor"))
+					privaledged = true;
 			}
 		} catch (NullPointerException e){
 			
