@@ -2,6 +2,9 @@ package edu.uwm.lamers.entities.test;
 
 import static org.junit.Assert.*;
 
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManager;
+
 import org.junit.Before;
 import org.junit.Test;
 

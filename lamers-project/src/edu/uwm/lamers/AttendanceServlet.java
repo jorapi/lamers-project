@@ -51,6 +51,7 @@ public class AttendanceServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		PersistenceManager pm = JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 		List<Instructor> ins = (List<Instructor>) pm.newQuery(Instructor.class).execute();
+		List<Course> courses = (List<Course>) pm.newQuery(Course.class).execute();
 		
 		Instructor thisIn = null;
 		String inEmail = null;

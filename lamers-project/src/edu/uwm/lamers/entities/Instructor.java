@@ -8,11 +8,14 @@ import javax.jdo.annotations.DiscriminatorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
+import com.google.appengine.datanucleus.annotations.Unowned;
+
 @PersistenceCapable
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME)
 public class Instructor extends User {
 	
 	@Persistent
+	@Unowned
 	private Set<Course> coursesTeaching;
 
 	public Instructor(String firstName, String lastName, String email) {

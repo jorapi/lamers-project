@@ -96,5 +96,10 @@
 		</table>
 		
 		<% } %>
+		</br>
+		<div id='create-link'>
+			<a class='enroll' href='/EditCourse?course=<%= courseId %>' target='content'>Edit <%= course %></a>
+		</div>
+		
 	</body>
 </html>

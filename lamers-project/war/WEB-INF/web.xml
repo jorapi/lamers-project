@@ -20,7 +20,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<servlet-mapping>
 		<servlet-name>ClassListServlet</servlet-name>
-		<url-pattern>/classlist</url-pattern>
+		<url-pattern>/ClassList</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -122,6 +122,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet-mapping>
 		<servlet-name>CreateCourseServlet</servlet-name>
 		<url-pattern>/CreateCourse</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>EditCourseServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.EditCourseServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>EditCourseServlet</servlet-name>
+		<url-pattern>/EditCourse</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

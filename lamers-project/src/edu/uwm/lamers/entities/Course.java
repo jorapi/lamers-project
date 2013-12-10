@@ -340,4 +340,13 @@ public class Course {
 	public String getBillingCycle() {
 		return billingCycle;
 	}
+
+	/**
+	 * @return the familyPlanCost
+	 */
+	public double getFamilyPlanCost() {
+		return familyPlanCost;
+	}
+	
+	
 }
