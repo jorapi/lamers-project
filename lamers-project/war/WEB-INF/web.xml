@@ -24,6 +24,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>StudentInfoServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.StudentInfoServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>StudentInfoServlet</servlet-name>
+		<url-pattern>/StudentInfo</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>ClearServlet</servlet-name>
 		<servlet-class>edu.uwm.lamers.ClearServlet</servlet-class>
 	</servlet>

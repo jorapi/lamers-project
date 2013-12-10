@@ -63,6 +63,16 @@ public class Student extends User {
 		}
 	}
 	
+	public boolean removeAward(Award c){
+		if (c != null && awards.contains(c)) {
+			awards.remove(c);
+			// TODO
+			// decide how this affects the balance
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * @return the awards
 	 */

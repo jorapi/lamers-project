@@ -40,7 +40,11 @@
 			
 			<% for (Student s : students) { %>
 				<tr>
-					<td><%= s.getFirstName() %></a></td>
+					<%
+						Long studentId = s.getKey().getId();
+					%>
+					<td><div id='create-link'><a class='list' href='/StudentInfo?student=<%= studentId %>' target='content'><%= s.getFirstName() %></a></div></td>
+
 					<td><%= s.getLastName() %></td>
 					<td><%= s.getEmail() %></td>
 					
