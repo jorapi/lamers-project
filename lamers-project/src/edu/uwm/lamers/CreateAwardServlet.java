@@ -1,11 +1,6 @@
 package edu.uwm.lamers;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import java.sql.Time;
-import java.text.*;
-
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.servlet.ServletException;
@@ -14,9 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.uwm.lamers.entities.Admin;
-import edu.uwm.lamers.entities.Course;
-import edu.uwm.lamers.entities.Student;
 import edu.uwm.lamers.entities.Award;
 
 
@@ -46,38 +38,55 @@ public class CreateAwardServlet extends HttpServlet
 		printForm(resp);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		//default award level should be 0 for all awards, if a given award doesn't have a level
 		
+		int awardLevel = 0;
 		String awardTitle = req.getParameter("award_title");
-		int awardLevel = Integer.parseInt(req.getParameter("award_level"));
-		
-		PersistenceManager pm = getPersistenceManager();
-		String[] awards = req.getParameterValues("awards");
-		
-		Award a = new Award(awardTitle, awardLevel);
-		
-		for(int i = 0; i < awards.length; ++i)
+		String level = req.getParameter("award_level");
+		if(level.equalsIgnoreCase(""))
 		{
-			//check to see if award exists already in the list in form of "Sword1" "Belt1" "Belt2" etc
-			if(awards[i] != awardTitle + awardLevel)
+			resp.getWriter().println("<h2>Error: level empty</h2>");
+			printForm(resp);
+		}
+		else if(awardTitle.equalsIgnoreCase(""))
+		{
+			resp.getWriter().println("<h2>Error: award title required </h2>");
+			printForm(resp);
+		}
+		else
+		{
+			boolean error = false;
+			awardLevel = Integer.parseInt(level);
+		
+			PersistenceManager pm = getPersistenceManager();
+		
+			Award a = new Award(awardTitle, awardLevel);
+			
+			for (Award b : (List<Award>) pm.newQuery(Award.class).execute()) {
+				//check to see if award exists already in the list 
+				if(b.getAwardTitle().equalsIgnoreCase(a.getAwardTitle()) && b.getAwardLevel() == a.getAwardLevel())
+				{
+					error = true;
+					resp.getWriter().println("<h2>Error: Award exists</h2>");
+					printForm(resp);
+					break;
+				}
+			}
+			if(!error)
 			{
-				//once it gets to a spot in the array which is empty, the award is placed there
-				if(awards[i].equals(""))
-					awards[i] = awardTitle + awardLevel;
-					int key = i;
+				try {
+					pm.makePersistent(a);
+				} finally {
+					pm.close();
+				}
+		
+				resp.getWriter().println("<h2>Award created successfully!</h2>");
+				printForm(resp);
 			}
 		}
-		
-		try {
-			pm.makePersistent(a);
-		} finally {
-			pm.close();
-		}
-		
-		resp.getWriter().println("<h2>Award created successfully!</h2>");
-		printForm(resp);
 	}
 	
 	private PersistenceManager getPersistenceManager() {
@@ -85,13 +94,11 @@ public class CreateAwardServlet extends HttpServlet
 	}
 	
 	private void printForm(HttpServletResponse resp) throws IOException {
-
-		PersistenceManager pm = getPersistenceManager();
 		
 		resp.setContentType("text/html");
 
 		resp.getWriter().println("<h2>Create Award</h2>");
-		resp.getWriter().println("<form action='/CreateStudent' method='post'>");
+		resp.getWriter().println("<form action='/CreateAward' method='post'>");
 		resp.getWriter().println("<table cellpadding='5'>");
 		
 		resp.getWriter().println("<tr>");
@@ -101,7 +108,7 @@ public class CreateAwardServlet extends HttpServlet
 			
 		resp.getWriter().println("<tr>");
 		resp.getWriter().println("<td>Award Level: </td>");
-		resp.getWriter().println("<td><input type='text' name='award_level'></td>");
+		resp.getWriter().println("<td><input type='number' name='award_level'></td>");
 		resp.getWriter().println("</tr>");
 		
 		resp.getWriter().println("</table>");
