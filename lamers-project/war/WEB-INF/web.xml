@@ -85,6 +85,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>AssignDemoServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.AssignDemoServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AssignDemoServlet</servlet-name>
+		<url-pattern>/AssignDemo</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>ViewCoursesServlet</servlet-name>
 		<servlet-class>edu.uwm.lamers.ViewCoursesServlet</servlet-class>
 	</servlet>
