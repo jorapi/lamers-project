@@ -78,6 +78,8 @@
 		<br><br>
 		<a class="navlink" href="/CreateAward" target="content">Create Award</a>
 		<br><br>
+		<a class="navlink" href="/AssignAward" target="content">Assign Award</a>
+		<br><br>
 		<a class="navlink" href="/CreateDemo" target="content">Create Demographic</a>
 		<br><br>
 		<a class="navlink" href="/AssignDemo" target="content">Assign Demographic</a>

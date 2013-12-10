@@ -44,8 +44,10 @@ public class CreateAwardServlet extends HttpServlet
 		//default award level should be 0 for all awards, if a given award doesn't have a level
 		
 		int awardLevel = 0;
+		int awardcost = 0;
 		String awardTitle = req.getParameter("award_title");
 		String level = req.getParameter("award_level");
+		String cost = req.getParameter("award_cost");
 		if(level.equalsIgnoreCase(""))
 		{
 			resp.getWriter().println("<h2>Error: level empty</h2>");
@@ -56,14 +58,20 @@ public class CreateAwardServlet extends HttpServlet
 			resp.getWriter().println("<h2>Error: award title required </h2>");
 			printForm(resp);
 		}
+		else if(cost.equalsIgnoreCase(""))
+		{
+			resp.getWriter().println("<h2>Error: cost required </h2>");
+			printForm(resp);
+		}
 		else
 		{
 			boolean error = false;
 			awardLevel = Integer.parseInt(level);
+			awardcost = Integer.parseInt(cost);
 		
 			PersistenceManager pm = getPersistenceManager();
 		
-			Award a = new Award(awardTitle, awardLevel);
+			Award a = new Award(awardTitle, awardLevel, awardcost);
 			
 			for (Award b : (List<Award>) pm.newQuery(Award.class).execute()) {
 				//check to see if award exists already in the list 
@@ -109,6 +117,11 @@ public class CreateAwardServlet extends HttpServlet
 		resp.getWriter().println("<tr>");
 		resp.getWriter().println("<td>Award Level: </td>");
 		resp.getWriter().println("<td><input type='number' name='award_level'></td>");
+		resp.getWriter().println("</tr>");
+		
+		resp.getWriter().println("<tr>");
+		resp.getWriter().println("<td>Award Cost: </td>");
+		resp.getWriter().println("<td><input type='number' name='award_cost'></td>");
 		resp.getWriter().println("</tr>");
 		
 		resp.getWriter().println("</table>");

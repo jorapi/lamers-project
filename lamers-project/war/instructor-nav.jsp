@@ -64,6 +64,8 @@
 		<br><br>
 		<a class="navlink" href="/CreateStudent" target="content">Create <%= student %></a>
 		<br><br>
+		<a class="navlink" href="/AssignAward" target="content">Assign Award</a>
+		<br><br>
 		<!--<a class="navlink" href="/UpdateAwards" target="content">Update Awards</a>-->
 		<!--<br><br>-->
 		<a class="navlink" href="/Attendance" target="content">View Attendance</a>
