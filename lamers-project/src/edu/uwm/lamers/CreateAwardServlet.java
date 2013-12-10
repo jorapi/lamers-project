@@ -90,7 +90,7 @@ public class CreateAwardServlet extends HttpServlet
 		
 		resp.setContentType("text/html");
 
-		resp.getWriter().println("<h2>Create " + getAwardTitle() + "</h2>");
+		resp.getWriter().println("<h2>Create Award</h2>");
 		resp.getWriter().println("<form action='/CreateStudent' method='post'>");
 		resp.getWriter().println("<table cellpadding='5'>");
 		
@@ -105,21 +105,8 @@ public class CreateAwardServlet extends HttpServlet
 		resp.getWriter().println("</tr>");
 		
 		resp.getWriter().println("</table>");
-		resp.getWriter().println("<input type='submit' value='Create " + getAwardTitle() + "'>");
+		resp.getWriter().println("<input type='submit' value='Create Award'>");
 		resp.getWriter().println("</form>");
 		
-	}
-	
-	private String getAwardTitle() throws IOException{
-		String title;
-		
-		BufferedReader br = new BufferedReader(new FileReader("terms.txt"));
-	    try {
-	        br.readLine();
-	        title = br.readLine();
-	    } finally {
-	        br.close();
-	    }
-	    return title;
 	}
 }
