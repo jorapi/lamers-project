@@ -126,14 +126,14 @@ boolean privaledged = false;
 		resp.getWriter().println("<td><input type='password' name='password'></td>");
 		resp.getWriter().println("</tr>");
 			
-		resp.getWriter().println("<tr>");
+		/*resp.getWriter().println("<tr>");
 		resp.getWriter().println("<td>Demographic: </td>");
 		resp.getWriter().println("<td><select id='demographic' name='demographic'>");
 		for (Demographic demo : (List<Demographic>) pm.newQuery(Demographic.class).execute()) {
 			resp.getWriter().println("<option value='" + demo.getKey().getId() + "'>" + demo.getTitle() + "</option>");
 	    }
 		resp.getWriter().println("</select></td>");
-		resp.getWriter().println("</tr>");
+		resp.getWriter().println("</tr>");*/
 		
 		resp.getWriter().println("<tr>");
 		resp.getWriter().println("<td>Courses: </td>");

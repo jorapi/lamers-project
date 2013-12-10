@@ -51,9 +51,9 @@
 					</ul></td>
 					
 					<td>
-						<c:if test="${not empty s.demographic}">
+						<% if (s.getDemo() != null) { %>
 							<%= s.getDemo().getTitle() %>
-						</c:if>
+						<% } %>
 					</td>
 					
 					<td><%= s.getBalance() %></td>

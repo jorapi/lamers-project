@@ -39,7 +39,7 @@ public class AssignDemoServlet extends HttpServlet {
 			return;
 		}
 		
-		req.getRequestDispatcher("enroll_student.jsp").forward(req, resp);
+		req.getRequestDispatcher("assign_demo.jsp").forward(req, resp);
 	}
 	
 	@Override
@@ -71,7 +71,7 @@ public class AssignDemoServlet extends HttpServlet {
 		
 		cleanDemos();
 		
-		req.getRequestDispatcher("enroll_student.jsp?POST=success").forward(req, resp);
+		req.getRequestDispatcher("assign_demo.jsp?POST=success").forward(req, resp);
 	}
 	
 	private PersistenceManager getPersistenceManager() {
