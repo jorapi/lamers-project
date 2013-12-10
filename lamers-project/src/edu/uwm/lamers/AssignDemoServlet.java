@@ -50,7 +50,7 @@ public class AssignDemoServlet extends HttpServlet {
 		PersistenceManager pm = getPersistenceManager();
 
 		for (Demographic d : (List<Demographic>) pm.newQuery(Demographic.class).execute()) {		
-			if(demoID.equals(d.getKey().getId()));
+			if(demoID.equals("" + d.getKey().getId())){
 				for (int i = 0; i < studIDs.length; ++i){
 					for (Student s : (List<Student>) pm.newQuery(Student.class).execute()) {		
 						if(("" + s.getKey().getId()).equals(studIDs[i])){
@@ -60,6 +60,7 @@ public class AssignDemoServlet extends HttpServlet {
 							
 					}
 				}
+			}
 		}
 		
 		cleanDemos();
