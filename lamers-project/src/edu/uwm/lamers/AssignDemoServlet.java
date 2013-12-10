@@ -60,13 +60,6 @@ public class AssignDemoServlet extends HttpServlet {
 							
 					}
 				}
-				
-				try {
-					pm.makePersistent(d);
-				} finally {
-					pm.close();
-				}
-				break;
 		}
 		
 		cleanDemos();
