@@ -29,9 +29,11 @@ public class Student extends User {
 	private Set<Award> awards;
 	
 	@Persistent
+	@Unowned
 	private Set<PaymentPlan> paymentPlans;
 	
 	@Persistent
+	@Unowned
 	private Set<Payment> previousPayments = new HashSet<Payment>();
 	
 	@Persistent

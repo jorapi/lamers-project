@@ -12,6 +12,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.datanucleus.annotations.Unowned;
 
 @PersistenceCapable
 @Discriminator(strategy=DiscriminatorStrategy.CLASS_NAME)
@@ -25,6 +26,7 @@ public class Demographic {
 	private String demoTitle;
 	
 	@Persistent
+	@Unowned
 	private Set<Student> studentsInDemo;
 	
 	public Demographic(String demoTitle){
