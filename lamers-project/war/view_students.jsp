@@ -60,7 +60,7 @@
 					
 					<td><ul>
 						<% for (Award a : s.getAwards()) { %>
-							<li><%= a.getAwardTitle() %></li>
+							<li><%= a.getAwardTitle() + " Lv." + a.getAwardLevel() %></li>
 						<% } %>
 					</ul></td>
 					

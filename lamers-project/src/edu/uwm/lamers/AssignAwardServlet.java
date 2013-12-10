@@ -88,7 +88,7 @@ public class AssignAwardServlet extends HttpServlet {
 		for (Award a : awards){
 			for (Student s : (List<Student>) pm.newQuery(Student.class).execute()){
 				if(a.containsStudent(s)){
-					if (s.getDemo().getKey().getId() != a.getKey().getId()){
+					if (!s.getAwards().contains(a)){
 						a.removeStudent(s);
 					}
 				}
