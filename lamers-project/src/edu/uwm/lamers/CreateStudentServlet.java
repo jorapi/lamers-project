@@ -76,8 +76,10 @@ boolean privaledged = false;
 		}
 		
 		for (Demographic d : (List<Demographic>) pm.newQuery(Demographic.class).execute()) {		
-			if(demographic.equals(d.getKey().getId()));
+			if(demographic.equals(d.getKey().getId())){
 				s.setDemo(d);
+				d.addStudent(s);
+			}
 		} 
 		
 		try {
