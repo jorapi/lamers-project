@@ -23,7 +23,7 @@
 	  <h2>Demographic Created successfully!</h2>
 	<% } %>
 	
-	<h2>Create <%= course %></h2>
+	<h2>Create Demographic</h2>
 	<form action='/CreateDemo' method='post'>
 	  <table cellpadding='5'>
 		<tr>
