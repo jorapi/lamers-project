@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.lamers.entities.Admin;
+import edu.uwm.lamers.entities.Award;
 import edu.uwm.lamers.entities.Course;
 import edu.uwm.lamers.entities.Instructor;
 import edu.uwm.lamers.entities.Student;
@@ -63,7 +64,7 @@ public class CreateCourseServlet extends HttpServlet {
 		double standardCost = Double.parseDouble(req.getParameter("standard_cost"));
 		double familyPlanCost = Double.parseDouble(req.getParameter("family_plan_cost"));
 		String billingCycle = req.getParameter("billing_cycle");
-		
+		String[] requirements = req.getParameterValues("requirements");
 		Boolean[] days = new Boolean[7];
 		
 		for(int i = 0; i < 7; i++){
@@ -93,6 +94,15 @@ public class CreateCourseServlet extends HttpServlet {
 		course.setStandardCost(standardCost);
 		course.setFamilyPlanCost(familyPlanCost);
 		course.setNumOfWeeks(weeks);
+		
+		if (requirements != null){
+			for (int i = 0; i < requirements.length; ++i){
+				for (Award c : (List<Award>) pm.newQuery(Award.class).execute()) {		
+					if(("" + c.getKey().getId()).equals(requirements[i]))
+						course.addRequirement(c);
+				} 
+			}
+		}
 		
 		for (Instructor instructor : (List<Instructor>) pm.newQuery(Instructor.class).execute()) {		
 			if(instructorID.equals("" + instructor.getKey().getId())){

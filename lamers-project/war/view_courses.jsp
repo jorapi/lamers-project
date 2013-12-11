@@ -31,6 +31,7 @@
 			<tr>	
 				<th>Course Title</th>
 				<th>Instructor Name</th>
+				<th>Requirements</th>
 				<th>Size</th>
 				<th>Location</th>
 				<th>Meeting days</th>
@@ -44,6 +45,11 @@
 					%>
 					<td><div id='create-link'><a class='list' href='/ClassList?course=<%= courseId %>' target='content'><%= c.getTitle() %></a></div></td>
 					<td><%= c.getInstructor().getName() %></td>
+					<td><ul>
+						<% for (Award s : c.getRequirements()) { %>
+							<li><%= s.getAwardTitle() + " Lv." + s.getAwardLevel() %></li>
+						<% } %>
+					</ul></td>
 					<td><%= c.size() %></td>
 					<td><%= c.getLocation() %></td>
 					<td><ul>

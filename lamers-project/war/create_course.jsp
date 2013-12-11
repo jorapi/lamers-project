@@ -79,6 +79,14 @@
 			  <td>Length (number of weeks to meet):</td>
 			  <td><input type='number' name='weeks'></td>
 			</tr>
+			<tr>
+			<td>Requirements: </td>
+			<td>
+			<% for (Award c : (List<Award>) pm.newQuery(Award.class).execute()) {%>
+				<input type='checkbox' name='requirements' value='<%= c.getKey().getId() %>'><%= c.getAwardTitle() + " LV." + c.getAwardLevel() %><br>
+	    	<%}%>
+			</td>
+			</tr>
 		  </table></tr>
 	  </table>
 

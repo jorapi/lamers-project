@@ -33,6 +33,10 @@ public class Course {
 	private Set<Student> studentList;
 	
 	@Persistent
+	@Unowned
+	private Set<Award> requirements;
+
+	@Persistent
 	private String courseLocation;
 	
 	@Persistent
@@ -110,6 +114,7 @@ public class Course {
 		this.courseInstructor = courseInstructor;
 		this.courseTitle = courseTitle;
 		studentList = new HashSet<Student>();
+		requirements = new HashSet<Award>();
 		DaysToMeet = createDaysArray();
 	}
 	
@@ -118,6 +123,7 @@ public class Course {
 		this.courseTitle = courseTitle;
 		this.courseLocation = location;
 		studentList = new HashSet<Student>();
+		requirements = new HashSet<Award>();
 		DaysToMeet = createDaysArray();
 		this.endTime = end;
 		this.startTime = start;
@@ -128,6 +134,7 @@ public class Course {
 		this.courseTitle = courseTitle;
 		this.courseLocation = location;
 		studentList = new HashSet<Student>();
+		requirements = new HashSet<Award>();
 		DaysToMeet = createDaysArray();
 		this.endTime = end;
 		this.startTime = start;
@@ -348,5 +355,26 @@ public class Course {
 		return familyPlanCost;
 	}
 	
+	public Set<Award> getRequirements() {
+		return requirements;
+	}
+
+	public void setRequirements(Set<Award> requirements) {
+		this.requirements = requirements;
+	}
 	
+	public void addRequirement(Award a){
+		if(a != null)
+			if (!requirements.contains(a)) {
+				requirements.add(a);
+			}
+	}
+	
+	public boolean removeRequirement(Award a){
+		if (a != null && requirements.contains(a)) {
+			requirements.remove(a);
+			return true;
+		}
+		return false;
+	}
 }
