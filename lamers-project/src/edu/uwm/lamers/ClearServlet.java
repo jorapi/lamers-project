@@ -43,6 +43,26 @@ public class ClearServlet extends HttpServlet
 		for (Admin admin : (List<Admin>) pm.newQuery(Admin.class).execute()) {
 			pm.deletePersistent(admin);
 		}
+		
+		for (Award a : (List<Award>) pm.newQuery(Award.class).execute()) {
+			pm.deletePersistent(a);
+		}
+		
+		for (Demographic a : (List<Demographic>) pm.newQuery(Demographic.class).execute()) {
+			pm.deletePersistent(a);
+		}
+		
+		for (Family a : (List<Family>) pm.newQuery(Family.class).execute()) {
+			pm.deletePersistent(a);
+		}
+		
+		for (Payment a : (List<Payment>) pm.newQuery(Payment.class).execute()) {
+			pm.deletePersistent(a);
+		}
+		
+		for (PaymentPlan a : (List<PaymentPlan>) pm.newQuery(PaymentPlan.class).execute()) {
+			pm.deletePersistent(a);
+		}
 
 		resp.sendRedirect("/");
 	} finally {
