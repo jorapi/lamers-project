@@ -73,7 +73,7 @@
 				
 				<td>
 				<% if (s.getDemo() != null) { %>
-					s.getDemo().getTitle();
+					<%= s.getDemo().getTitle()%>
 				<% } %>
 				</td>
 				
