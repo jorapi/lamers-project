@@ -3,6 +3,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.sql.Time;
+import java.text.*;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
@@ -12,8 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.uwm.lamers.entities.Admin;
 import edu.uwm.lamers.entities.Course;
 import edu.uwm.lamers.entities.Demographic;
+import edu.uwm.lamers.entities.Instructor;
 import edu.uwm.lamers.entities.Student;
 
 
@@ -45,7 +49,6 @@ boolean privaledged = false;
 		printForm(resp);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		String firstName = req.getParameter("firstname");
@@ -93,7 +96,6 @@ boolean privaledged = false;
 		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void printForm(HttpServletResponse resp) throws IOException {
 
 		PersistenceManager pm = getPersistenceManager();

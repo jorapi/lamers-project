@@ -1,7 +1,7 @@
 package edu.uwm.lamers.entities;
 
+
 import java.util.Date;
-import java.util.Set;
 
 import javax.jdo.annotations.Discriminator;
 import javax.jdo.annotations.DiscriminatorStrategy;
@@ -21,17 +21,8 @@ public class PaymentPlan {
 	private Key key;
 	
 	@Persistent
-	private long courseID;
-	
-	@Persistent
-	private double amount;
-	
-	@Persistent
-	private double amountDue;
-	
-	@Persistent
 	private String billingCycle;
-	
+
 	@Persistent
 	private Date startDate;
 
@@ -40,109 +31,66 @@ public class PaymentPlan {
 
 	@Persistent
 	private Date endDate;
-	
+
 	@Persistent
-	private Set<Payment> previousPayments;
-	
+	private double amount;
+
 	@Persistent
 	int numOfPayments;
-	
-	public PaymentPlan(long id, double amount, String bc, Date start, Date end) {
-		if (amount < 0) {
+
+
+	/**
+	 * @return the key
+	 */
+	public Key getKey() {
+		return key;
+	}
+
+	public PaymentPlan(String bc, Date start, Date end, double amount) {
+		billingCycle = bc;
+		
+		if (start.after(end)) {
+			throw new IllegalStateException("start date must be before end date");
+		} else if (amount < 0) {
 			throw new IllegalArgumentException("balance must be greater than 0");
 		}
 
-		courseID = id;
-		this.amount = amount;
-		billingCycle = bc;
 		startDate = start;
 		dueDate = startDate;
 		endDate = end;
-	}
-	
-	public long getCourseID() {
-		return courseID;
-	}
-	
-	public void setCourseID(long id) {
-		courseID = id;
-	}
-	
-	public double getAmount() {
-		return amount;
-	}
-	
-	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-	
-	public double getAmountDue() {
-		return amountDue;
-	}
-	
-	public void setAmountDue(double amount) {
-		amountDue = amount;
-	}
-	
-	public String getBillingCycle() {
-		return billingCycle;
-	}
-	
-	public void setBillingCycle(String bc) {
-		billingCycle = bc;
-	}
-	
-	public Date getStartDate() {
-		return startDate;
-	}	
 	
 	public void setStartDate(Date start) {
 		startDate = start;
 		dueDate = startDate;
 	}
-	
+
+	public Date getStartDate() {
+		return startDate;
+	}	
+
+	public void setEndtDate(Date end) {
+		endDate = end;
+	}	
+
 	public Date getEndDate(Date end) {
 		return endDate;
-	}
-	
-	public void setEndDate(Date end) {
-		endDate = end;
 	}
 	
 	public Date getDueDate() {
 		return dueDate;
 	}
 	
-	public void setDueDate(Date dd) {
-		dueDate = dd;
-	}
-	
 	public void updateDueDate() {
-		if (billingCycle.equalsIgnoreCase("Flat Rate")) {
-			dueDate = null;
-		} else if (billingCycle.equalsIgnoreCase("Monthly")) {
-			//TODO
-		} else if (billingCycle.equalsIgnoreCase("Weekly")) {
-			//TODO
-		} else if (billingCycle.equalsIgnoreCase("Per session")) {
-			//TODO
-		}
+		
 	}
-	
-	public boolean makePayment(double amount, Date date) {
-		if (amountDue == 0) {
-			return false;
-		}
 
-		amountDue -= amount;
-		
-		updateDueDate();
-		previousPayments.add(new Payment(amount,date));
-		
-		return true;
+	public void setAmount(double amount) {
+		this.amount = amount;
 	}
 	
-	public Set<Payment> getPreviousPayments() {
-		return previousPayments;
+	public double getAmount() {
+		return amount;
 	}
 }

@@ -58,7 +58,7 @@ public class AssignAwardServlet extends HttpServlet {
 				for (int i = 0; i < studIDs.length; ++i){
 					for (Student s : (List<Student>) pm.newQuery(Student.class).execute()) {		
 						if(("" + s.getKey().getId()).equals(studIDs[i])){
-							s.addAward(a);
+							s.addAwards(a);
 							a.addStudent(s);
 						}
 							

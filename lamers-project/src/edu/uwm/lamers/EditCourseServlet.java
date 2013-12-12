@@ -1,6 +1,8 @@
 package edu.uwm.lamers;
 import java.io.IOException;
 import java.util.*;
+import java.sql.Time;
+import java.text.*;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
@@ -10,11 +12,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.uwm.lamers.entities.Admin;
 import edu.uwm.lamers.entities.Course;
 import edu.uwm.lamers.entities.Instructor;
+import edu.uwm.lamers.entities.Student;
 
 
-@SuppressWarnings({"serial", "unchecked"})
+
+@SuppressWarnings("serial")
 public class EditCourseServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -37,7 +42,7 @@ public class EditCourseServlet extends HttpServlet {
 		
 		PersistenceManager pm = getPersistenceManager();
 		
-		if(((List<Instructor>) pm.newQuery(Instructor.class).execute()).size() != 0) {
+		if(((List<Instructor>) pm.newQuery(Instructor.class).execute()).size() != 0){
 			String course = req.getParameter("course");
 			
 			req.getRequestDispatcher("edit_course.jsp?course=" + course).forward(req, resp);
@@ -49,7 +54,8 @@ public class EditCourseServlet extends HttpServlet {
 	}
 	
 	@Override
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException
+	{
 		String courseID = req.getParameter("course");
 		String CourseName = req.getParameter("class_name");
 		String instructorID = req.getParameter("instructor");
@@ -63,7 +69,7 @@ public class EditCourseServlet extends HttpServlet {
 		
 		Boolean[] days = new Boolean[7];
 		
-		for(int i = 0; i < 7; i++) {
+		for(int i = 0; i < 7; i++){
 			days[i] = false;
 		}
 		
@@ -89,16 +95,16 @@ public class EditCourseServlet extends HttpServlet {
 		Course course = null;
 		
 		for (Course c : courses) {
-			if (c.getKey().getId() == Long.parseLong(courseID)) {
+			if (c.getKey().getId() == Long.parseLong(courseID)){
 				course = c;
 			}
 		}
 		
 		course.setTitle(CourseName);
-		//course.setMeetingDays(days);
+		course.setMeetingDays(days);
 		course.setStandardCost(standardCost);
-		course.setFamilyCost(familyPlanCost);
-		//course.setNumOfWeeks(weeks);
+		course.setFamilyPlanCost(familyPlanCost);
+		course.setNumOfWeeks(weeks);
 		
 		Instructor oldInstructor = course.getInstructor();
 		
@@ -117,7 +123,8 @@ public class EditCourseServlet extends HttpServlet {
 		req.getRequestDispatcher("class_list.jsp?course=" + courseID).forward(req, resp);
 	}
 	
-	private PersistenceManager getPersistenceManager() {
+	private PersistenceManager getPersistenceManager()
+	{
 		return JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 	}
 }

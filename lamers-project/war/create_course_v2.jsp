@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@ page import="java.io.BufferedReader" %>
 <%@ page import="java.io.FileReader" %>
 <%@ page import="java.util.List" %>
@@ -29,7 +31,8 @@
 	  <table cellpadding='5'>
 		<tr>
 		  <td><%= course %> name: </td>
-		  <td><input type='text' name='class_name'></td>
+		  <td><input type='text' name='title'></td>
+		  <td class="error">${errors.title}</td>
 	    </tr>		
 		<tr>
 		  <td><%= instructor %>: </td>
@@ -42,6 +45,7 @@
 		  <tr>
 			<td>Location: </td>
 			<td><input type='text' name='location'></td>
+			<td class="error">${errors.location}</td>
 		  </tr>
 				
 		  <tr><table id='times'>
@@ -68,24 +72,24 @@
 			  <td><input type='checkbox' name='Sunday' value='Sunday'>Sunday</td>
 			</tr>
 			<tr>
+			  <td>Start Date:</td>
+			  <td><input type='date' name='start_date'></td>
+			  <td class="error">${errors.start_date}</td>
+			</tr>
+			<tr>
+			  <td>End Date:</td>
+			  <td><input type='date' name='end_date'></td>
+			  <td class="error">${errors.end_date}</td>
+			</tr>
+			<tr>
 			  <td>Start Time:</td>
-			  <td><input type='time' name='start'></td>
+			  <td><input type='time' name='start_time'></td>
+			  <td class="error">${errors.start_time}</td>
 			</tr>
 			<tr>
 			  <td>End Time:</td>
-			  <td><input type='time' name='end'></td>
-			</tr>
-			<tr>
-			  <td>Length (number of weeks to meet):</td>
-			  <td><input type='number' name='weeks'></td>
-			</tr>
-			<tr>
-			<td>Requirements: </td>
-			<td>
-			<% for (Award c : (List<Award>) pm.newQuery(Award.class).execute()) {%>
-				<input type='checkbox' name='requirements' value='<%= c.getKey().getId() %>'><%= c.getAwardTitle() + " LV." + c.getAwardLevel() %><br>
-	    	<%}%>
-			</td>
+			  <td><input type='time' name='end_time'></td>
+			  <td class="error">${errors.end_time}</td>
 			</tr>
 		  </table></tr>
 	  </table>
@@ -93,9 +97,13 @@
 	  <div id="payment_options">
 	  	 <h3>Payment Options</h3>
 	  	 <label>Standard Cost: </label>
-	  	 <input type="number" name="standard_cost"><br>
+	  	 <input type="number" name="standard_cost">
+	  	 <span class="error">${errors.standard_cost}</span><br>
+	  	 
 	  	 <label>Family Plan Cost: </label>
-	  	 <input type="number" name="family_plan_cost"><br>
+	  	 <input type="number" name="family_cost">
+	  	 <span class="error">${errors.family_cost}</span><br>
+	  	 
 	  	 <label>Billing Cycle: </label>
 	  	 <select>
 	  	   <option type="text" value="flat_rate">Flate Rate</option>

@@ -18,6 +18,7 @@ import edu.uwm.lamers.entities.*;
 @SuppressWarnings("serial")
 public class ClassListServlet extends HttpServlet
 {
+	@SuppressWarnings("unchecked")
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException
 	{
@@ -44,8 +45,6 @@ public class ClassListServlet extends HttpServlet
 		
 		req.getRequestDispatcher("class_list.jsp?course=" + course).forward(req, resp);
 	}
-
-	@SuppressWarnings("unchecked")
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException
 	{

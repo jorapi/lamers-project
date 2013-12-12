@@ -1,5 +1,6 @@
 package edu.uwm.lamers.entities;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.jdo.annotations.Discriminator;
