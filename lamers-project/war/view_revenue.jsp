@@ -45,7 +45,7 @@
 					<td><ul>
 						<% double total = 0.0; %>
 						<% for (Course c : in.getCourses()) { %>
-							<li>$<%= total += (c.getStandardCost() * c.getClasslist().size()) %></li>
+							<li>$<%= total += (c.getStandardCost() * c.getStudents().size()) %></li>
 						<% } %>
 					</ul>
 						Total: $<%= total %>

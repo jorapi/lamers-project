@@ -53,7 +53,7 @@
 					<td><%= c.size() %></td>
 					<td><%= c.getLocation() %></td>
 					<td><ul>
-						<% for (String s : c.getMeetingDays()) { %>
+						<% for (String s : c.getDaysToMeet()) { %>
 							<li><%= s %></li>
 						<% } %>
 					</ul></td>

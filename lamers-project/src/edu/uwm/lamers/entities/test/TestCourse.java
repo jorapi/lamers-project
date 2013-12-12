@@ -2,6 +2,7 @@ package edu.uwm.lamers.entities.test;
 
 import static org.junit.Assert.*;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,10 +16,39 @@ import edu.uwm.lamers.entities.Student;
 public class TestCourse {
 
 	Course c;
+	String title = "CS361";
+	String location = "E100";
+	Date startDate = new Date();
+	Date endDate = new Date();
+	String startTime = "1:00 PM";
+	String endTime = "1:50 PM";
+	Boolean[] days = new Boolean[7];
+	double standardCost = 100;
+	double familyCost  = 75;
+	String billingCycle = "Monthly";
+	Instructor instructor = new Instructor("John", "Smith", "js@gmail.com");
 	
+	
+	@SuppressWarnings("deprecation")
 	@Before
 	public void setUp(){
-		c = new Course("Test Course");
+		for (int i=0; i < days.length; i++) {
+			if (i == 1 || i == 3 ) {
+				days[i] = true;
+			}
+		}
+		
+		startDate.setMonth(1);
+		startDate.setDate(21);
+		startDate.setYear(2014);
+		
+		endDate.setMonth(5);
+		endDate.setDate(16);
+		endDate.setYear(2014);
+		
+		c = new Course(title, location, startDate, endDate,
+				startTime, endTime, days, standardCost, 
+				familyCost, billingCycle, instructor);
 	}
 
 	@Test
@@ -106,17 +136,6 @@ public class TestCourse {
 	}
 	
 	@Test
-	public void testSetInstructor(){
-		Instructor i = new Instructor("John", "Smith", "jsmith@gmail.com");
-		
-		c.setInstructor(i);
-		assertTrue(c.getInstructor() == i);
-		
-		c = new Course("Test Course", i);
-		assertTrue(c.getInstructor() == i);
-	}
-	
-	@Test
 	public void testContainsStudent() {
 		Student s1 = new Student("John", "Smith", "jsmith@gmail.com");
 		Student s2 = new Student("Jane", "Witherspoon", "jwitherspoon@gmail.com");
@@ -128,38 +147,5 @@ public class TestCourse {
 		assertFalse(c.containsStudent(s3));
 		assertTrue(c.containsStudent(s1));
 		
-	}
-	
-	@Test
-	public void testAddMeetingDay(){
-		c.addMeetingDay("Monday");
-		c.addMeetingDay("ThuRsday");
-		
-		assertFalse(c.getDaysToMeet()[0]);
-		assertTrue(c.getDaysToMeet()[1]);
-		assertFalse(c.getDaysToMeet()[2]);
-		assertFalse(c.getDaysToMeet()[3]);
-		assertTrue(c.getDaysToMeet()[4]);
-		assertFalse(c.getDaysToMeet()[5]);
-		assertFalse(c.getDaysToMeet()[6]);
-	}
-	
-	@Test
-	public void testRemoveMeetingDay(){
-		c.addMeetingDay("Sunday");
-		c.addMeetingDay("Monday");
-		c.addMeetingDay("ThuRsday");
-		
-		assertTrue(c.getDaysToMeet()[0]);
-		
-		c.removeMeetingDay("Sunday");
-		
-		assertFalse(c.getDaysToMeet()[0]);
-		assertTrue(c.getDaysToMeet()[1]);
-		assertFalse(c.getDaysToMeet()[2]);
-		assertFalse(c.getDaysToMeet()[3]);
-		assertTrue(c.getDaysToMeet()[4]);
-		assertFalse(c.getDaysToMeet()[5]);
-		assertFalse(c.getDaysToMeet()[6]);
 	}
 }

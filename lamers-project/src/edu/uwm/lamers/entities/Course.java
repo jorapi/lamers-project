@@ -1,5 +1,6 @@
 package edu.uwm.lamers.entities;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,284 +21,108 @@ public class Course {
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private Key key;
+
+	@Persistent
+	private String title;
 	
 	@Persistent
-	private String courseTitle;
-	
-	@Persistent
-	@Unowned
-	private Instructor courseInstructor;
-	
-	@Persistent
-	@Unowned
-	private Set<Student> studentList;
+	private String location;
 	
 	@Persistent
 	@Unowned
 	private Set<Award> requirements;
-
-	@Persistent
-	private String courseLocation;
 	
 	@Persistent
-	private double standardCost;
+	private Date startDate;
 	
 	@Persistent
-	private double familyPlanCost;
-	
-    //array to hold days of the week the class will meet 0 = sun, 1 = mon ... 
-	//true if the course meets on that day
-	@Persistent
-	private Boolean[] DaysToMeet;
-	
-	@Persistent
-	private String endTime;
-	
-	@Persistent
-	private String startTime;
+	private Date endDate;
 	
 	@Persistent
 	private int numOfWeeks;
 	
 	@Persistent
+	private String startTime;
+	
+	@Persistent
+	private String endTime;
+	
+	@Persistent
+	private Boolean[] daysToMeet;
+	
+	@Persistent
+	private double standardCost;
+	
+	@Persistent
+	private double familyCost;
+	
+	@Persistent
 	private String billingCycle;
-
-	/**
-	 * 
-	 * @param courseTitle the Title of the course
-	 */
-	public Course(String courseTitle) {
-		this.courseTitle = courseTitle;
-		studentList = new HashSet<Student>();
-		DaysToMeet = createDaysArray();
-		standardCost = 0.0;
-		familyPlanCost = 0.0;
-	}
-
-	/**
-	 * @return the numOfWeeks
-	 */
-	public int getNumOfWeeks() {
-		return numOfWeeks;
-	}
-
-	/**
-	 * @param numOfWeeks the number of weeks to set
-	 */
-	public void setNumOfWeeks(int numOfWeeks) {
-		this.numOfWeeks = numOfWeeks;
-	}
 	
-	/**
-	 * @return the cost
-	 */
-	public double getStandardCost() {
-		return standardCost;
-	}
+	@Persistent
+	@Unowned
+	private Instructor instructor;
 	
-	public Set<Student> getClasslist(){
-		return this.studentList;
+	@Persistent
+	private Set<Student> students;
+	
+	@SuppressWarnings("deprecation")
+	public Course(String title, String location, Date startDate, Date endDate,
+			String startTime, String endTime, Boolean[] days, double standardCost, 
+			double familyCost, String billingCycle, Instructor instructor) {
+		this.title = title;
+		this.location = location;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		numOfWeeks = (endDate.getMonth() - startDate.getMonth()) * 4;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		daysToMeet = days;
+		this.standardCost = standardCost;
+		this.familyCost = familyCost;
+		this.billingCycle = billingCycle;
+		this.instructor = instructor;
+		students = new HashSet<Student>();
 	}
 
-	/**
-	 * @param cost the cost to set
-	 */
-	public void setStandardCost(double amount) {
-		standardCost = amount;
-	}
-	
-	public void setFamilyPlanCost(double amount) {
-		familyPlanCost = amount;
-	}
-
-	public Course(String courseTitle, Instructor courseInstructor){
-		this.courseInstructor = courseInstructor;
-		this.courseTitle = courseTitle;
-		studentList = new HashSet<Student>();
-		requirements = new HashSet<Award>();
-		DaysToMeet = createDaysArray();
-	}
-	
-	public Course(String courseTitle, Instructor courseInstructor, String location, String start, String end){
-		this.courseInstructor = courseInstructor;
-		this.courseTitle = courseTitle;
-		this.courseLocation = location;
-		studentList = new HashSet<Student>();
-		requirements = new HashSet<Award>();
-		DaysToMeet = createDaysArray();
-		this.endTime = end;
-		this.startTime = start;
-	}
-	
-	public Course(String courseTitle, String location, String start, String end){
-		this.courseInstructor = null;
-		this.courseTitle = courseTitle;
-		this.courseLocation = location;
-		studentList = new HashSet<Student>();
-		requirements = new HashSet<Award>();
-		DaysToMeet = createDaysArray();
-		this.endTime = end;
-		this.startTime = start;
-	}
-	
-	/**
-	 * @return the key
-	 */
 	public Key getKey() {
 		return key;
 	}
-	
-	/**
-	 * @return the number of enrolled students
-	 */
-	public int size() {
-		return studentList.size();
+
+	public String getTitle() {
+		return title;
 	}
 
-	/**
-	 * 
-	 * @param s Student to be added to course
-	 * @return if student was added successfully
-	 */
-	public boolean addStudent(Student s) {
-		if(this.containsStudent(s)) return false;
-		return studentList.add(s);
-	}
-	
-	/**
-	 * 
-	 * @param ss Set of Students to be added to course
-	 * @return if any students were added successfully
-	 */
-	public boolean addMultipleStudents(Set<Student> ss) {
-		boolean added = false;
-		for (Student s : ss) {
-			if (!this.containsStudent(s)) {
-				studentList.add(s);
-				added = true;
-			}
-		}
-		return added;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	/**
-	 * 
-	 * @param s Student to check
-	 * @return if Student is already in class
-	 */
-	public boolean containsStudent(Student s) {
-		return studentList.contains(s);
-	}
-	
-	/**
-	 * @param s Student to be removed
-	 * @return whether or not the removal was successful
-	 */
-	public boolean removeStudent(Student s) {
-		return studentList.remove(s);
-	}
-	
-	/**
-	 * @param s Set of Students to be removed
-	 * @return whether or not any students were removed successfully
-	 */
-	public boolean removeMultipleStudents(Set<Student> ss) {
-		boolean removed = false;
-		for (Student s : ss) {
-			if (this.containsStudent(s)) {
-				studentList.remove(s);
-				removed = true;
-			}
-		}
-		return removed;
-	}
-	
-	/**
-	 * 
-	 * @return Course Instructor
-	 */
-	public Instructor getInstructor(){
-		return courseInstructor;
-	}
-	
-	/**
-	 * 
-	 * @param i Instructor to be set to course
-	 */
-	public void setInstructor(Instructor i){
-		this.courseInstructor = i;
-	}
-	
-	/**
-	 * @return courseLocation
-	 */
-	public String getLocation(){
-		return courseLocation;
-	}
-	
-	/**
-	 * @param l Location of course
-	 */
-	public void setLocation(String l){
-		this.courseLocation = l;
-	}
-	
-	/**
-	 * 
-	 * @return Course title
-	 */
-	public String getTitle(){
-		return courseTitle;
-	}
-	
-	/**
-	 * 
-	 * @param courseTitle The title of the course
-	 */
-	public void setTitle(String courseTitle){
-		this.courseTitle = courseTitle;
-	}	
-	
-	public Boolean[] getDaysToMeet() {
-		return DaysToMeet;
-	}
-	
-	public void setMeetingDays(Boolean[] days){
-		this.DaysToMeet = days;
+	public String getLocation() {
+		return location;
 	}
 
-	public void addMeetingDay(String day) {
-		if(day.equalsIgnoreCase("sunday"))
-			this.DaysToMeet[0] = true;
-		else if(day.equalsIgnoreCase("monday"))
-			this.DaysToMeet[1] = true;
-		else if(day.equalsIgnoreCase("tuesday"))
-			this.DaysToMeet[2] = true;
-		else if(day.equalsIgnoreCase("wednesday"))
-			this.DaysToMeet[3] = true;
-		else if(day.equalsIgnoreCase("thursday"))
-			this.DaysToMeet[4] = true;
-		else if(day.equalsIgnoreCase("friday"))
-			this.DaysToMeet[5] = true;
-		else if(day.equalsIgnoreCase("saturday"))
-			this.DaysToMeet[6] = true;
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 	
-	public void removeMeetingDay(String day){
-		if(day.equalsIgnoreCase("sunday"))
-			this.DaysToMeet[0] = false;
-		else if(day.equalsIgnoreCase("monday"))
-			this.DaysToMeet[1] = false;
-		else if(day.equalsIgnoreCase("tuesday"))
-			this.DaysToMeet[2] = false;
-		else if(day.equalsIgnoreCase("wednesday"))
-			this.DaysToMeet[3] = false;
-		else if(day.equalsIgnoreCase("thursday"))
-			this.DaysToMeet[4] = false;
-		else if(day.equalsIgnoreCase("friday"))
-			this.DaysToMeet[5] = false;
-		else if(day.equalsIgnoreCase("saturday"))
-			this.DaysToMeet[6] = false;
+	public int getNumOfWeeks() {
+		return numOfWeeks;
 	}
 
 	public String getStartTime() {
@@ -315,44 +140,164 @@ public class Course {
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
-	
-	private Boolean[] createDaysArray(){
-		Boolean[] tempDays = new Boolean[7];
-		
-		for (int i = 0; i < 7; i++){
-			tempDays[i] = false;
-		}
-		
-		return tempDays;
-	}
-	
-	public Set<String> getMeetingDays(){
+
+	public Set<String> getDaysToMeet(){
 		Set<String> days = new HashSet<String>();
 		
-		if(DaysToMeet[0] != null && DaysToMeet[0] == true){ days.add("Sunday");}
-		if(DaysToMeet[1] != null && DaysToMeet[1] == true){ days.add("Monday");}
-		if(DaysToMeet[2] != null && DaysToMeet[2] == true){ days.add("Tuesday");}
-		if(DaysToMeet[3] != null && DaysToMeet[3] == true){ days.add("Wednesday");}
-		if(DaysToMeet[4] != null && DaysToMeet[4] == true){ days.add("Thursday");}
-		if(DaysToMeet[5] != null && DaysToMeet[5] == true){ days.add("Friday");}
-		if(DaysToMeet[6] != null && DaysToMeet[6] == true){ days.add("Saturday");}
+		if(daysToMeet[0] != null && daysToMeet[0] == true) { days.add("Sunday"); }
+		if(daysToMeet[1] != null && daysToMeet[1] == true) { days.add("Monday"); }
+		if(daysToMeet[2] != null && daysToMeet[2] == true) { days.add("Tuesday"); }
+		if(daysToMeet[3] != null && daysToMeet[3] == true) { days.add("Wednesday"); }
+		if(daysToMeet[4] != null && daysToMeet[4] == true) { days.add("Thursday"); }
+		if(daysToMeet[5] != null && daysToMeet[5] == true) { days.add("Friday"); }
+		if(daysToMeet[6] != null && daysToMeet[6] == true) { days.add("Saturday"); }
 		
 		return days;
 	}
-	
-	public void setBillingCycle(String b) {
-		billingCycle = b;
+
+	public void setDaysToMeet(Boolean[] daysToMeet) {
+		this.daysToMeet = daysToMeet;
 	}
 	
+	public void addMeetingDay(String day) {
+		if (day.equalsIgnoreCase("Monday")) {
+			daysToMeet[0] = true;
+		} else if (day.equalsIgnoreCase("Tuesday")) {
+			daysToMeet[1] = true;
+		} else if (day.equalsIgnoreCase("Wednesday")) {
+			daysToMeet[2] = true;
+		} else if (day.equalsIgnoreCase("Thursday")) {
+			daysToMeet[3] = true;
+		} else if (day.equalsIgnoreCase("Friday")) {
+			daysToMeet[4] = true;
+		} else if (day.equalsIgnoreCase("Saturday")) {
+			daysToMeet[5] = true;
+		} else if (day.equalsIgnoreCase("Sunday")) {
+			daysToMeet[6] = true;
+		} 
+	}
+	
+	public void removeMeetingDay(String day) {
+		if (day.equalsIgnoreCase("Monday")) {
+			daysToMeet[0] = false;
+		} else if (day.equalsIgnoreCase("Tuesday")) {
+			daysToMeet[1] = false;
+		} else if (day.equalsIgnoreCase("Wednesday")) {
+			daysToMeet[2] = false;
+		} else if (day.equalsIgnoreCase("Thursday")) {
+			daysToMeet[3] = false;
+		} else if (day.equalsIgnoreCase("Friday")) {
+			daysToMeet[4] = false;
+		} else if (day.equalsIgnoreCase("Saturday")) {
+			daysToMeet[5] = false;
+		} else if (day.equalsIgnoreCase("Sunday")) {
+			daysToMeet[6] = false;
+		} 
+	}
+
+	public double getStandardCost() {
+		return standardCost;
+	}
+
+	public void setStandardCost(double standardCost) {
+		this.standardCost = standardCost;
+	}
+
+	public double getFamilyCost() {
+		return familyCost;
+	}
+
+	public void setFamilyCost(double familyCost) {
+		this.familyCost = familyCost;
+	}
+
 	public String getBillingCycle() {
 		return billingCycle;
 	}
 
+	public void setBillingCycle(String billingCycle) {
+		this.billingCycle = billingCycle;
+	}
+
+	public Instructor getInstructor() {
+		return instructor;
+	}
+
+	public void setInstructor(Instructor instructor) {
+		this.instructor = instructor;
+	}
+
+	public Set<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(Set<Student> students) {
+		this.students = students;
+	}
+	
 	/**
-	 * @return the familyPlanCost
+	 * @return the number of enrolled students
 	 */
-	public double getFamilyPlanCost() {
-		return familyPlanCost;
+	public int size() {
+		return students.size();
+	}
+
+	/**
+	 * 
+	 * @param s Student to be added to course
+	 * @return if student was added successfully
+	 */
+	public boolean addStudent(Student s) {
+		if (this.containsStudent(s)) return false;
+		return students.add(s);
+	}
+	
+	/**
+	 * 
+	 * @param ss Set of Students to be added to course
+	 * @return if any students were added successfully
+	 */
+	public boolean addMultipleStudents(Set<Student> ss) {
+		boolean added = false;
+		for (Student s : ss) {
+			if (!this.containsStudent(s)) {
+				students.add(s);
+				added = true;
+			}
+		}
+		return added;
+	}
+
+	/**
+	 * 
+	 * @param s Student to check
+	 * @return if Student is already in class
+	 */
+	public boolean containsStudent(Student s) {
+		return students.contains(s);
+	}
+	
+	/**
+	 * @param s Student to be removed
+	 * @return whether or not the removal was successful
+	 */
+	public boolean removeStudent(Student s) {
+		return students.remove(s);
+	}
+	
+	/**
+	 * @param s Set of Students to be removed
+	 * @return whether or not any students were removed successfully
+	 */
+	public boolean removeMultipleStudents(Set<Student> ss) {
+		boolean removed = false;
+		for (Student s : ss) {
+			if (this.containsStudent(s)) {
+				students.remove(s);
+				removed = true;
+			}
+		}
+		return removed;
 	}
 	
 	public Set<Award> getRequirements() {
