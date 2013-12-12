@@ -15,10 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.lamers.entities.*;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({"serial", "unchecked"})
 public class StudentInfoServlet extends HttpServlet
 {
-	@SuppressWarnings("unchecked")
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException
 	{

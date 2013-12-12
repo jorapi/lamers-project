@@ -1,18 +1,14 @@
 package edu.uwm.lamers.entities;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import edu.uwm.lamers.entities.Payment;
-
 import javax.jdo.annotations.Discriminator;
 import javax.jdo.annotations.DiscriminatorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.Serialized;
 
 import com.google.appengine.datanucleus.annotations.Unowned;
 
@@ -21,24 +17,25 @@ import com.google.appengine.datanucleus.annotations.Unowned;
 public class Student extends User {
 	
 	@Persistent
+	private boolean familyMember;
+	
+	@Persistent
+	private boolean headOfFamily;
+	
+	@Persistent
 	@Unowned
-	private Set<Course> coursesEnrolled;
+	private Demographic demo;
+
+	@Persistent
+	@Unowned
+	private Set<Course> courses;
 	
 	@Persistent
 	@Unowned
 	private Set<Award> awards;
 	
 	@Persistent
-	@Unowned
 	private Set<PaymentPlan> paymentPlans;
-	
-	@Persistent
-	@Unowned
-	private Set<Payment> previousPayments = new HashSet<Payment>();
-	
-	@Persistent
-	@Unowned
-	private Demographic demo;
 	
 	@Persistent
 	private double balance;
@@ -46,126 +43,109 @@ public class Student extends User {
 	@Persistent
 	@Unowned
 	private Map<Course, String> daysMissed;
-
+	
 	public Student(String firstName, String lastName, String email) {
 		super(firstName, lastName, email);
-		coursesEnrolled = new HashSet<Course>();
-		daysMissed = new HashMap<Course, String>();
-	}
-	
-	/**
-	 * @param a
-	 * adds a to the current set of awards
-	 */
-	public void addAwards(Award a) {
-		if (a != null && !awards.contains(a)) {
-			awards.add(a);
-		}
-	}
-	
-	public boolean removeAward(Award c){
-		if (c != null && awards.contains(c)) {
-			awards.remove(c);
-			// TODO
-			// decide how this affects the balance
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * @return the awards
-	 */
-	public Set<Award> getAwards() {
-		return awards;
-	}
-	
-	/**
-	 * @param demo the demo to set
-	 */
-	public void setDemo(Demographic d) {
-		demo = d;
+		courses = new HashSet<Course>();
+		awards = new HashSet<Award>();
+		paymentPlans = new HashSet<PaymentPlan>();
 	}
 
-	/**
-	 * @return the demo
-	 */
+	public boolean isFamilyMember() {
+		return familyMember;
+	}
+
+	public void setFamilyMember(boolean familyMember) {
+		this.familyMember = familyMember;
+	}
+
+	public boolean isHeadOfFamily() {
+		return headOfFamily;
+	}
+
+	public void setHeadOfFamily(boolean headOfFamily) {
+		this.headOfFamily = headOfFamily;
+	}
+
 	public Demographic getDemo() {
 		return demo;
 	}
-	
-	/**
-	 * @return set of student's enrolled Courses
-	 */
-	public Set<Course> getCourses(){
-		return coursesEnrolled;
-	}
-	
-	/**
-	 * @param c Course to be added
-	 * @return if add was successful or not
-	 */
-	public boolean addCourse(Course c){
-		if (c != null && !coursesEnrolled.contains(c)) {
-			coursesEnrolled.add(c);
-			// implement a way to add that specific class' payment plan
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * @param c Course to be removed
-	 * @return if remove was successful or not
-	 */
-	public boolean removeCourse(Course c){
-		if (c != null && coursesEnrolled.contains(c)) {
-			coursesEnrolled.remove(c);
-			// TODO
-			// implement a way to remove that specific class' payment plan
-			return true;
-		}
-		return false;
+
+	public void setDemo(Demographic demo) {
+		this.demo = demo;
 	}
 
-	/**
-	 * @return student's Payment Plan
-	 */
+	public Set<Course> getCourses() {
+		return courses;
+	}
+
+	public void addCourse(Course c) {
+		if (c != null && !courses.contains(c)) {
+			courses.add(c);
+			if (!familyMember) {
+				paymentPlans.add(new PaymentPlan(c.getKey().getId(),
+						c.getStandardCost(), c.getBillingCycle(),
+						c.getStartDate(), c.getEndDate()));
+				balance += c.getStandardCost();
+
+			} else if (familyMember && !headOfFamily) {
+				paymentPlans.add(new PaymentPlan(c.getKey().getId(),
+						0.0, c.getBillingCycle(),
+						c.getStartDate(), c.getEndDate()));
+
+			} else if (familyMember && headOfFamily) {
+				paymentPlans.add(new PaymentPlan(c.getKey().getId(),
+						c.getFamilyCost(), c.getBillingCycle(),
+						c.getStartDate(), c.getEndDate()));
+				balance += c.getFamilyCost();
+			}
+		}
+	}
+	
+	public void removeCourse(Course c) {
+		if (c != null && courses.contains(c)) {
+			courses.remove(c);
+			for (PaymentPlan p : paymentPlans) {
+				if (c.getKey().getId() == p.getCourseID()) {
+					paymentPlans.remove(p);
+				}
+			}
+		}
+	}
+
+	public void removeCourses(Set<Course> courses) {
+		for (Course c : courses) {
+			removeCourse(c);
+		}
+	}
+
+	public Set<Award> getAwards() {
+		return awards;
+	}
+
+	public void addAward(Award a) {
+		awards.add(a);
+	}
+	public void removeAward(Award a) {
+		if (a != null && courses.contains(a)) {
+			courses.remove(a);
+		}
+	}
+
 	public Set<PaymentPlan> getPaymentPlans() {
 		return paymentPlans;
 	}
-	
+
+	public void setPaymentPlans(Set<PaymentPlan> pp) {
+		this.paymentPlans = pp;
+	}
+
 	public double getBalance() {
 		return balance;
 	}
 
-	/* TODO
-	 * implement payment system
-	public boolean makePayment(double amount, Date date) {
-		if (balance == 0) {
-			return false;
-		}
-		if (amount > balance) {
-			return false;
-		} else if (date.after(dueDate)) {
-			return false;
-		}
-
-		balance -= amount;
-		
-		if (dueDate.getMonth() == 11){
-			dueDate.setMonth(0);
-		} else {
-			dueDate.setMonth(dueDate.getMonth() + 1);
-		}
-		
-		previousPayments.add(new Payment(amount,date));
-
-		return true;
-	}
-	*/
-	public Set<Payment> getPreviousPayments() {
-		return previousPayments;
+	public void setBalance(double balance) {
+		this.balance = balance;
 	}
 	
 	public Map<Course, String> getDaysMissed(){

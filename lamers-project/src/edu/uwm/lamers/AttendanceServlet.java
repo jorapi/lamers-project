@@ -15,6 +15,7 @@ import edu.uwm.lamers.entities.Course;
 import edu.uwm.lamers.entities.Instructor;
 import edu.uwm.lamers.entities.Student;
 
+@SuppressWarnings("serial")
 public class AttendanceServlet extends HttpServlet {
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -51,7 +52,6 @@ public class AttendanceServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		PersistenceManager pm = JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 		List<Instructor> ins = (List<Instructor>) pm.newQuery(Instructor.class).execute();
-		List<Course> courses = (List<Course>) pm.newQuery(Course.class).execute();
 		
 		Instructor thisIn = null;
 		String inEmail = null;
@@ -71,7 +71,7 @@ public class AttendanceServlet extends HttpServlet {
 		}
 		
 		for (Course c : thisIn.getCourses()){
-			for(Student s : c.getClasslist()){
+			for(Student s : c.getStudents()){
 				
 				if(s.getDaysMissed().get(c) != null){
 					s.clearCourseDaysMissed(c); //reset the days missed
