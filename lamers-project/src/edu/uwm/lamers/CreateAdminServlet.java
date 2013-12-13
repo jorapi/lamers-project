@@ -17,6 +17,7 @@ import edu.uwm.lamers.entities.Course;
 import edu.uwm.lamers.entities.Demographic;
 import edu.uwm.lamers.entities.Instructor;
 import edu.uwm.lamers.entities.Student;
+import edu.uwm.lamers.services.CreateAdminService;
 
 
 
@@ -35,18 +36,17 @@ public class CreateAdminServlet extends HttpServlet
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
 		
-		PersistenceManager pm = getPersistenceManager();
+		CreateAdminService cas = new CreateAdminService();
 		
-		Admin a = new Admin(firstName, lastName, email);
-		a.setPassword(password);
+		Set<String> errors = cas.createAdmin(firstName, lastName, email, password);
 		
-		try {
-			pm.makePersistent(a);
-		} finally {
-			pm.close();
+		if(errors.isEmpty()){
+			resp.getWriter().println("<h2>Admin created successfully!</h2>");
+		} else {
+			for(String e : errors){
+				resp.getWriter().println(e);
+			}
 		}
-		
-		resp.getWriter().println("<h2>Admin created successfully!</h2>");
 		printForm(resp);
 	}
 	
