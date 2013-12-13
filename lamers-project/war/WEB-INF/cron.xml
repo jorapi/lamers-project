@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+    <url>/email</url>
+    <description>Send an email every 1st of the month to each user reminding them what they owe</description>
+    <schedule>1 of month 12:00</schedule>
+  </cron>
+</cronentries>

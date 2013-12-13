@@ -14,6 +14,15 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>EmailServlet</servlet-name>
+		<servlet-class>edu.uwm.lamers.EmailServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmailServlet</servlet-name>
+		<url-pattern>/email</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>ClassListServlet</servlet-name>
 		<servlet-class>edu.uwm.lamers.ClassListServlet</servlet-class>
 	</servlet>
