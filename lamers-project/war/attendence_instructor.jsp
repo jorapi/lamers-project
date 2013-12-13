@@ -48,7 +48,7 @@
 		<form action='/Attendance' method='post'>
 		<% for (Course cs : thisIn.getCourses()) { %>
 		
-			<% Boolean[] days = cs.getDaysToMeet(); 
+			<% Boolean[] days = cs.getBooleanDays(); 
 			   Set<Student> studentList = cs.getClasslist();
 			%>
 				

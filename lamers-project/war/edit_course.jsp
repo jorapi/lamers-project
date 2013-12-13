@@ -57,7 +57,7 @@
 		  </tr>
 				
 		  <tr><table id='times'>
-		  	<% Boolean days[] = crse.getDaysToMeet(); %>
+		  	<% Boolean days[] = crse.getBooleanDays(); %>
 		    <caption>Meeting Time</caption>
 			<tr>
 			  <td><input type='checkbox' name='Monday' value='Monday' <% if (days[1]) { %>checked<% } %>>Monday</td>
@@ -100,7 +100,7 @@
 	  	 <label>Standard Cost: </label>
 	  	 <input type="number" name="standard_cost" value="<%= crse.getStandardCost() %>"><br>
 	  	 <label>Family Plan Cost: </label>
-	  	 <input type="number" name="family_plan_cost" value="<%= crse.getFamilyPlanCost() %>"><br>
+	  	 <input type="number" name="family_plan_cost" value="<%= crse.getFamilyCost() %>"><br>
 	  	 <label>Billing Cycle: </label>
 	  	 <select>
 	  	   <option type="text" value="flat_rate">Flat Rate</option>

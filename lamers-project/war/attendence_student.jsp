@@ -59,7 +59,7 @@
 					<% } %>
 				</tr>
 				
-				<% Boolean[] days = cs.getDaysToMeet(); 
+				<% Boolean[] days = cs.getBooleanDays(); 
 				   HashMap<Integer, Integer> missedMap = thisStudent.getDaysForCourse(cs);
 				   System.out.println(missedMap.get(3));
 				%>

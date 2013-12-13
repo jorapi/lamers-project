@@ -322,4 +322,12 @@ public class Course {
 		}
 		return false;
 	}
+	
+	public Boolean[] getBooleanDays(){
+		return daysToMeet;
+	}
+	
+	public Set<Student> getClasslist(){
+		return students;
+	}
 }

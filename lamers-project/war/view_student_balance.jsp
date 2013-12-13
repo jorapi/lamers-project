@@ -29,8 +29,10 @@
 	}
 	
 	for (Student s : students){
-		if (s.getEmail().equals(studEmail))
-			thisStudent = s;
+		if (s.getEmail() != null){
+			if (s.getEmail().equals(studEmail))
+				thisStudent = s;
+		}
 	}
 %>
 
