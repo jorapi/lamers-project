@@ -60,6 +60,7 @@ public class AssignAwardServlet extends HttpServlet {
 						if(("" + s.getKey().getId()).equals(studIDs[i])){
 							s.addAward(a);
 							a.addStudent(s);
+							s.setBalance(s.getBalance() + a.getCost());
 						}
 							
 					}

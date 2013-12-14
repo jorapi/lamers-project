@@ -50,12 +50,17 @@ public class EnrollStudentServlet extends HttpServlet {
 		PersistenceManager pm = getPersistenceManager();
 
 		for (Student s : (List<Student>) pm.newQuery(Student.class).execute()) {		
-			if(studentID.equals(s.getKey().getId()));
+			if(studentID.equals(s.getKey().getId()))
 				for (int i = 0; i < courseIDs.length; ++i){
 					for (Course c : (List<Course>) pm.newQuery(Course.class).execute()) {		
 						if(("" + c.getKey().getId()).equals(courseIDs[i]))
-							s.addCourse(c);
-							c.addStudent(s);
+						{
+							//if(c.getRequirements().isEmpty() ) || c.getRequirements().equals(s.getAwards()))
+							//{
+								s.addCourse(c);
+								c.addStudent(s);
+							//}
+						}
 					}
 				}
 				

@@ -83,6 +83,7 @@ public class Course {
 		this.billingCycle = billingCycle;
 		this.instructor = instructor;
 		students = new HashSet<Student>();
+		requirements = new HashSet<Award>();
 	}
 
 	public Key getKey() {

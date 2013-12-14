@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.lamers.entities.Admin;
+import edu.uwm.lamers.entities.Award;
 import edu.uwm.lamers.entities.Course;
 import edu.uwm.lamers.entities.Instructor;
 import edu.uwm.lamers.entities.Student;
@@ -60,6 +61,7 @@ public class CreateCourseServlet extends HttpServlet {
 		double familyCost = 0.0;
 		
 		Boolean[] days = new Boolean[7];
+		Set<Award> require = new HashSet<Award>();
 		
 		for(int i = 0; i < 7; i++) {
 			days[i] = false;
@@ -122,6 +124,8 @@ public class CreateCourseServlet extends HttpServlet {
 		if(req.getParameter("Sunday") != null)
 			days[0] = true;
 		
+		
+		
 		boolean checked = false;
 		for (int i=0; i < days.length-1; i++) {
 			if (days[i] == true) {
@@ -154,6 +158,12 @@ public class CreateCourseServlet extends HttpServlet {
 			}
 		} 
 		
+		for (Award a : (List<Award>) pm.newQuery(Award.class).execute()) {		
+			if(req.getParameter("" + a.getKey().getId()) != null) {
+				require.add(a);
+			}
+		}
+		
 		Course course;
 		
 		try {
@@ -174,6 +184,7 @@ public class CreateCourseServlet extends HttpServlet {
 			} else {
 				course = new Course(title, location, startDate, endDate, startTime, 
 						endTime, days, standardCost, familyCost, billingCycle, instructor);
+				course.setRequirements(require);
 				pm.makePersistent(course);
 				req.getRequestDispatcher("create_course.jsp?POST=success").forward(req, resp);
 			}
