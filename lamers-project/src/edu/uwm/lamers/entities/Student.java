@@ -126,10 +126,8 @@ public class Student extends User {
 	public void addAward(Award a) {
 		awards.add(a);
 	}
-	public void removeAward(Award a) {
-		if (a != null && courses.contains(a)) {
-			courses.remove(a);
-		}
+	public boolean removeAward(Award a) {
+			return awards.remove(a);
 	}
 
 	public Set<PaymentPlan> getPaymentPlans() {

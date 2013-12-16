@@ -69,11 +69,10 @@ public class StudentInfoServlet extends HttpServlet
 			 }
 			 
 			 if ((s != null) && (c != null)){
-				 s.removeAward(c);
-				 c.removeStudent(s);
-				 
-				 req.getRequestDispatcher("student_info.jsp?student=" + studentId + "&type=REMSUCCESS").forward(req, resp);
-				 return;
+				 if (s.removeAward(c) && c.removeStudent(s)){
+					 req.getRequestDispatcher("student_info.jsp?student=" + studentId + "&type=REMSUCCESS").forward(req, resp);
+					 return; 
+				 }
 			 }
 		 }
 		 
