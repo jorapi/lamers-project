@@ -137,7 +137,7 @@ public class CreateCourseServlet extends HttpServlet {
 			errors.put("days_to_meet", "Must select meeting day(s)");
 		}
 		
-		DateFormat df = new SimpleDateFormat("mm/dd/yyyy");
+		DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
 		Date startDate = null;
 		Date endDate = null;
 		
@@ -167,6 +167,14 @@ public class CreateCourseServlet extends HttpServlet {
 		Course course;
 		
 		try {
+			endDate = df.parse(endDate_str);
+			startDate = df.parse(startDate_str);
+		} catch (ParseException e) {
+			System.out.println("Parsing error");
+			e.printStackTrace();
+		}
+		
+		try {
 			if (!errors.isEmpty()) {
 				req.setAttribute("errors", errors);
 				req.setAttribute("title", req.getParameter("title"));
@@ -182,6 +190,7 @@ public class CreateCourseServlet extends HttpServlet {
 				
 				req.getRequestDispatcher("create_course.jsp").forward(req, resp);
 			} else {
+				
 				course = new Course(title, location, startDate, endDate, startTime, 
 						endTime, days, standardCost, familyCost, billingCycle, instructor);
 				course.setRequirements(require);
