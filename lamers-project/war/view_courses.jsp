@@ -8,6 +8,7 @@
 <%@ page import="javax.jdo.PersistenceManager" %>
 <%@ page import="java.io.BufferedReader" %>
 <%@ page import="java.io.FileReader" %>
+<%@ page import="java.text.*" %>
 
 <%@ page import="edu.uwm.lamers.entities.*" %>
 
@@ -19,6 +20,7 @@
 <%
 	PersistenceManager pm = JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 	List<Course> courses = (List<Course>) pm.newQuery(Course.class).execute();
+	DateFormat df = new SimpleDateFormat("mm/dd/yyyy");
 %>
 
 <html>
@@ -36,6 +38,7 @@
 				<th>Location</th>
 				<th>Meeting days</th>
 				<th>Meeting Time</th>
+				<th>Start Date - End Date</th>
 			</tr>
 			
 			<% for (Course c : courses) { %>
@@ -58,6 +61,7 @@
 						<% } %>
 					</ul></td>
 					<td><%= c.getStartTime() %> - <%= c.getEndTime() %></td>
+					<td><%= df.format(c.getStartDate()) %> - <%= df.format(c.getEndDate()) %></td>
 				</tr>
 			<% } %>
 		</table>
