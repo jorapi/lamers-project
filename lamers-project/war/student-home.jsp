@@ -15,7 +15,7 @@
 </head>
 	<frameset rows="65,*" framespacing="0" frameborder="NO">
 		<FRAME name="banner" src="banner.jsp" scrolling=no>
-		<frameset cols="100,*">
+		<frameset cols="150,*">
 			<FRAME name="navbar" src="student-nav.jsp">
 			<FRAME name="content" src="/ViewStudentBalance">
 		</frameset>
