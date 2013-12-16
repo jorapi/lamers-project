@@ -44,13 +44,15 @@ public class EnrollStudentServlet extends HttpServlet {
 	
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		boolean enrolled = false;
+		
 		String studentID = req.getParameter("student");
 		String[] courseIDs = req.getParameterValues("classes");
 		
 		PersistenceManager pm = getPersistenceManager();
 
 		for (Student s : (List<Student>) pm.newQuery(Student.class).execute()) {		
-			if(studentID.equals(s.getKey().getId()))
+			if(studentID.equals("" + s.getKey().getId())){
 				for (int i = 0; i < courseIDs.length; ++i){
 					for (Course c : (List<Course>) pm.newQuery(Course.class).execute()) {		
 						if(("" + c.getKey().getId()).equals(courseIDs[i]))
@@ -59,6 +61,8 @@ public class EnrollStudentServlet extends HttpServlet {
 							//{
 								s.addCourse(c);
 								c.addStudent(s);
+								enrolled = true;
+								
 							//}
 						}
 					}
@@ -70,9 +74,15 @@ public class EnrollStudentServlet extends HttpServlet {
 					pm.close();
 				}
 				break;
+			}
 		}
 		
-		req.getRequestDispatcher("enroll_student.jsp?POST=success").forward(req, resp);
+		if(enrolled){
+			req.getRequestDispatcher("enroll_student.jsp?POST=success").forward(req, resp);
+		} else {
+			req.getRequestDispatcher("enroll_student.jsp?POST=failure").forward(req, resp);
+		}
+		
 	}
 	
 	private PersistenceManager getPersistenceManager() {

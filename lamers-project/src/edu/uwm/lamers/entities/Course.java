@@ -64,6 +64,7 @@ public class Course {
 	private Instructor instructor;
 	
 	@Persistent
+	@Unowned
 	private Set<Student> students;
 	
 	@SuppressWarnings("deprecation")
