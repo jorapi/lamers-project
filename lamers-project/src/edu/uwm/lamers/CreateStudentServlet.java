@@ -61,13 +61,19 @@ boolean privaledged = false;
 		Student s = new Student(firstName, lastName, email);
 		s.setPassword(password);
 		
+		boolean enrolled = false;
+		boolean attemptedToEnroll = (courses != null);
 		
 		if (courses != null){
 			for (int i = 0; i < courses.length; ++i){
 				for (Course c : (List<Course>) pm.newQuery(Course.class).execute()) {		
-					if(("" + c.getKey().getId()).equals(courses[i]))
-						s.addCourse(c);
-						c.addStudent(s);
+					if(("" + c.getKey().getId()).equals(courses[i])){
+						if(c.getRequirements().isEmpty() || c.getRequirements().equals(s.getAwards())){
+							s.addCourse(c);
+							c.addStudent(s);
+							enrolled = true;
+						}
+					}
 				} 
 			}
 		}
@@ -85,7 +91,10 @@ boolean privaledged = false;
 			pm.close();
 		}
 		
-		resp.getWriter().println("<h2>Student created successfully!</h2>");
+		if(!attemptedToEnroll || (attemptedToEnroll && enrolled))
+			resp.getWriter().println("<h2>Student created successfully!</h2>");
+		else if(attemptedToEnroll && !enrolled)
+			resp.getWriter().println("<h2>Student created successfully but didn't meet requirements for course</h2>");
 		printForm(resp);
 	}
 	

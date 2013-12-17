@@ -22,7 +22,12 @@
 <html>
 	<body>
 		<% if (request.getParameter("POST") != null) { %>
-			<h2><%= student %> enrolled successfully!</h2>
+			<% if (request.getParameter("POST").equals("success")) { %>
+				<h2><%= student %> enrolled successfully!</h2>
+			<% } %>
+			<% if (request.getParameter("POST").equals("failure")) { %>
+				<h2><%= student %> not enrolled (did not meet requirements)</h2>
+			<% } %>
 		<% } %>
 	
 		<h2>Enroll <%= student %> </h2>

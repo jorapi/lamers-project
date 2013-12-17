@@ -125,11 +125,14 @@ public class Student extends User {
 		return awards;
 	}
 
-	public void addAward(Award a) {
-		awards.add(a);
+	public boolean addAward(Award a) {
+		return awards.add(a);
 	}
 	public boolean removeAward(Award a) {
+		if (a != null && awards.contains(a)) {
 			return awards.remove(a);
+		}
+		return false;
 	}
 
 	public Set<PaymentPlan> getPaymentPlans() {

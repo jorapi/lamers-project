@@ -101,7 +101,7 @@
 			<td>Requirements: </td>
 			<td>
 			<% for (Award c : (List<Award>) pm.newQuery(Award.class).execute()) {%>
-				<input type='checkbox' name='requirements' value='<%= c.getKey().getId() %>'><%= c.getAwardTitle() + " LV." + c.getAwardLevel() %><br>
+				<input type='checkbox' name='<%= c.getKey().getId() %>' value='<%= c.getKey().getId() %>'><%= c.getAwardTitle() + " LV." + c.getAwardLevel() %><br>
 	    	<%}%>
 			</td>
 			</tr>

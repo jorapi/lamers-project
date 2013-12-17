@@ -49,7 +49,12 @@
 		<table id='students'>
 		<h1><%= crse.getTitle() %></h1>
 		<h3><%= instructor %>: <%= crse.getInstructor().getName()%></h3>
-		
+		<h3>Requirements: </h3> 
+		<ul>
+		<% for (Award s : crse.getRequirements()) { %>
+			<li><%= s.getAwardTitle() + " Lv." + s.getAwardLevel() %></li>
+		<% } %>
+		</ul>
 		<tr>
 			<th>Name</th>
 			<th>Email</th>

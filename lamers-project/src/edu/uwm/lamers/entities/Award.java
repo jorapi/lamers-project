@@ -90,6 +90,7 @@ public class Award {
 	 * @return if Student was added
 	 */
 	public boolean addStudent(Student s){
+		if (this.containsStudent(s)) return false;
 		return studentsWithAward.add(s);
 	}
 	
@@ -99,7 +100,11 @@ public class Award {
 	 * @return if Student was removed
 	 */
 	public boolean removeStudent(Student s){
-		return studentsWithAward.remove(s);
+		if (s != null && studentsWithAward.contains(s)) {
+			studentsWithAward.remove(s);
+			return true;
+		}
+		return false;
 	}
 	
 	/**

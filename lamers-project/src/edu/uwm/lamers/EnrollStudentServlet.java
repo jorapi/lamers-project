@@ -59,15 +59,13 @@ public class EnrollStudentServlet extends HttpServlet {
 					for (Course c : (List<Course>) pm.newQuery(Course.class).execute()) {		
 						if(("" + c.getKey().getId()).equals(courseIDs[i]))
 						{
-							//if(c.getRequirements().isEmpty() ) || c.getRequirements().equals(s.getAwards()))
-							//{
+							if(c.getRequirements().isEmpty() || c.getRequirements().equals(s.getAwards()))
+							{
 								s.addCourse(c);
 								c.addStudent(s);
 								enrolled = true;
 								s.getPaymentPlans().add(new PaymentPlan(c.getKey().getId(), c.getStandardCost(), c.getBillingCycle(), c.getStartDate(), numofpayments));
-								
-								
-							//}
+							}
 						}
 					}
 				}
