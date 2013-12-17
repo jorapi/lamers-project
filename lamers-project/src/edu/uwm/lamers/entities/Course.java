@@ -1,5 +1,7 @@
 package edu.uwm.lamers.entities;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -75,7 +77,11 @@ public class Course {
 		this.location = location;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		//numOfWeeks = (endDate.getMonth() - startDate.getMonth()) * 4;
+		numOfWeeks = (endDate.getMonth() - startDate.getMonth()) * 4;
+		
+		//DateFormat parseform = new SimpleDateFormat("mm");
+		//numOfWeeks = (Integer.parseInt(parseform.format(endDate)) - Integer.parseInt(parseform.format(startDate))) * 4;
+		
 		this.startTime = startTime;
 		this.endTime = endTime;
 		daysToMeet = days;
