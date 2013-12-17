@@ -194,6 +194,7 @@ public class CreateCourseServlet extends HttpServlet {
 				course = new Course(title, location, startDate, endDate, startTime, 
 						endTime, days, standardCost, familyCost, billingCycle, instructor);
 				course.setRequirements(require);
+				instructor.addCourse(course);
 				pm.makePersistent(course);
 				req.getRequestDispatcher("create_course.jsp?POST=success").forward(req, resp);
 			}

@@ -95,8 +95,8 @@ boolean privaledged = false;
 		
 		if(!attemptedToEnroll || (attemptedToEnroll && enrolled))
 			resp.getWriter().println("<h2>Student created successfully!</h2>");
-		else if(attemptedToEnroll && !enrolled)
-			resp.getWriter().println("<h2>Student created successfully but didn't meet requirements for course</h2>");
+		//else if(attemptedToEnroll && !enrolled)
+			//resp.getWriter().println("<h2>Student created successfully but didn't meet requirements for course</h2>");
 		printForm(resp);
 	}
 	
@@ -144,6 +144,7 @@ boolean privaledged = false;
 		resp.getWriter().println("</select></td>");
 		resp.getWriter().println("</tr>");*/
 		
+		/*
 		resp.getWriter().println("<tr>");
 		resp.getWriter().println("<td>Courses: </td>");
 		resp.getWriter().println("<td>");
@@ -153,6 +154,7 @@ boolean privaledged = false;
 	    }
 		resp.getWriter().println("</td>");
 		resp.getWriter().println("</tr>");
+		*/
 		
 		resp.getWriter().println("</table>");
 		resp.getWriter().println("<input type='submit' value='Create " + getStudentTitle() + "'>");

@@ -13,5 +13,8 @@ import edu.uwm.lamers.entities.PaymentPlan;
 
 public class TestPaymentPlan {
 
-	
+	@Test
+	public void test(){
+		
+	}
 }
