@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%@ page import="java.util.List" %>
+<%@ page import="java.text.*" %>
 <%@ page import="java.util.HashMap" %>
 
 <%@ page import="javax.jdo.JDOHelper" %>
@@ -20,6 +21,8 @@
 <%
 	PersistenceManager pm = JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 	List<Student> students = (List<Student>) pm.newQuery(Student.class).execute();
+	
+	DateFormat df = new SimpleDateFormat("mm");
 	
 	Student thisStudent = null;
 	String studEmail = null;
@@ -46,28 +49,29 @@
 		<link rel='stylesheet' type='text/css' href='styles/viewstudent.css'>
 	</head>
 	<body>
-	
+		
 		<% if (thisStudent != null) { %>
 		<% for (Course cs : thisStudent.getCourses()) { %>
+			<% int weeknum = (Integer.parseInt(df.format(cs.getEndDate())) - Integer.parseInt(df.format(cs.getStartDate()))) * 4; %>
 			<table id='students'>
 				<caption><%= cs.getTitle() %></caption>
 			
 				<tr>	
 					<th></th>
-					<% for (int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+					<% for (int i = 0; i < weeknum; i++) { %>
 						<th>Week <%= (i + 1) %></th>
 					<% } %>
 				</tr>
 				
 				<% Boolean[] days = cs.getBooleanDays(); 
 				   HashMap<Integer, Integer> missedMap = thisStudent.getDaysForCourse(cs);
-				   System.out.println(missedMap.get(3));
+				   //System.out.println(missedMap.get(3));
 				%>
 				
 				<% if (days[0]) { %>
 					<tr>
 					<th>Sunday</th>
-					<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+					<% for(int i = 0; i < weeknum; i++) { %>
 						<td>
 						<% if(missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 0) { %>
 							Missed
@@ -82,7 +86,7 @@
 				<% if (days[1]) { %>
 					<tr>
 					<th>Monday</th>
-					<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+					<% for(int i = 0; i < weeknum; i++) { %>
 						<td>
 						<% if(missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 1) { %>
 							Missed
@@ -97,7 +101,7 @@
 				<% if (days[2]) { %>
 					<tr>
 					<th>Tuesday</th>
-					<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+					<% for(int i = 0; i < weeknum; i++) { %>
 						<td>
 						<% if(missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 2) { %>
 							Missed
@@ -112,7 +116,7 @@
 				<% if (days[3]) { %>
 					<tr>
 					<th>Wednesday</th>
-					<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+					<% for(int i = 0; i < weeknum; i++) { %>
 						<td>
 						<% if(missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 3) { %>
 							Missed
@@ -127,7 +131,7 @@
 				<% if (days[4]) { %>
 					<tr>
 					<th>Thursday</th>
-					<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+					<% for(int i = 0; i < weeknum; i++) { %>
 						<td>
 						<% if(missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 4) { %>
 							Missed
@@ -142,7 +146,7 @@
 				<% if (days[5]) { %>
 					<tr>
 					<th>Friday</th>
-					<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+					<% for(int i = 0; i < weeknum; i++) { %>
 						<td>
 						<% if(missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 5) { %>
 							Missed
@@ -157,7 +161,7 @@
 				<% if (days[6]) { %>
 					<tr>
 					<th>Saturday</th>
-					<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+					<% for(int i = 0; i < weeknum; i++) { %>
 						<td>
 						<% if(missedMap != null && missedMap.get(i) != null && missedMap.get(i) == 6) { %>
 							Missed
