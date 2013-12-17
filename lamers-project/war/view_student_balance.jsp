@@ -46,7 +46,7 @@
 			<caption>Account Summary</caption>
 			<tr>
 				<th>Class ID</th>	
-				<th>Amount Due</th>
+				<th>Amount Due This Period</th>
 				<th>Date Due</th>
 				<th>Outstanding balance</th>
 			</tr>
@@ -68,7 +68,7 @@
 			</tr>
 			
 				<td><%= thisStudent.getBalance()%></td>
-				<td><%= Math.ceil(totalDue)%></td>
+				<td><%= totalDue%></td>
 				
 		</table>
 		
