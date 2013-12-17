@@ -75,7 +75,7 @@ public class Course {
 		this.location = location;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		numOfWeeks = (endDate.getMonth() - startDate.getMonth()) * 4;
+		//numOfWeeks = (endDate.getMonth() - startDate.getMonth()) * 4;
 		this.startTime = startTime;
 		this.endTime = endTime;
 		daysToMeet = days;
