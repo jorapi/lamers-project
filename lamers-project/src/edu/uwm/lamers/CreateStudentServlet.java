@@ -64,6 +64,7 @@ boolean privaledged = false;
 		boolean enrolled = false;
 		boolean attemptedToEnroll = (courses != null);
 		
+		/*
 		if (courses != null){
 			for (int i = 0; i < courses.length; ++i){
 				for (Course c : (List<Course>) pm.newQuery(Course.class).execute()) {		
@@ -76,14 +77,15 @@ boolean privaledged = false;
 					}
 				} 
 			}
-		}
+		} */
 		
+		/*
 		for (Demographic d : (List<Demographic>) pm.newQuery(Demographic.class).execute()) {		
 			if(demographic.equals(d.getKey().getId())){
 				s.setDemo(d);
 				d.addStudent(s);
 			}
-		} 
+		} */
 		
 		try {
 			pm.makePersistent(s);
