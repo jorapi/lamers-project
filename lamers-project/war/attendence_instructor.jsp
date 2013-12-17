@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%@ page import="java.util.*" %>
+<%@ page import="java.text.*" %>
 <%@ page import="java.util.HashMap" %>
 
 <%@ page import="javax.jdo.JDOHelper" %>
@@ -50,6 +51,8 @@
 		
 			<% Boolean[] days = cs.getBooleanDays(); 
 			   Set<Student> studentList = cs.getClasslist();
+			   System.out.println(cs.getStartDate().getMonth());
+			   DateFormat df = new SimpleDateFormat("mm");
 			%>
 				
 			<% for (Student st : studentList) { %>
@@ -60,10 +63,11 @@
 			
 				<table id='students'>
 					<caption><%= cs.getTitle() %></caption>
+					<% int weeknum = (Integer.parseInt(df.format(cs.getEndDate())) - Integer.parseInt(df.format(cs.getStartDate()))) * 4; %>
 			
 					<tr>	
 						<th></th>
-						<% for (int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+						<% for (int i = 0; i < weeknum; i++) { %>
 							<th>Week <%= (i + 1) %></th>
 						<% } %>
 					</tr>
@@ -71,7 +75,7 @@
 						<% if (days[0]) { %>
 							<tr>
 							<th>Sunday</th>
-							<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+							<% for(int i = 0; i < weeknum; i++) { %>
 								<td>
 									<input type="checkbox" 
 									name="<%= st.getKey().getId() %>" 
@@ -88,7 +92,7 @@
 						<% if (days[1]) { %>
 							<tr>
 							<th>Monday</th>
-							<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+							<% for(int i = 0; i < weeknum; i++) { %>
 								<td>
 									<input type="checkbox" 
 									name="<%= st.getKey().getId() %>" 
@@ -105,7 +109,7 @@
 						<% if (days[2]) { %>
 							<tr>
 							<th>Tuesday</th>
-							<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+							<% for(int i = 0; i < weeknum; i++) { %>
 								<td>
 									<input type="checkbox" 
 									name="<%= st.getKey().getId() %>" 
@@ -122,7 +126,7 @@
 						<% if (days[3]) { %>
 							<tr>
 							<th>Wednesday</th>
-							<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+							<% for(int i = 0; i < weeknum; i++) { %>
 								<td>
 									<input type="checkbox" 
 									name="<%= st.getKey().getId() %>" 
@@ -139,7 +143,7 @@
 						<% if (days[4]) { %>
 							<tr>
 							<th>Thursday</th>
-							<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+							<% for(int i = 0; i < weeknum; i++) { %>
 								<td>
 									<input type="checkbox" 
 									name="<%= st.getKey().getId() %>" 
@@ -156,7 +160,7 @@
 						<% if (days[5]) { %>
 							<tr>
 							<th>Friday</th>
-							<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+							<% for(int i = 0; i < weeknum; i++) { %>
 								<td>
 									<input type="checkbox" 
 									name="<%= st.getKey().getId() %>" 
@@ -173,7 +177,7 @@
 						<% if (days[6]) { %>
 							<tr>
 							<th>Saturday</th>
-							<% for(int i = 0; i < cs.getNumOfWeeks(); i++) { %>
+							<% for(int i = 0; i < weeknum; i++) { %>
 								<td>
 									<input type="checkbox" 
 									name="<%= st.getKey().getId() %>" 

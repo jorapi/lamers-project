@@ -1,6 +1,8 @@
 package edu.uwm.lamers;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.jdo.JDOHelper;
@@ -53,6 +55,9 @@ public class AttendanceServlet extends HttpServlet {
 		PersistenceManager pm = JDOHelper.getPersistenceManagerFactory("transactions-optional").getPersistenceManager();
 		List<Instructor> ins = (List<Instructor>) pm.newQuery(Instructor.class).execute();
 		
+		DateFormat df = new SimpleDateFormat("mm");
+		
+		
 		Instructor thisIn = null;
 		String inEmail = null;
 		
@@ -71,6 +76,9 @@ public class AttendanceServlet extends HttpServlet {
 		}
 		
 		for (Course c : thisIn.getCourses()){
+			
+			int weeknum = (Integer.parseInt(df.format(c.getEndDate())) - Integer.parseInt(df.format(c.getStartDate()))) * 4;
+			
 			for(Student s : c.getStudents()){
 				
 				if(s.getDaysMissed().get(c) != null){
@@ -78,7 +86,7 @@ public class AttendanceServlet extends HttpServlet {
 				}
 
 				
-				for(int week = 0; week < c.getNumOfWeeks(); week++){
+				for(int week = 0; week < weeknum; week++){
 					for (String value : req.getParameterValues("" + s.getKey().getId())){
 						String[] strings = value.split("-");
 						

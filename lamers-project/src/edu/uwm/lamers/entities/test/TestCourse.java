@@ -148,4 +148,9 @@ public class TestCourse {
 		assertTrue(c.containsStudent(s1));
 		
 	}
+	
+	@Test
+	public void testNumOfWeeks() {
+		assertEquals(c.getNumOfWeeks(), 16);
+	}
 }
