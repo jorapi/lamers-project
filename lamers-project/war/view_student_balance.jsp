@@ -25,7 +25,7 @@
 	double totalDue=0;
 	
 	for (Cookie c : request.getCookies()){
-		if (c.getValue().equals("kourtneypape@yahoo.com"))
+		if (c.getName().equals("email"))
 			studEmail = c.getValue();
 	}
 	
