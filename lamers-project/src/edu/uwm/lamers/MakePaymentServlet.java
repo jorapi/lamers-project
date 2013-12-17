@@ -66,8 +66,8 @@ public class MakePaymentServlet extends HttpServlet
 		
 		thisStudent.setBalance(thisStudent.getBalance()-amount);
 		for(PaymentPlan p: thisStudent.getPaymentPlans()){
-			if (amount>p.getAmountDue()){
-
+			if (amount>p.getAmountDue() && p.getAmountDue()!=0){
+				
 				p.setAmount(p.getAmount()-p.getAmountDue());
 				amount=amount-p.getAmountDue();
 				
@@ -75,7 +75,9 @@ public class MakePaymentServlet extends HttpServlet
 				
 		}
 			else{
+				if(p.getAmountDue()!=0)
 				p.setAmountDue(p.getAmountDue()-amount);
+				
 				p.setAmount(p.getAmount()-amount);
 				
 				amount=0;

@@ -57,7 +57,7 @@
 				<td><%= p.getCourseID() %></td>
 				<td><%= Math.ceil(p.getAmountDue()) %></td>
 				<td><%= p.getDueDate() %></td>
-				<td><%= p.getAmount() %></td>
+				<td><%= Math.ceil(p.getAmount()) %></td>
 					
 				</td>
 			</tr>
@@ -67,7 +67,7 @@
 				<th> Total Money Owed this Period </th>
 			</tr>
 			
-				<td><%= thisStudent.getBalance()%></td>
+				<td><%= Math.ceil(thisStudent.getBalance())%></td>
 				<td><%= totalDue%></td>
 				
 		</table>
