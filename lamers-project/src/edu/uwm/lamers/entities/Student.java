@@ -82,21 +82,23 @@ public class Student extends User {
 	public void addCourse(Course c) {
 		if (c != null && !courses.contains(c)) {
 			courses.add(c);
-			if (!familyMember) {
-				paymentPlans.add(new PaymentPlan(c.getKey().getId(),
-						c.getStandardCost(), c.getBillingCycle(),
-						c.getStartDate(), c.getEndDate()));
+				if (!familyMember) {
+				//paymentPlans.add(new PaymentPlan(c.getKey().getId(),
+						//c.getStandardCost(), c.getBillingCycle(),
+						//c.getStartDate(), c.getEndDate()));
+						
 				balance += c.getStandardCost();
 
 			} else if (familyMember && !headOfFamily) {
-				paymentPlans.add(new PaymentPlan(c.getKey().getId(),
-						0.0, c.getBillingCycle(),
-						c.getStartDate(), c.getEndDate()));
+				//paymentPlans.add(new PaymentPlan(c.getKey().getId(),
+						//0.0, c.getBillingCycle(),
+						//c.getStartDate(), c.getEndDate()));
 
 			} else if (familyMember && headOfFamily) {
-				paymentPlans.add(new PaymentPlan(c.getKey().getId(),
-						c.getFamilyCost(), c.getBillingCycle(),
-						c.getStartDate(), c.getEndDate()));
+				//paymentPlans.add(new PaymentPlan(c.getKey().getId(),
+						//c.getFamilyCost(), c.getBillingCycle(),
+						//c.getStartDate(), c.getEndDate()));
+						
 				balance += c.getFamilyCost();
 			}
 		}

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.uwm.lamers.entities.Course;
 import edu.uwm.lamers.entities.Demographic;
+import edu.uwm.lamers.entities.PaymentPlan;
 import edu.uwm.lamers.entities.Student;
 
 @SuppressWarnings("serial")
@@ -48,7 +49,8 @@ public class EnrollStudentServlet extends HttpServlet {
 		
 		String studentID = req.getParameter("student");
 		String[] courseIDs = req.getParameterValues("classes");
-		
+		String pay=req.getParameter("plan");
+		int numofpayments=Integer.parseInt(pay);
 		PersistenceManager pm = getPersistenceManager();
 
 		for (Student s : (List<Student>) pm.newQuery(Student.class).execute()) {		
@@ -62,6 +64,8 @@ public class EnrollStudentServlet extends HttpServlet {
 								s.addCourse(c);
 								c.addStudent(s);
 								enrolled = true;
+								s.getPaymentPlans().add(new PaymentPlan(c.getKey().getId(), c.getStandardCost(), c.getBillingCycle(), c.getStartDate(), numofpayments));
+								
 								
 							//}
 						}

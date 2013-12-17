@@ -44,10 +44,8 @@ public class PaymentPlan {
 	@Persistent
 	private Set<Payment> previousPayments;
 	
-	@Persistent
-	int numOfPayments;
 	
-	public PaymentPlan(long id, double amount, String bc, Date start, Date end) {
+	public PaymentPlan(long id, double amount, String bc, Date start, int numOfPayments) {
 		if (amount < 0) {
 			throw new IllegalArgumentException("balance must be greater than 0");
 		}
@@ -57,7 +55,7 @@ public class PaymentPlan {
 		billingCycle = bc;
 		startDate = start;
 		dueDate = startDate;
-		endDate = end;
+		amountDue=amount/numOfPayments;
 	}
 	
 	public long getCourseID() {

@@ -1,6 +1,8 @@
 package edu.uwm.lamers;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Set;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
@@ -9,6 +11,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import edu.uwm.lamers.entities.PaymentPlan;
+import edu.uwm.lamers.entities.Student;
 
 public class ViewStudentBalanceServlet extends HttpServlet {
 	@Override
@@ -31,6 +36,7 @@ public class ViewStudentBalanceServlet extends HttpServlet {
 		}
 		
 		req.getRequestDispatcher("view_student_balance.jsp").forward(req, resp);
+		
 	}
 	
 	private PersistenceManager getPersistenceManager() {

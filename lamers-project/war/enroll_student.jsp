@@ -45,6 +45,15 @@
 						<% } %>
 					</select></td>
 				</tr>
+				
+				<tr>
+					<td><p>Payment Plan:<p></td>
+					<td><input type="radio" name="plan" value="1"> Pay in Full<br></td>
+					<td><input type="radio" name="plan" value="12"> Monthly<br></td>
+					<td><input type="radio" name="plan" value="52"> Weekly<br></td>
+					<td><input type="radio" name="plan" value="100"> Pay Per Session<br></td>
+				
+				</tr>
 			</table>
 			<input type='submit' value='Submit'>
 		</form>

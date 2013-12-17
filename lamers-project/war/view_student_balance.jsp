@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%@ page import="java.util.List" %>
-
+<%@ page import="java.lang.Math" %>
 <%@ page import="javax.jdo.JDOHelper" %>
 <%@ page import="javax.jdo.PersistenceManager" %>
 <%@ page import="java.io.BufferedReader" %>
@@ -22,10 +22,11 @@
 	
 	Student thisStudent = null;
 	String studEmail = null;
+	double totalDue=0;
 	
 	for (Cookie c : request.getCookies()){
-		if (c.getName().equals("studentemail"))
-			studEmail = c.getName();
+		if (c.getValue().equals("kourtneypape@yahoo.com"))
+			studEmail = c.getValue();
 	}
 	
 	for (Student s : students){
@@ -42,22 +43,33 @@
 	</head>
 	<body>
 		<table id='students'>
-			<caption>Your Balance</caption>
-			<tr>	
+			<caption>Account Summary</caption>
+			<tr>
+				<th>Class ID</th>	
 				<th>Amount Due</th>
 				<th>Date Due</th>
-				<th>Total outstanding balance</th>
+				<th>Outstanding balance</th>
 			</tr>
 			
+			<% for(PaymentPlan p: thisStudent.getPaymentPlans()){ %>
+			<%= totalDue+=Math.ceil(p.getAmountDue()) %></td>
 			<tr>
-				<td><%-- Min payment --%></td>
-				<td><%-- Due date --%></td>
-				<td>
-					<% if (thisStudent != null) { %>
-						<%= thisStudent.getBalance() %>
-					<% } %>
+				<td><%= p.getCourseID() %></td>
+				<td><%= Math.ceil(p.getAmountDue()) %></td>
+				<td><%= p.getDueDate() %></td>
+				<td><%= p.getAmount() %></td>
+					
 				</td>
 			</tr>
+			<%}%>
+			<tr>
+				<th> Total Money Owed </th>
+				<th> Total Money Owed this Period </th>
+			</tr>
+			
+				<td><%= thisStudent.getBalance()%></td>
+				<td><%= Math.ceil(totalDue)%></td>
+				
 		</table>
 		
 		<div id='create-link'>
