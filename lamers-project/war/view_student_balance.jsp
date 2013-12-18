@@ -48,13 +48,13 @@
 				<th>Class ID</th>	
 				<th>Amount Due This Period</th>
 				<th>Date Due</th>
-				<th>Outstanding balance</th>
+				<th>Outstanding balance on Course</th>
 			</tr>
 			
 			<% for(PaymentPlan p: thisStudent.getPaymentPlans()){ %>
 			<%= totalDue+=Math.ceil(p.getAmountDue()) %></td>
 			<tr>
-				<td><%= p.getCourseID() %></td>
+				<td><%= p.getCourseID() %> <%= p.getCourseName() %></td>
 				<td><%= Math.ceil(p.getAmountDue()) %></td>
 				<td><%= p.getDueDate() %></td>
 				<td><%= Math.ceil(p.getAmount()) %></td>

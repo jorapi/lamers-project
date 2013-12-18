@@ -64,7 +64,7 @@ public class EnrollStudentServlet extends HttpServlet {
 								s.addCourse(c);
 								c.addStudent(s);
 								enrolled = true;
-								s.getPaymentPlans().add(new PaymentPlan(c.getKey().getId(), c.getStandardCost(), c.getBillingCycle(), c.getStartDate(), numofpayments));
+								s.getPaymentPlans().add(new PaymentPlan(c.getTitle(),c.getKey().getId(), c.getStandardCost(), c.getBillingCycle(), c.getStartDate(), numofpayments));
 							}
 						}
 					}

@@ -24,6 +24,9 @@ public class PaymentPlan {
 	private long courseID;
 	
 	@Persistent
+	private String courseName;
+	
+	@Persistent
 	private double amount;
 	
 	@Persistent
@@ -45,11 +48,11 @@ public class PaymentPlan {
 	private Set<Payment> previousPayments;
 	
 	
-	public PaymentPlan(long id, double amount, String bc, Date start, int numOfPayments) {
+	public PaymentPlan(String CourseName,long id, double amount, String bc, Date start, int numOfPayments) {
 		if (amount < 0) {
 			throw new IllegalArgumentException("balance must be greater than 0");
 		}
-
+		courseName=CourseName;
 		courseID = id;
 		this.amount = amount;
 		billingCycle = bc;
@@ -61,10 +64,10 @@ public class PaymentPlan {
 	public long getCourseID() {
 		return courseID;
 	}
-	
-	public void setCourseID(long id) {
-		courseID = id;
+	public String getCourseName(){
+		return courseName;
 	}
+	
 	
 	public double getAmount() {
 		return amount;
